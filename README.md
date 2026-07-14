@@ -71,4 +71,4 @@ SAGE is designed to be pointed at **any** interoperability standard, not just th
 
 ## License
 
-TBD (recommend Apache-2.0 for the code, CC-BY-4.0 for the docs/gap map).
+recommend Apache-2.0 for the code, CC-BY-4.0 for the docs/gap map.
