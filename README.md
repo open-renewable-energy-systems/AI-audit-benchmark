@@ -6,7 +6,7 @@ An open, multi-model auditor that scores an interoperability standard for **AI-a
 
 Today's microgrid / DER standards describe *what a device can do* — not *what an autonomous agent may do, what it did, or who owns the data.* SAGE runs the **same prompt and metrics across multiple AI models** so the gaps it reports are the ones models *agree* on, not one model's hallucination. GAIFARE is the companion interface contract that fills those gaps while reusing what the standards already do well.
 
-📣 First presented at **LF Energy Summit Europe 2026** — *"AI-Audited: An Open Interface for Autonomous DER Agents on the Microgrid"* (Sept 16, Berlin).
+First presented at **LF Energy Summit Europe 2026** — *"AI-Audited: An Open Interface for Autonomous DER Agents on the Microgrid"* (Sept 16, Berlin).
 
 ---
 
@@ -17,7 +17,7 @@ Today's microgrid / DER standards describe *what a device can do* — not *what 
 3. Aggregates runs into **convergent findings** (where models agree) and a **gap map** (heatmap of coverage).
 4. Everything — prompts, metrics, raw outputs, gap map — is **public and reproducible**.
 
-**The four dimensions:** capability declaration · bounded authority · decision auditability · data governance.
+**The four dimensions:** capability declaration, bounded authority, decision auditability, data governance.
 
 ---
 
@@ -25,30 +25,16 @@ Today's microgrid / DER standards describe *what a device can do* — not *what 
 
 ```
 AI-audit-benchmark/
-├── README.md                  ← this file
-├── rubric/
-│   ├── system_prompt.md       ← the frozen prompt (only {{STANDARD_NAME}} changes)
-│   ├── metrics.md             ← 0–3 scale, evidence + confidence, convergence rule
-│   └── schema.json            ← required JSON output shape
-├── standards/                 ← corpus: notes + source pointers per standard
-│   ├── ieee-2030.5.md
-│   ├── iec-61850.md
-│   ├── sunspec.md
-│   └── ...
-├── prompts/                   ← versioned prompt iterations (history matters)
-├── runner/                    ← the tool: one prompt → many models → JSON
-│   ├── run.py
-│   ├── models.yaml            ← which models, endpoints (keys via .env, NOT committed)
-│   └── .env.example
-├── results/                   ← raw model outputs, one JSON per (standard × model × run)
-├── gapmap/                    ← aggregated matrix + heatmap (the "money slide")
-├── app/                       ← web UI: view the gap map, audit a new standard
-├── gaifare/                   ← the v0 interface contract that fills the gaps
-│   ├── spec-v0.md
-│   └── examples/hyphae-village.yaml
-└── docs/
-    ├── rubric-and-deliverables.md   ← full method write-up
-    └── worked-example.md            ← one gap, end-to-end (great onboarding read)
+  README.md                 <- this file
+  rubric/                   <- frozen system prompt + metrics + JSON schema
+  standards/                <- corpus: notes + source pointers per standard
+  prompts/                  <- versioned prompt iterations
+  runner/                   <- the tool: one prompt -> many models -> JSON
+  results/                  <- raw model outputs (standard x model x run)
+  gapmap/                   <- aggregated matrix + heatmap
+  app/                      <- web UI: view gap map, audit a new standard
+  gaifare/                  <- the v0 interface contract that fills the gaps
+  docs/                     <- rubric-and-deliverables.md, worked-example.md
 ```
 
 ---
@@ -56,7 +42,7 @@ AI-audit-benchmark/
 ## Quick start (planned)
 
 ```bash
-cp runner/.env.example runner/.env     # add your API keys (Claude, OpenAI, OpenRouter, Mistral…)
+cp runner/.env.example runner/.env     # add API keys (Claude, OpenAI, OpenRouter, Mistral)
 python runner/run.py --standard "IEEE 2030.5" --models all --runs 3
 python runner/aggregate.py             # build the gap map
 open app/index.html                    # explore results
@@ -66,7 +52,7 @@ open app/index.html                    # explore results
 
 ## Status
 
-🚧 Early development ahead of the LF Energy Summit. Roadmap:
+Early development ahead of the LF Energy Summit. Roadmap:
 
 - [ ] `rubric/` frozen (system prompt + metrics)
 - [ ] `runner/` sends one prompt to N models, writes JSON
@@ -85,4 +71,4 @@ SAGE is designed to be pointed at **any** interoperability standard, not just th
 
 ## License
 
-Apache-2.0 for the code, CC-BY-4.0 for the docs/gap map.
+TBD (recommend Apache-2.0 for the code, CC-BY-4.0 for the docs/gap map).
