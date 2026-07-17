@@ -106,7 +106,6 @@ class _ExecutionSettings(BaseSettings):
         )
 
     @property
-    @property
     def output_folder(self) -> Path:
         out = Path(__file__).parent.parent / "results"
         if not os.path.exists(out):
