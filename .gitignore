@@ -3,3 +3,6 @@
 
 # To prevent IP leak, the content of the standards folder has to be ignored
 standards/
+
+# Ignore users .env settings
+.env
