@@ -1,0 +1,26 @@
+{
+  "capability_declaration": {
+    "score": 0,
+    "evidence": "none",
+    "rationale": "The standard specifies hardware performance requirements (like Volt-VAR control) but lacks a mechanism for an agent to dynamically declare its capabilities during runtime.",
+    "confidence": 1.0
+  },
+  "bounded_authority": {
+    "score": 2,
+    "evidence": "Sections 5-6 and Annex E",
+    "rationale": "Defines specific voltage/frequency bounds that restrict power control authority (Annex E) and mandates Remote Control capabilities for DSO override within defined settings.",
+    "confidence": 0.9
+  },
+  "decision_auditability": {
+    "score": 1,
+    "evidence": "none",
+    "rationale": "While deterministic physical responses are mandated, the standard does not explicitly require software-based logging or attribution of autonomous agent decisions during operation.",
+    "confidence": 0.8
+  },
+  "data_governance": {
+    "score": 0,
+    "evidence": "none",
+    "rationale": "As a technical interconnection document, it excludes commercial and legal requirements such as data ownership consent or retention periods.",
+    "confidence": 1.0
+  }
+}

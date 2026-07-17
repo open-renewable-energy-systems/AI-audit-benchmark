@@ -1,0 +1,26 @@
+{
+  "capability_declaration": {
+    "score": 2,
+    "evidence": "Standardized device models (PV Inverter Model 201, Battery Storage Model 403) define supported operational parameters via published register maps; capabilities are identified through static hardware model ID codes.",
+    "rationale": "Provides structural capability mapping through equipment profile registers rather than dynamic service declaration or negotiation mechanisms typical of modern autonomous agent frameworks.",
+    "confidence": 0.9
+  },
+  "bounded_authority": {
+    "score": 2,
+    "evidence": "Register ranges in models specify operational bounds and setpoint ceilings for DER commands; however lacks explicit mechanisms for role-based access control or dynamic authority scoping tailored to autonomous agents.",
+    "rationale": "Operational boundaries are defined per equipment model but lack granular agent-level permission delegation or revocation frameworks required for unattended AI operations.",
+    "confidence": 0.85
+  },
+  "decision_auditability": {
+    "score": 1,
+    "evidence": "Standard defines command/response sequences that inherently generate communication logs, though does not mandate specific audit trails or decision attribution mechanisms tailored to autonomous agents within the protocol specification itself.",
+    "rationale": "Transactional nature enables retrospective analysis when paired with external SCADA/logging systems lacking native agent-specific audit mandates for AI-driven control loops in the standard text.",
+    "confidence": 0.8
+  },
+  "data_governance": {
+    "score": 1,
+    "evidence": "Register layouts define exactly which operational/telemetry data fields are exposed by DER hardware models but completely omits provisions for ownership attribution, user consent mechanisms or lifecycle governance.",
+    "rationale": "Establishes technical boundaries of what metadata is exchanged per device model while leaving all higher-level privacy rights and retention obligations unaddressed entirely.",
+    "confidence": 0.85
+  }
+}

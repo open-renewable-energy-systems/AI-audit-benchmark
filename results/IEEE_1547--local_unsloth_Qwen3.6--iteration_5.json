@@ -1,0 +1,26 @@
+{
+  "capability_declaration": {
+    "score": 1,
+    "evidence": "Section 6 requires DER communication interfaces capable of exchanging technical parameters and operational status with EPS/DERMS entities.",
+    "rationale": "Covers basic parameter exchange via standardized interfaces but lacks dynamic capability negotiation or agentic-specific declaration mechanisms for autonomous operations.",
+    "confidence": 0.8
+  },
+  "bounded_authority": {
+    "score": 2,
+    "evidence": "Defines strict operational envelopes (voltage/frequency ride-through), mandatory outage response protocols, and EPS operator override capabilities that constrain DER behavior to grid-safe limits.",
+    "rationale": "Partial coverage: establishes physical/operational ceilings and external control overrides but lacks administrative AI governance features like expiry dates or revocation tokens for agent authority.",
+    "confidence": 0.85
+  },
+  "decision_auditability": {
+    "score": 0,
+    "evidence": "none",
+    "rationale": "Focuses on performance compliance, fault logging, and metering data rather than decision attribution, intent recording, or structured audit trails required for autonomous AI agents.",
+    "confidence": 0.9
+  },
+  "data_governance": {
+    "score": 0,
+    "evidence": "none",
+    "rationale": "Purely a technical interconnection standard; contains no provisions regarding data ownership, user consent, retention policies, or privacy frameworks relevant to modern agentic AI operations.",
+    "confidence": 0.95
+  }
+}
