@@ -1,0 +1,26 @@
+{
+  "capability_declaration": {
+    "score": 2,
+    "evidence": "Service discovery and registration via Profile definitions",
+    "rationale": "Profiles declare protocol features during endpoint registration but omit DER-specific operational parameters needed for autonomous decision-making.",
+    "confidence": 0.85
+  },
+  "bounded_authority": {
+    "score": 1,
+    "evidence": "Event payloads include min/max targets; Schedule profile uses start/end times",
+    "rationale": "Provides temporal boundaries and target ranges via event properties but lacks mechanisms for agent-negotiated authority envelopes or autonomous override rights.",
+    "confidence": 0.85
+  },
+  "decision_auditability": {
+    "score": 2,
+    "evidence": "Mandatory reportStatus and periodic actuals reports with strict timestamping",
+    "rationale": "Establishes a compliance audit trail of dispatch versus execution, though does not mandate logging the reasoning process behind autonomous decisions.",
+    "confidence": 0.95
+  },
+  "data_governance": {
+    "score": 1,
+    "evidence": "Relies on transport-layer security (OAuth/API keys) without semantic fields",
+    "rationale": "Application layer omits explicit data ownership or consent policies; relies entirely on underlying authentication mechanisms inferred from web standards.",
+    "confidence": 0.85
+  }
+}

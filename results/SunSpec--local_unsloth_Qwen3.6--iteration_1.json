@@ -1,0 +1,26 @@
+{
+  "capability_declaration": {
+    "score": 2,
+    "evidence": "SunSpec Model Registry XML & Implementation Guides define static register maps for device capabilities",
+    "rationale": "Provides machine-readable catalogs of DER functions but lacks dynamic runtime negotiation protocols for autonomous agents to discover capabilities ad-hoc.",
+    "confidence": 0.85
+  },
+  "bounded_authority": {
+    "score": 1,
+    "evidence": "SunSpec Model Registry defines operational setpoint ceilings; no explicit AI authorization scopes or expiry clauses",
+    "rationale": "Operational bounds are implied by register value constraints to ensure grid safety. However, the standard omits explicit agent permission scopes, token expiration, and revocation mechanisms.",
+    "confidence": 0.9
+  },
+  "decision_auditability": {
+    "score": 0,
+    "evidence": "none",
+    "rationale": "Protocol focuses strictly on real-time telemetry exchange without prescribing decision logging, attribution of autonomous actions, or audit trail requirements for agent operations.",
+    "confidence": 1.0
+  },
+  "data_governance": {
+    "score": 0,
+    "evidence": "none",
+    "rationale": "Purely a technical interoperability specification defining data models; contains zero clauses regarding data ownership, user consent, retention policies, or privacy frameworks.",
+    "confidence": 1.0
+  }
+}

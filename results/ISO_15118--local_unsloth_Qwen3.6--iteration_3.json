@@ -1,0 +1,26 @@
+{
+  "capability_declaration": {
+    "score": 3,
+    "evidence": "ISO 1518-2 Section 7 (Service Discovery) defines SASyncRequest/Response and ServiceDiscoveryReq/Rsp messages where EV and SECC explicitly exchange supported communication protocols, charging profiles, power delivery types, and capabilities. Part 6 specifies certificate-based capability negotiation.",
+    "rationale": "Explicit mechanism defined for bidirectional device capability declaration through standardized service discovery sequences and protocol negotiation steps within the standard framework.",
+    "confidence": 0.95
+  },
+  "bounded_authority": {
+    "score": 2,
+    "evidence": "ISO 1518-2 Sections on Session Management define power limits (MaxCurrentLimitReq/Rsp), session termination conditions, and the Authorization Flow with contracts/certificates defining charging scope. Part 6 addresses revocation through certificate chains.",
+    "rationale": "Partial coverage: defines operational boundaries like current/voltage limits and authorization scopes but lacks explicit AI-agent-specific governance constructs such as dynamic expiry windows or override hierarchies for autonomous DER operations.",
+    "confidence": 0.85
+  },
+  "decision_auditability": {
+    "score": 1,
+    "evidence": "ISO 1518-2 Part 3 defines MessageLog data structure capturing request/response pairs with timestamps and error codes (FNCs). Security modules in Part 6 require secure logging for non-repudiation.",
+    "rationale": "Implicit coverage only: standard mandates communication session logs but does not specify agent decision attribution, causal reasoning trails, or structured audit schemas required for autonomous AI accountability frameworks.",
+    "confidence": 0.8
+  },
+  "data_governance": {
+    "score": 1,
+    "evidence": "ISO 1518-2 Part 6 addresses privacy through Certificate Authority hierarchies and consent mechanisms in Plug & Charge workflows. Session data is exchanged between EVCC/SECC with limited retention guidance.",
+    "rationale": "Implicit coverage: establishes basic authentication and session-level data exchange but lacks comprehensive governance provisions on ownership, secondary usage rights, or explicit user consent frameworks beyond charging authorization.",
+    "confidence": 0.75
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "capability_declaration": {
+    "score": 2,
+    "evidence": "Application Layer messages: ServiceDiscovery and ChargeParameterDiscovery sequences where EVCC declares electrical characteristics, max current/voltage limits, and required energy profile to the SECC.",
+    "rationale": "Explicitly specifies operational boundaries but is limited to vehicle-specific charging profiles rather than generalized autonomous DER capability declarations for broader grid services.",
+    "confidence": 0.9
+  },
+  "bounded_authority": {
+    "score": 2,
+    "evidence": "Power Delivery & Session Management layers define negotiated power ceilings per session; CableReleaseRequest enables immediate physical override if limits are breached or cable disconnects.",
+    "rationale": "Strictly enforces electrical operational limits and provides hardware-level overrides but lacks formalized mechanisms for time-bounding agent authority or remote administrative policy revocation.",
+    "confidence": 0.9
+  },
+  "decision_auditability": {
+    "score": 2,
+    "evidence": "Session & Metering layers mandate MeteringReceiptRequest exchanges logging exact energy transferred per transaction ID to ensure billing accuracy and session closure verification.",
+    "rationale": "Captures quantitative operational outputs reliably but omits explicit mandates for auditing the internal decision-making logic, reasoning steps, or agent attribution beyond basic tracking.",
+    "confidence": 0.9
+  },
+  "data_governance": {
+    "score": 2,
+    "evidence": "Communication Setup layer (ISO/IEC 15118-20) includes PrivacyPolicyRequest/Response exchange requiring SECC disclosure of data collection scope and retention periods prior to service execution.",
+    "rationale": "Explicitly governs consent via mandatory pre-session policy negotiation but provides limited detail on long-term telemetry ownership or granular user rights post-authorization.",
+    "confidence": 0.9
+  }
+}

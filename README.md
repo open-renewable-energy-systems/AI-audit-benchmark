@@ -41,11 +41,15 @@ AI-audit-benchmark/
 
 ## Quick start (planned)
 
+Note: you'll need to have [UV](https://docs.astral.sh/uv/) installed on your computer for this to work (install instructions are [here](https://docs.astral.sh/uv/getting-started/installation/)).
+
 ```bash
-cp runner/.env.example runner/.env     # add API keys (Claude, OpenAI, OpenRouter, Mistral)
-python runner/run.py --standard "IEEE 2030.5" --models all --runs 3
-python runner/aggregate.py             # build the gap map
-open app/index.html                    # explore results
+cd runner/
+cp .env.example .env                # add API keys (Claude, OpenAI, OpenRouter, Mistral) and model targets
+uv run evaluate_model_knowledge.py  # Run the comparison
+uv run aggregate_to_gap_map.py      # build the gap map
+cd ..
+open app/index.html             # explore results
 ```
 
 ---

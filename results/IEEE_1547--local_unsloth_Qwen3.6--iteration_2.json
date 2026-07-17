@@ -1,0 +1,26 @@
+{
+  "capability_declaration": {
+    "score": 1,
+    "evidence": "Section 6 (Operational Capabilities) defines specific operational modes and settings for DERs such as Volt-VAR control.",
+    "rationale": "The standard implicitly covers capability by mandating that devices support defined electrical functions. However, it lacks a semantic mechanism or dynamic protocol for an autonomous agent to declare capabilities during negotiation with other entities.",
+    "confidence": 0.9
+  },
+  "bounded_authority": {
+    "score": 2,
+    "evidence": "Section 6 and Annex B specify operational boundaries (voltage/frequency ride-through curves) that limit DER power injection or disconnection behavior during grid faults.",
+    "rationale": "The standard explicitly covers physical ceilings and safety bounds for operation. It effectively constrains an agent's authority to remain within electrical limits but lacks administrative concepts like scope, expiry of commands, or revocation mechanisms specific to autonomous agents.",
+    "confidence": 0.85
+  },
+  "decision_auditability": {
+    "score": 1,
+    "evidence": "Section 6 and Annex B require data recording (voltage/frequency) during fault events for certification compliance verification.",
+    "rationale": "The standard implicitly supports auditability by requiring devices to record performance data during specific grid interactions. However, it focuses on verifying device physics rather than logging autonomous AI decision logic or providing attribution traces between software agents.",
+    "confidence": 0.8
+  },
+  "data_governance": {
+    "score": 0,
+    "evidence": "none",
+    "rationale": "The standard is a technical code for electrical interconnection safety and performance; it does not address data governance concepts such as ownership of operational logs, user privacy/consent models relevant to AI agents.",
+    "confidence": 1.0
+  }
+}
