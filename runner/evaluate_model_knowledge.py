@@ -22,6 +22,8 @@ from pydantic_settings import BaseSettings
 
 
 class _ExecutionSettings(BaseSettings):
+    RUNS_PER_MODEL: int = 5
+
     # Settings for local model
     LOCAL_LLM_MODEL: str | None
     LOCAL_LLM_URL: str | None
@@ -173,7 +175,8 @@ for m_name, m in [
     for i in candidate_standards:
         print(f"Evaluating {i}")
         cleaned_standard = i.replace(" ", "_").replace(".", "_")
-        for j in range(5):
+
+        for j in range(SETTINGS.RUNS_PER_MODEL):
             f_out = (
                 output_folder / f"{cleaned_standard}--{m_name}--iteration_{j + 1}.json"
             )
