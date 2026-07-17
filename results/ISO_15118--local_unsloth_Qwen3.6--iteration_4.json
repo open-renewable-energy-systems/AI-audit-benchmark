@@ -1,0 +1,26 @@
+{
+  "capability_declaration": {
+    "score": 2,
+    "evidence": "Service Discovery phase and V2GTP capability exchange messages between EV and infrastructure",
+    "rationale": "Explicitly defines service profile negotiation during handshake via standardized message exchanges; scoped to charging compatibility rather than full autonomous agent operational parameters.",
+    "confidence": 0.85
+  },
+  "bounded_authority": {
+    "score": 2,
+    "evidence": "EnergySchedule blocks (max current/power limits), AuthorizationContract constraints, and V2X certificate-based authority boundaries",
+    "rationale": "Establishes clear physical delivery ceilings and authorization scopes through scheduling messages; primarily addresses session bounds versus comprehensive autonomous governance frameworks.",
+    "confidence": 0.8
+  },
+  "decision_auditability": {
+    "score": 1,
+    "evidence": "SessionLog and PaymentService transaction receipts provide operational tracking with certificate-based attribution",
+    "rationale": "Provides implicit audit trails for executed actions via billing/session logs; lacks explicit requirements for logging reasoning or trade-off decisions required by AI agents.",
+    "confidence": 0.75
+  },
+  "data_governance": {
+    "score": 2,
+    "evidence": "PrivacyPolicy exchange message during protocol setup defines consent parameters per service provider",
+    "rationale": "Explicitly supports user privacy preference declaration and data access boundaries; broader ownership definitions and retention policies fall outside the standard into contractual frameworks.",
+    "confidence": 0.8
+  }
+}

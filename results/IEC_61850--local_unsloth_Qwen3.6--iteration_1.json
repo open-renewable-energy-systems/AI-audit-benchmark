@@ -1,0 +1,26 @@
+{
+  "capability_declaration": {
+    "score": 2,
+    "evidence": "Part 7-4 Logical Nodes and SCL data models",
+    "rationale": "Provides structured capability modeling via logical nodes that statically define device functions/measurement points enabling discovery of available DER control interfaces.",
+    "confidence": 0.9
+  },
+  "bounded_authority": {
+    "score": 1,
+    "evidence": "None; relies on external security extensions (IEC 62351)",
+    "rationale": "Base protocol lacks agent-specific scope boundaries, expiry mechanisms, or revocation chains, though MMS read/write permissions offer basic access controls that cannot be inferred as bounded authority.",
+    "confidence": 0.8
+  },
+  "decision_auditability": {
+    "score": 2,
+    "evidence": "Part 7-3 reporting control and LLN0 log objects",
+    "rationale": "Built-in event logging and reporting capture executed commands/states for post-hoc audits but do not mandate structured reasoning traces or explicit decision attribution required by autonomous agents.",
+    "confidence": 0.85
+  },
+  "data_governance": {
+    "score": 0,
+    "evidence": "none",
+    "rationale": "As a fieldbus/substation communication architecture standard it defines transport and data models but contains no clauses addressing proprietary ownership, consent workflows, or retention policies.",
+    "confidence": 0.95
+  }
+}

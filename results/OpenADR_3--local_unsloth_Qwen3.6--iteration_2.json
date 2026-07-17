@@ -1,0 +1,26 @@
+{
+  "capability_declaration": {
+    "score": 2,
+    "evidence": "OASIS OpenDR Specification Section on Resource Profiles and Capability Reports",
+    "rationale": "Explicitly structures capability declaration via standardized reports and CIM-based models for DERs. Partial coverage, optimized for traditional DR workflows rather than general agentic AI frameworks.",
+    "confidence": 0.8
+  },
+  "bounded_authority": {
+    "score": 1,
+    "evidence": "Signal structure fields (startDateTime/duration), cancellation operations; OpenDR Security Profile on OAuth2/JWT scoping and expiration",
+    "rationale": "Covers API authorization boundaries via tokens and signal timeframes but lacks explicit mechanisms for operational bounding like dynamic power ceilings or override protocols during execution.",
+    "confidence": 0.75
+  },
+  "decision_auditability": {
+    "score": 0,
+    "evidence": "none",
+    "rationale": "Standard focuses on reliable command delivery rather than specifying how an agent's decision-making process should be logged or attributed beyond basic message correlation identifiers.",
+    "confidence": 0.9
+  },
+  "data_governance": {
+    "score": 0,
+    "evidence": "none",
+    "rationale": "Protocol is strictly operational/control-focused, deferring data ownership models and consent mechanisms to external regulatory frameworks like GDPR rather than standardizing them internally within the spec.",
+    "confidence": 0.95
+  }
+}

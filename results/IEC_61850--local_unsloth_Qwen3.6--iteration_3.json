@@ -1,0 +1,26 @@
+{
+  "capability_declaration": {
+    "score": 3,
+    "evidence": "Part 7 Logical Node (LN) classes; SCL configuration files defining device data models and supported services.",
+    "rationale": "The standard explicitly defines device capabilities through standardized LN classes and structured data objects, enabling precise functional discovery by autonomous agents prior to operation.",
+    "confidence": 0.9
+  },
+  "bounded_authority": {
+    "score": 2,
+    "evidence": "Part 7-2 Service Access Control (SAC); PermissionLevel attributes; General Interlock mechanisms on control services.",
+    "rationale": "Defines permissions, interlocks, and access controls that bound operational authority. However, it lacks explicit AI-agent-specific scopes, time-bound authorizations, or standardized revocation workflows for autonomous entities.",
+    "confidence": 0.8
+  },
+  "decision_auditability": {
+    "score": 1,
+    "evidence": "Part 7 Buffered (BRCB) & Unbuffered Reporting Control Blocks; Sequence of Events recording services.",
+    "rationale": "Provides robust event reporting and command logging infrastructure essential for tracking operations. Yet it does not explicitly mandate agentic decision attribution or compliance-focused audit trail structures for autonomous control loops.",
+    "confidence": 0.8
+  },
+  "data_governance": {
+    "score": 0,
+    "evidence": "none",
+    "rationale": "Strictly an industrial communication standard for power automation; contains no provisions regarding data ownership, user consent mechanisms, retention policies, or privacy governance frameworks.",
+    "confidence": 1.0
+  }
+}
