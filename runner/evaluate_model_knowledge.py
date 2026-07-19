@@ -11,7 +11,7 @@ from pathlib import Path
 
 from dotenv import load_dotenv
 from pydantic import BaseModel, Field
-from pydantic_ai import Agent
+from pydantic_ai import Agent, ModelSettings
 from pydantic_ai.models.anthropic import AnthropicModel
 from pydantic_ai.models.mistral import MistralModel
 from pydantic_ai.models.openai import OpenAIChatModel
@@ -41,6 +41,10 @@ class _ExecutionSettings(BaseSettings):
     MISTRAL_MODEL: str | None
     MISTRAL_API_KEY: str | None
 
+    @property
+    def _model_settings(self) -> ModelSettings:
+        return ModelSettings(temperature=0)
+
     # Models
     @property
     def local_openai_compatible_model(self) -> OpenAIChatModel | None:
@@ -58,6 +62,7 @@ class _ExecutionSettings(BaseSettings):
                 base_url=self.LOCAL_LLM_URL,
                 api_key=self.LOCAL_LLM_API_KEY,
             ),
+            settings=self._model_settings,
         )
 
     @property
@@ -73,6 +78,7 @@ class _ExecutionSettings(BaseSettings):
             provider=OpenAIProvider(
                 api_key=self.OPENAI_API_KEY,
             ),
+            settings=self._model_settings,
         )
 
     @property
@@ -88,6 +94,7 @@ class _ExecutionSettings(BaseSettings):
             provider=AnthropicProvider(
                 api_key=self.ANTHROPIC_API_KEY,
             ),
+            settings=self._model_settings,
         )
 
     @property
@@ -103,6 +110,7 @@ class _ExecutionSettings(BaseSettings):
             provider=MistralProvider(
                 api_key=self.MISTRAL_API_KEY,
             ),
+            settings=self._model_settings,
         )
 
     @property
