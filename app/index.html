@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SAGE — Standards Audit &amp; Gap Evaluator</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header>
+  <h1>SAGE <span>·</span> Standards Audit &amp; Gap Evaluator <span class="mock-badge" id="mockBadge">MOCK DATA</span></h1>
+  <p class="sub">Multi-model audit of microgrid standards for AI-agent readiness — <b>SAGE finds the gaps, GAIFARE fills them.</b></p>
+</header>
+
+<section id="gapmap-section">
+  <h2>Gap map — convergent scores across models</h2>
+  <p class="hint">Rows: standards corpus. Columns: the four agentic dimensions. Cell = score all models agree on (±1); hatched = contested. Click a cell to see per-model evidence.</p>
+  <table class="gapmap" id="gapmap"></table>
+  <div class="legend">
+    <span><span class="chip s3"></span>3 explicit</span>
+    <span><span class="chip s2"></span>2 partial</span>
+    <span><span class="chip s1"></span>1 implicit</span>
+    <span><span class="chip s0"></span>0 absent</span>
+    <span><span class="chip contested"></span>contested (models disagree)</span>
+  </div>
+  <div id="detail" hidden></div>
+</section>
+
+<section id="scenario-section">
+  <h2>The gap, live — Hyphae village microgrid</h2>
+  <p class="hint">15 houses × 5 kW, solar + shared battery. 18:30 price spike: the agent wants to discharge at full 5 kW. Flip GAIFARE on and replay.</p>
+  <div class="scenario-head">
+    <div class="toggle" id="gaifareToggle" role="switch" aria-checked="false" tabindex="0">
+      <span class="knob"></span><b>GAIFARE enforcement</b>
+    </div>
+    <button class="replay" id="replayBtn">▶ Replay scenario</button>
+  </div>
+  <div class="scenario-grid">
+    <div id="timeline"></div>
+    <div id="grantbox">
+      <h3>authority_grant (GAIFARE v0)</h3>
+      <pre id="grantYaml"></pre>
+    </div>
+  </div>
+</section>
+
+<footer>
+  Built by the <a href="https://github.com/open-renewable-energy-systems">ORES</a> community for LF Energy Summit Europe 2026 · prompts, metrics &amp; raw outputs are public in this repo.
+</footer>
+
+<script src="data.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
