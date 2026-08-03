@@ -1,8 +1,6 @@
 // MOCK DATA — illustrative placeholders until the real SAGE runs land.
 // Shapes mirror docs/rubric-and-deliverables.md; numbers are the doc's
 // illustrative gap map, NOT audit results.
-const MOCK = true;
-
 const DIMENSIONS = [
   { key: "capability_declaration", label: "Capability declaration" },
   { key: "bounded_authority", label: "Bounded authority" },

@@ -1,4 +1,48 @@
-// SAGE demo app — renders the gap map + Hyphae scenario replay from data.js.
+// SAGE demo app — renders the gap map + Hyphae scenario replay.
+// Loads gapmap/gap-map.json (built by runner/aggregate_to_gap_map.py) when
+// served from the repo root; falls back to the mock data in data.js.
+
+let usingRealData = false;
+
+async function loadRealGapmap() {
+  try {
+    const res = await fetch("../gapmap/gap-map.json");
+    if (!res.ok) return false;
+    const g = await res.json();
+    GAPMAP.length = 0;
+    Object.keys(CELL_DETAIL).forEach((k) => delete CELL_DETAIL[k]);
+    g.standards.forEach((s) => {
+      GAPMAP.push({
+        standard: s.display_name,
+        scores: DIMENSIONS.map((d) => {
+          const c = s.cells[d.key];
+          return c.contested ? null : c.score;
+        }),
+      });
+      DIMENSIONS.forEach((d) => {
+        CELL_DETAIL[`${s.display_name}|${d.key}`] = s.cells[d.key].per_model.map(
+          (p) => ({
+            model: p.model + (p.self_consistent ? "" : " ⚠unstable"),
+            score: p.median_score,
+            evidence: p.evidence,
+            rationale: p.rationale,
+            confidence: p.mean_confidence,
+          })
+        );
+      });
+    });
+    usingRealData = true;
+    const badge = document.getElementById("mockBadge");
+    if (g.convergence_claimable) {
+      badge.hidden = true;
+    } else {
+      badge.textContent = `REAL DATA · ${g.model_count} MODEL — CONVERGENCE NEEDS ≥2`;
+    }
+    return true;
+  } catch {
+    return false; // no server / no gap map yet -> mock fallback is the feature
+  }
+}
 
 function scoreClass(s) {
   return s === null ? "contested" : "s" + s;
@@ -101,8 +145,10 @@ document.getElementById("gaifareToggle").onkeydown = (e) => {
   if (e.key === " " || e.key === "Enter") setToggle(!gaifareOn);
 };
 document.getElementById("replayBtn").onclick = replay;
-if (!MOCK) document.getElementById("mockBadge").hidden = true;
-
-renderGapmap();
-renderGrant();
-replay();
+async function init() {
+  await loadRealGapmap();
+  renderGapmap();
+  renderGrant();
+  replay();
+}
+init();
