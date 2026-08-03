@@ -44,11 +44,33 @@
   </div>
 </section>
 
+<section id="run-section">
+  <h2>Run an audit</h2>
+  <p class="hint">Calls OpenAI-compatible endpoints straight from your browser with the frozen system prompt (temperature 0, ×3 runs). Your OpenRouter key is stored only in this browser's localStorage — never sent anywhere but openrouter.ai. Ollama slot needs <code>OLLAMA_ORIGINS</code> to allow this page.</p>
+  <div class="run-config">
+    <label class="key-row">OpenRouter API key
+      <input type="password" id="orKey" placeholder="sk-or-…" autocomplete="off">
+    </label>
+    <div class="slots">
+      <div class="slot"><b>Slot 1</b><input id="ep0" placeholder="endpoint URL"><input id="model0" placeholder="model id"></div>
+      <div class="slot"><b>Slot 2</b><input id="ep1" placeholder="endpoint URL"><input id="model1" placeholder="model id"></div>
+      <div class="slot"><b>Slot 3</b><input id="ep2" placeholder="endpoint URL"><input id="model2" placeholder="model id"></div>
+    </div>
+    <div id="standards-checks" class="std-row"></div>
+    <div class="run-actions">
+      <button class="replay" id="runAuditBtn">▶ Run audit</button>
+      <button class="replay" id="exportBtn" disabled>⬇ Export results JSON</button>
+    </div>
+  </div>
+  <div id="runlog"></div>
+</section>
+
 <footer>
   Built by the <a href="https://github.com/open-renewable-energy-systems">ORES</a> community for LF Energy Summit Europe 2026 · prompts, metrics &amp; raw outputs are public in this repo.
 </footer>
 
 <script src="data.js"></script>
 <script src="app.js"></script>
+<script src="run.js"></script>
 </body>
 </html>
