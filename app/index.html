@@ -46,15 +46,12 @@
 
 <section id="run-section">
   <h2>Run an audit</h2>
-  <p class="hint">Calls OpenAI-compatible endpoints straight from your browser with the frozen system prompt (temperature 0, ×3 runs). Your OpenRouter key is stored only in this browser's localStorage — never sent anywhere but openrouter.ai. Ollama slot needs <code>OLLAMA_ORIGINS</code> to allow this page.</p>
+  <p class="hint">Calls any OpenAI-compatible endpoint straight from your browser with the frozen system prompt (temperature 0, ×3 runs) — OpenRouter, Mistral, Groq, a corporate proxy, or local Ollama (no key; needs <code>OLLAMA_ORIGINS</code> to allow this page). Each slot's key is stored only in this browser's localStorage and sent only to that slot's endpoint.</p>
   <div class="run-config">
-    <label class="key-row">OpenRouter API key
-      <input type="password" id="orKey" placeholder="sk-or-…" autocomplete="off">
-    </label>
     <div class="slots">
-      <div class="slot"><b>Slot 1</b><input id="ep0" placeholder="endpoint URL"><input id="model0" placeholder="model id"></div>
-      <div class="slot"><b>Slot 2</b><input id="ep1" placeholder="endpoint URL"><input id="model1" placeholder="model id"></div>
-      <div class="slot"><b>Slot 3</b><input id="ep2" placeholder="endpoint URL"><input id="model2" placeholder="model id"></div>
+      <div class="slot"><b>Slot 1</b><input id="ep0" placeholder="endpoint URL"><input id="model0" placeholder="model id"><input type="password" id="key0" placeholder="API key (blank for local)" autocomplete="off"></div>
+      <div class="slot"><b>Slot 2</b><input id="ep1" placeholder="endpoint URL"><input id="model1" placeholder="model id"><input type="password" id="key1" placeholder="API key (blank for local)" autocomplete="off"></div>
+      <div class="slot"><b>Slot 3</b><input id="ep2" placeholder="endpoint URL"><input id="model2" placeholder="model id"><input type="password" id="key2" placeholder="API key (blank for local)" autocomplete="off"></div>
     </div>
     <div id="standards-checks" class="std-row"></div>
     <div class="run-actions">

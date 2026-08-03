@@ -70,8 +70,6 @@ button.replay { background: var(--blue); border: 0; color: #fff; font-weight: 70
 /* Run panel */
 .run-config { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 16px 20px; display: grid; gap: 14px; }
 .run-config input { background: var(--panel2); border: 1px solid var(--line); border-radius: 6px; color: var(--text); padding: 7px 10px; font-size: 13px; }
-.key-row { display: flex; align-items: center; gap: 10px; font-size: 13px; color: var(--muted); }
-.key-row input { flex: 1; max-width: 420px; }
 .slots { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
 .slot { display: grid; gap: 6px; font-size: 13px; }
 .std-row { display: flex; flex-wrap: wrap; gap: 14px; font-size: 13px; color: var(--muted); }
