@@ -21,10 +21,9 @@ function slotConfigs() {
   return [0, 1, 2].map((i) => ({
     endpoint: document.getElementById(`ep${i}`).value.trim(),
     model: document.getElementById(`model${i}`).value.trim(),
+    key: document.getElementById(`key${i}`).value.trim(),
   })).filter((s) => s.endpoint && s.model);
 }
-
-function apiKey() { return document.getElementById("orKey").value.trim(); }
 
 function logLine(text, cls = "info") {
   const el = document.createElement("div");
@@ -47,9 +46,10 @@ function parseModelJson(text) {
 
 async function callModel(slot, standard) {
   const headers = { "Content-Type": "application/json" };
-  if (slot.endpoint.includes("openrouter.ai")) {
-    if (!apiKey()) throw new Error("OpenRouter key required");
-    headers["Authorization"] = "Bearer " + apiKey();
+  if (slot.key) {
+    headers["Authorization"] = "Bearer " + slot.key;
+  } else if (!slot.endpoint.includes("localhost") && !slot.endpoint.includes("127.0.0.1")) {
+    throw new Error("API key required for remote endpoint");
   }
   const res = await fetch(slot.endpoint, {
     method: "POST", headers,
@@ -76,7 +76,6 @@ async function runAudit() {
     return;
   }
   localStorage.setItem("sage_slots", JSON.stringify(slots));
-  if (apiKey()) localStorage.setItem("sage_or_key", apiKey());
   btn.disabled = true;
   runResults.length = 0;
   const total = slots.length * standards.length * RUNS_PER_MODEL;
@@ -128,8 +127,8 @@ async function initRunPanel() {
   [0, 1, 2].forEach((i) => {
     document.getElementById(`ep${i}`).value = saved[i]?.endpoint ?? "";
     document.getElementById(`model${i}`).value = saved[i]?.model ?? "";
+    document.getElementById(`key${i}`).value = saved[i]?.key ?? "";
   });
-  document.getElementById("orKey").value = localStorage.getItem("sage_or_key") || "";
   document.getElementById("standards-checks").innerHTML = RUN_STANDARDS.map((s) =>
     `<label><input type="checkbox" class="std-check" value="${s}" checked> ${s}</label>`).join("");
   document.getElementById("runAuditBtn").onclick = runAudit;
