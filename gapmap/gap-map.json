@@ -1,0 +1,460 @@
+{
+  "generated_by": "runner/aggregate_to_gap_map.py",
+  "model_count": 1,
+  "models": [
+    "local_unsloth_Qwen3.6"
+  ],
+  "convergence_claimable": false,
+  "dimensions": [
+    "capability_declaration",
+    "bounded_authority",
+    "decision_auditability",
+    "data_governance"
+  ],
+  "standards": [
+    {
+      "standard": "CIM",
+      "display_name": "CIM",
+      "cells": {
+        "capability_declaration": {
+          "score": 2,
+          "contested": false,
+          "per_model": [
+            {
+              "model": "local_unsloth_Qwen3.6",
+              "median_score": 2,
+              "min_score": 1,
+              "max_score": 3,
+              "runs": 5,
+              "self_consistent": false,
+              "evidence": "IEC 61970/61968 Part 300 Class Hierarchy (GeneratingUnit, RegulatingControl)",
+              "rationale": "The data model explicitly supports describing DER capabilities and physical ratings through detailed classes like GeneratingUnit. However, it lacks dynamic declaration protocols or agent negotiation flows within the standard itself.",
+              "mean_confidence": 0.89
+            }
+          ]
+        },
+        "bounded_authority": {
+          "score": 0,
+          "contested": false,
+          "per_model": [
+            {
+              "model": "local_unsloth_Qwen3.6",
+              "median_score": 0,
+              "min_score": 0,
+              "max_score": 2,
+              "runs": 5,
+              "self_consistent": false,
+              "evidence": "none",
+              "rationale": "As an ontological data model rather than a control protocol or governance framework, the standard lacks clauses defining policy scopes, operational ceilings, authorization revocation mechanisms, or temporal limits on how agents interact with DER assets.",
+              "mean_confidence": 0.93
+            }
+          ]
+        },
+        "decision_auditability": {
+          "score": 0,
+          "contested": false,
+          "per_model": [
+            {
+              "model": "local_unsloth_Qwen3.6",
+              "median_score": 0,
+              "min_score": 0,
+              "max_score": 1,
+              "runs": 5,
+              "self_consistent": true,
+              "evidence": "none",
+              "rationale": "Although the standard provides basic creation and update timestamps for tracking system state changes over time, it does not mandate structured logging of autonomous agent choices or attribute specific control decisions to an acting entity beyond static asset identities (mRID).",
+              "mean_confidence": 0.92
+            }
+          ]
+        },
+        "data_governance": {
+          "score": 0,
+          "contested": false,
+          "per_model": [
+            {
+              "model": "local_unsloth_Qwen3.6",
+              "median_score": 0,
+              "min_score": 0,
+              "max_score": 2,
+              "runs": 5,
+              "self_consistent": false,
+              "evidence": "none",
+              "rationale": "The specification focuses exclusively on semantic interoperability and data exchange formats; it contains no clauses addressing legal or governance aspects such as consent management, ownership attribution, or retention policies.",
+              "mean_confidence": 0.98
+            }
+          ]
+        }
+      }
+    },
+    {
+      "standard": "IEC_61850",
+      "display_name": "IEC 61850",
+      "cells": {
+        "capability_declaration": {
+          "score": 2,
+          "contested": false,
+          "per_model": [
+            {
+              "model": "local_unsloth_Qwen3.6",
+              "median_score": 2,
+              "min_score": 2,
+              "max_score": 3,
+              "runs": 5,
+              "self_consistent": true,
+              "evidence": "Part 7-4 Logical Nodes and SCL data models",
+              "rationale": "Provides structured capability modeling via logical nodes that statically define device functions/measurement points enabling discovery of available DER control interfaces.",
+              "mean_confidence": 0.87
+            }
+          ]
+        },
+        "bounded_authority": {
+          "score": 1,
+          "contested": false,
+          "per_model": [
+            {
+              "model": "local_unsloth_Qwen3.6",
+              "median_score": 1,
+              "min_score": 1,
+              "max_score": 2,
+              "runs": 5,
+              "self_consistent": true,
+              "evidence": "None; relies on external security extensions (IEC 62351)",
+              "rationale": "Base protocol lacks agent-specific scope boundaries, expiry mechanisms, or revocation chains, though MMS read/write permissions offer basic access controls that cannot be inferred as bounded authority.",
+              "mean_confidence": 0.76
+            }
+          ]
+        },
+        "decision_auditability": {
+          "score": 2,
+          "contested": false,
+          "per_model": [
+            {
+              "model": "local_unsloth_Qwen3.6",
+              "median_score": 2,
+              "min_score": 1,
+              "max_score": 2,
+              "runs": 5,
+              "self_consistent": true,
+              "evidence": "Part 7-3 reporting control and LLN0 log objects",
+              "rationale": "Built-in event logging and reporting capture executed commands/states for post-hoc audits but do not mandate structured reasoning traces or explicit decision attribution required by autonomous agents.",
+              "mean_confidence": 0.77
+            }
+          ]
+        },
+        "data_governance": {
+          "score": 0,
+          "contested": false,
+          "per_model": [
+            {
+              "model": "local_unsloth_Qwen3.6",
+              "median_score": 0,
+              "min_score": 0,
+              "max_score": 0,
+              "runs": 5,
+              "self_consistent": true,
+              "evidence": "none",
+              "rationale": "As a fieldbus/substation communication architecture standard it defines transport and data models but contains no clauses addressing proprietary ownership, consent workflows, or retention policies.",
+              "mean_confidence": 0.94
+            }
+          ]
+        }
+      }
+    },
+    {
+      "standard": "IEEE_1547",
+      "display_name": "IEEE 1547",
+      "cells": {
+        "capability_declaration": {
+          "score": 1,
+          "contested": false,
+          "per_model": [
+            {
+              "model": "local_unsloth_Qwen3.6",
+              "median_score": 1,
+              "min_score": 0,
+              "max_score": 2,
+              "runs": 5,
+              "self_consistent": false,
+              "evidence": "Section 6 (Operational Capabilities) defines specific operational modes and settings for DERs such as Volt-VAR control.",
+              "rationale": "The standard implicitly covers capability by mandating that devices support defined electrical functions. However, it lacks a semantic mechanism or dynamic protocol for an autonomous agent to declare capabilities during negotiation with other entities.",
+              "mean_confidence": 0.86
+            }
+          ]
+        },
+        "bounded_authority": {
+          "score": 2,
+          "contested": false,
+          "per_model": [
+            {
+              "model": "local_unsloth_Qwen3.6",
+              "median_score": 2,
+              "min_score": 2,
+              "max_score": 2,
+              "runs": 5,
+              "self_consistent": true,
+              "evidence": "Sections 5-6 and Annex E",
+              "rationale": "Defines specific voltage/frequency bounds that restrict power control authority (Annex E) and mandates Remote Control capabilities for DSO override within defined settings.",
+              "mean_confidence": 0.84
+            }
+          ]
+        },
+        "decision_auditability": {
+          "score": 1,
+          "contested": false,
+          "per_model": [
+            {
+              "model": "local_unsloth_Qwen3.6",
+              "median_score": 1,
+              "min_score": 0,
+              "max_score": 1,
+              "runs": 5,
+              "self_consistent": true,
+              "evidence": "none",
+              "rationale": "While deterministic physical responses are mandated, the standard does not explicitly require software-based logging or attribution of autonomous agent decisions during operation.",
+              "mean_confidence": 0.85
+            }
+          ]
+        },
+        "data_governance": {
+          "score": 0,
+          "contested": false,
+          "per_model": [
+            {
+              "model": "local_unsloth_Qwen3.6",
+              "median_score": 0,
+              "min_score": 0,
+              "max_score": 1,
+              "runs": 5,
+              "self_consistent": true,
+              "evidence": "none",
+              "rationale": "As a technical interconnection document, it excludes commercial and legal requirements such as data ownership consent or retention periods.",
+              "mean_confidence": 0.92
+            }
+          ]
+        }
+      }
+    },
+    {
+      "standard": "ISO_15118",
+      "display_name": "ISO 15118",
+      "cells": {
+        "capability_declaration": {
+          "score": 2,
+          "contested": false,
+          "per_model": [
+            {
+              "model": "local_unsloth_Qwen3.6",
+              "median_score": 2,
+              "min_score": 2,
+              "max_score": 3,
+              "runs": 5,
+              "self_consistent": true,
+              "evidence": "ISO 15118 Part 20 Service Discovery and ExchangeProtocol define capability negotiation through SAScheduleTuple elements in ScheduleExchangeRequest/response messages during service discovery phase.",
+              "rationale": "Provides mechanism for EV to declare supported services and charging parameters at connection setup, but lacks dynamic redeclaration capabilities needed for autonomous AI agents operating across multiple DERs with evolving conditions.",
+              "mean_confidence": 0.85
+            }
+          ]
+        },
+        "bounded_authority": {
+          "score": 2,
+          "contested": false,
+          "per_model": [
+            {
+              "model": "local_unsloth_Qwen3.6",
+              "median_score": 2,
+              "min_score": 2,
+              "max_score": 2,
+              "runs": 5,
+              "self_consistent": true,
+              "evidence": "ISO 15118-2 Clause 9.3 ChargingParameterDiscovery includes MaxEnergyRequested to define session energy limits; PowerLimitation mechanisms via DC_ChargingParameters and AC_ExtendedChargingParameters.",
+              "rationale": "Establishes basic operational boundaries through power/energy constraints, but lacks explicit authority frameworks including expiry intervals, revocation workflows beyond connection termination, or emergency override protocols required for autonomous operations.",
+              "mean_confidence": 0.82
+            }
+          ]
+        },
+        "decision_auditability": {
+          "score": 1,
+          "contested": false,
+          "per_model": [
+            {
+              "model": "local_unsloth_Qwen3.6",
+              "median_score": 1,
+              "min_score": 0,
+              "max_score": 2,
+              "runs": 5,
+              "self_consistent": false,
+              "evidence": "None - standard focuses on real-time control messaging without mandating decision logging. Local charge session data storage is implementation-specific and driven by billing/regulatory requirements rather than protocol mandates.",
+              "rationale": "While charging stations implicitly log sessions for fault diagnosis and regulatory compliance, no standardized audit trail mechanism exists to track agent decisions or attribute autonomous actions - insufficient for AI operational transparency.",
+              "mean_confidence": 0.85
+            }
+          ]
+        },
+        "data_governance": {
+          "score": 1,
+          "contested": false,
+          "per_model": [
+            {
+              "model": "local_unsloth_Qwen3.6",
+              "median_score": 1,
+              "min_score": 1,
+              "max_score": 2,
+              "runs": 5,
+              "self_consistent": true,
+              "evidence": "None explicitly. ISO 15118-20 Part 2 Clause 8.4 references PCDocuments where certificates replace RFID cards with implicit privacy protections; data handling details are implementation-dependent.",
+              "rationale": "Certificate-based authentication provides some privacy benefits, but comprehensive governance regarding ownership attribution, consent frameworks and mandatory retention periods is absent from this communication-focused standard.",
+              "mean_confidence": 0.8
+            }
+          ]
+        }
+      }
+    },
+    {
+      "standard": "OpenADR_3",
+      "display_name": "OpenADR 3",
+      "cells": {
+        "capability_declaration": {
+          "score": 2,
+          "contested": false,
+          "per_model": [
+            {
+              "model": "local_unsloth_Qwen3.6",
+              "median_score": 2,
+              "min_score": 2,
+              "max_score": 2,
+              "runs": 5,
+              "self_consistent": true,
+              "evidence": "Service discovery and registration via Profile definitions",
+              "rationale": "Profiles declare protocol features during endpoint registration but omit DER-specific operational parameters needed for autonomous decision-making.",
+              "mean_confidence": 0.68
+            }
+          ]
+        },
+        "bounded_authority": {
+          "score": 1,
+          "contested": false,
+          "per_model": [
+            {
+              "model": "local_unsloth_Qwen3.6",
+              "median_score": 1,
+              "min_score": 1,
+              "max_score": 2,
+              "runs": 5,
+              "self_consistent": true,
+              "evidence": "Event payloads include min/max targets; Schedule profile uses start/end times",
+              "rationale": "Provides temporal boundaries and target ranges via event properties but lacks mechanisms for agent-negotiated authority envelopes or autonomous override rights.",
+              "mean_confidence": 0.81
+            }
+          ]
+        },
+        "decision_auditability": {
+          "score": 1,
+          "contested": false,
+          "per_model": [
+            {
+              "model": "local_unsloth_Qwen3.6",
+              "median_score": 1,
+              "min_score": 0,
+              "max_score": 2,
+              "runs": 5,
+              "self_consistent": false,
+              "evidence": "Logging of events in the standard but lack explicit attribution clauses",
+              "rationale": "There are no clear clauses dictating decision audit trails.",
+              "mean_confidence": 0.86
+            }
+          ]
+        },
+        "data_governance": {
+          "score": 0,
+          "contested": false,
+          "per_model": [
+            {
+              "model": "local_unsloth_Qwen3.6",
+              "median_score": 0,
+              "min_score": 0,
+              "max_score": 2,
+              "runs": 5,
+              "self_consistent": false,
+              "evidence": "none",
+              "rationale": "Protocol is strictly operational/control-focused, deferring data ownership models and consent mechanisms to external regulatory frameworks like GDPR rather than standardizing them internally within the spec.",
+              "mean_confidence": 0.88
+            }
+          ]
+        }
+      }
+    },
+    {
+      "standard": "SunSpec",
+      "display_name": "SunSpec",
+      "cells": {
+        "capability_declaration": {
+          "score": 2,
+          "contested": false,
+          "per_model": [
+            {
+              "model": "local_unsloth_Qwen3.6",
+              "median_score": 2.0,
+              "min_score": 2,
+              "max_score": 2,
+              "runs": 4,
+              "self_consistent": true,
+              "evidence": "SunSpec Model Registry XML & Implementation Guides define static register maps for device capabilities",
+              "rationale": "Provides machine-readable catalogs of DER functions but lacks dynamic runtime negotiation protocols for autonomous agents to discover capabilities ad-hoc.",
+              "mean_confidence": 0.89
+            }
+          ]
+        },
+        "bounded_authority": {
+          "score": 2,
+          "contested": false,
+          "per_model": [
+            {
+              "model": "local_unsloth_Qwen3.6",
+              "median_score": 1.5,
+              "min_score": 1,
+              "max_score": 2,
+              "runs": 4,
+              "self_consistent": true,
+              "evidence": "SunSpec Model Registry defines operational setpoint ceilings; no explicit AI authorization scopes or expiry clauses",
+              "rationale": "Operational bounds are implied by register value constraints to ensure grid safety. However, the standard omits explicit agent permission scopes, token expiration, and revocation mechanisms.",
+              "mean_confidence": 0.86
+            }
+          ]
+        },
+        "decision_auditability": {
+          "score": 0,
+          "contested": false,
+          "per_model": [
+            {
+              "model": "local_unsloth_Qwen3.6",
+              "median_score": 0.0,
+              "min_score": 0,
+              "max_score": 1,
+              "runs": 4,
+              "self_consistent": true,
+              "evidence": "none",
+              "rationale": "Protocol focuses strictly on real-time telemetry exchange without prescribing decision logging, attribution of autonomous actions, or audit trail requirements for agent operations.",
+              "mean_confidence": 0.94
+            }
+          ]
+        },
+        "data_governance": {
+          "score": 0,
+          "contested": false,
+          "per_model": [
+            {
+              "model": "local_unsloth_Qwen3.6",
+              "median_score": 0.0,
+              "min_score": 0,
+              "max_score": 1,
+              "runs": 4,
+              "self_consistent": true,
+              "evidence": "none",
+              "rationale": "Purely a technical interoperability specification defining data models; contains zero clauses regarding data ownership, user consent, retention policies, or privacy frameworks.",
+              "mean_confidence": 0.95
+            }
+          ]
+        }
+      }
+    }
+  ]
+}
