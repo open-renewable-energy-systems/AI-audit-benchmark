@@ -1,0 +1,26 @@
+{
+  "capability_declaration": {
+    "score": 2,
+    "evidence": "IEC 61850 Part 7 (Logical Nodes & Data Objects) and Part 6 SCL",
+    "rationale": "Structural data models explicitly define device capabilities via Logical Node classes and XML configuration files. However they are static declarations rather than dynamic runtime discovery mechanisms suitable for autonomous agents.",
+    "confidence": 0.85
+  },
+  "bounded_authority": {
+    "score": 1,
+    "evidence": "Part 7-3 Control Service with Select-Before-Operate mechanism",
+    "rationale": "SBO provides implicit operational boundaries and access control during remote commands, but lacks explicit time-limited permissions or revocation workflows needed for autonomous DER agent operations.",
+    "confidence": 0.65
+  },
+  "decision_auditability": {
+    "score": 1,
+    "evidence": "Part 7 Event Reports & Recording Waveforms",
+    "rationale": "Device-level event logging and control status feedback can form basic audit trails if centralized at EMS/DMS level. Not explicitly designed for AI dispatch decision attribution across distributed autonomous systems.",
+    "confidence": 0.6
+  },
+  "data_governance": {
+    "score": 0,
+    "evidence": "none",
+    "rationale": "Standard focuses on deterministic substation communication without addressing data ownership, third-party consent frameworks or retention policies relevant to AI-driven DER operations and market participation.",
+    "confidence": 0.9
+  }
+}

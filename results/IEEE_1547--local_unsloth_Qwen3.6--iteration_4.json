@@ -1,0 +1,26 @@
+{
+  "capability_declaration": {
+    "score": 0,
+    "evidence": "none",
+    "rationale": "IEEE 1547 specifies mandatory performance characteristics but lacks any mechanism for DERs or agents to dynamically declare capabilities, negotiate functional envelopes, or announce operational scope during interconnection.",
+    "confidence": 0.9
+  },
+  "bounded_authority": {
+    "score": 2,
+    "evidence": "Sections 5.3 (Operating Ranges), Section 6 (Information Exchange for Advanced Operations)",
+    "rationale": "Defines explicit voltage/frequency ride-through curves and protection boundaries that constrain DER behavior; allows DSO/TPO configuration of control modes but lacks time-bound permissions or revocation semantics.",
+    "confidence": 0.8
+  },
+  "decision_auditability": {
+    "score": 0,
+    "evidence": "none",
+    "rationale": "No requirements exist for logging autonomous agent decisions, attributing automated responses to grid events, or maintaining audit trails of DER control actions beyond basic event recording.",
+    "confidence": 0.95
+  },
+  "data_governance": {
+    "score": 1,
+    "evidence": "Annex A (Normative) - Communications Requirements",
+    "rationale": "References communication interfaces and information exchange for interconnection but provides no framework on data ownership models, consent mechanisms, or retention policies specifically governing DER operational data.",
+    "confidence": 0.75
+  }
+}

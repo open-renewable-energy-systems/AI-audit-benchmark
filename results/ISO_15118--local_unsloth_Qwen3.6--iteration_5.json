@@ -1,0 +1,26 @@
+{
+  "capability_declaration": {
+    "score": 2,
+    "evidence": "Control Mode negotiation and Charge Parameter Discovery messages specify how a device declares its energy needs and operational limits.",
+    "rationale": "Partial coverage - The protocol allows EVs to declare required power profiles and battery capabilities during V2G setup phases. However, it is limited strictly to electric vehicles rather than general DER agents.",
+    "confidence": 0.85
+  },
+  "bounded_authority": {
+    "score": 2,
+    "evidence": "Charging schedules define absolute maximum power/current limits over discrete time intervals with expiration times; authorization contexts enforce transaction scopes.",
+    "rationale": "Partial coverage - Schedules establish strict operational ceilings and validity periods. However, it lacks generalized authority revocation or override mechanisms outside specific EV charging sessions.",
+    "confidence": 0.85
+  },
+  "decision_auditability": {
+    "score": 0,
+    "evidence": "none",
+    "rationale": "The standard focuses purely on real-time operational control and status updates. It contains no clauses mandating audit trails or logging of an agent's internal decision-making logic.",
+    "confidence": 1.0
+  },
+  "data_governance": {
+    "score": 1,
+    "evidence": "Plug & Charge (PnC) mechanisms utilize X.509 certificates for identity verification and authorization consent boundaries between parties.",
+    "rationale": "Implicit coverage - Authentication establishes basic operational consent via digital identities. However, the standard does not explicitly define broader data ownership rights or retention policies beyond transaction security.",
+    "confidence": 0.85
+  }
+}

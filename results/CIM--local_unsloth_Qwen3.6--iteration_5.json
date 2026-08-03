@@ -1,0 +1,26 @@
+{
+  "capability_declaration": {
+    "score": 2,
+    "evidence": "Capability class definitions within CIM Power System Control & Scheduling model defining supported device functions and control parameters.",
+    "rationale": "Explicitly defines endpoint capabilities for interoperability but lacks AI-native self-declaration protocols beyond traditional utility configuration requests.",
+    "confidence": 0.9
+  },
+  "bounded_authority": {
+    "score": 2,
+    "evidence": "Control Service profiles specifying operational envelopes (MW/MVAR limits), rate-of-change constraints, and time-bound dispatch windows.",
+    "rationale": "Specifies control boundaries via service models though missing explicit autonomous agent revocation or override mechanisms.",
+    "confidence": 0.85
+  },
+  "decision_auditability": {
+    "score": 1,
+    "evidence": "Base measurement/control data classes can theoretically store event logs.",
+    "rationale": "Generic schema supports recording control actions but lacks specific mandates for AI reasoning logs or autonomous decision attribution.",
+    "confidence": 0.8
+  },
+  "data_governance": {
+    "score": 0,
+    "evidence": "none",
+    "rationale": "Assumes traditional utility-centric ownership without provisions for DER owner consent workflows or third-party agent data retention rules.",
+    "confidence": 1.0
+  }
+}

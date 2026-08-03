@@ -1,0 +1,26 @@
+{
+  "capability_declaration": {
+    "score": 2,
+    "evidence": "Sections 5 & 6 specify mandatory control modes and parameter ranges; Annex B references interconnection agreements.",
+    "rationale": "Defines operational capabilities through required settings but lacks explicit agentic declaration protocols or machine-readable capability statements.",
+    "confidence": 0.7
+  },
+  "bounded_authority": {
+    "score": 2,
+    "evidence": "Sections 3-4 define voltage/frequency operating ranges; Section 6 mandates control curves and response times.",
+    "rationale": "Establishes strict technical bounds on autonomous operation to ensure grid stability but omits authorization lifecycle management like revocation or time limits.",
+    "confidence": 0.8
+  },
+  "decision_auditability": {
+    "score": 1,
+    "evidence": "Section 6 requires logging of fault records, voltage/frequency events.",
+    "rationale": "Mandates event data recording for compliance but lacks structured requirements for autonomous decision trails with clear system-of-record attribution.",
+    "confidence": 0.8
+  },
+  "data_governance": {
+    "score": 0,
+    "evidence": "none",
+    "rationale": "The standard is purely technical and safety-focused; it omits all provisions regarding telemetry ownership, consent mechanisms, or archival policies relevant to agents.",
+    "confidence": 0.9
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "capability_declaration": {
+    "score": 1,
+    "evidence": "LoadModel and AsymmetricalLoadParameters classes containing attributes such as MaxP (maximum active power) and MinQ.",
+    "rationale": "The model defines specific data structures to represent physical resource constraints in information exchanges. While it does not define a dynamic declaration protocol or capability negotiation mechanism itself, the schema allows implicit representation of capabilities when devices exchange CIM-compliant messages.",
+    "confidence": 0.8
+  },
+  "bounded_authority": {
+    "score": 0,
+    "evidence": "none",
+    "rationale": "As an ontological data model rather than a control protocol or governance framework, the standard lacks clauses defining policy scopes, operational ceilings, authorization revocation mechanisms, or temporal limits on how agents interact with DER assets.",
+    "confidence": 1.0
+  },
+  "decision_auditability": {
+    "score": 0,
+    "evidence": "none",
+    "rationale": "Although the standard provides basic creation and update timestamps for tracking system state changes over time, it does not mandate structured logging of autonomous agent choices or attribute specific control decisions to an acting entity beyond static asset identities (mRID).",
+    "confidence": 1.0
+  },
+  "data_governance": {
+    "score": 0,
+    "evidence": "ClientApplicationName and IdentifiedObject.mRID attributes.",
+    "rationale": "While identifiers like `ClientApplicationName` allow tracing the system originator of a message for basic provenance tracking, there are no clauses addressing data ownership stipulations, user consent requirements, or retention policies essential for autonomous AI operations managing consumer energy assets.",
+    "confidence": 0.9
+  }
+}

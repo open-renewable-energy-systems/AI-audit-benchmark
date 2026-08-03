@@ -1,0 +1,26 @@
+{
+  "capability_declaration": {
+    "score": 2,
+    "evidence": "ISO 15118 Part 20 Service Discovery and ExchangeProtocol define capability negotiation through SAScheduleTuple elements in ScheduleExchangeRequest/response messages during service discovery phase.",
+    "rationale": "Provides mechanism for EV to declare supported services and charging parameters at connection setup, but lacks dynamic redeclaration capabilities needed for autonomous AI agents operating across multiple DERs with evolving conditions.",
+    "confidence": 0.7
+  },
+  "bounded_authority": {
+    "score": 2,
+    "evidence": "ISO 15118-2 Clause 9.3 ChargingParameterDiscovery includes MaxEnergyRequested to define session energy limits; PowerLimitation mechanisms via DC_ChargingParameters and AC_ExtendedChargingParameters.",
+    "rationale": "Establishes basic operational boundaries through power/energy constraints, but lacks explicit authority frameworks including expiry intervals, revocation workflows beyond connection termination, or emergency override protocols required for autonomous operations.",
+    "confidence": 0.7
+  },
+  "decision_auditability": {
+    "score": 1,
+    "evidence": "None - standard focuses on real-time control messaging without mandating decision logging. Local charge session data storage is implementation-specific and driven by billing/regulatory requirements rather than protocol mandates.",
+    "rationale": "While charging stations implicitly log sessions for fault diagnosis and regulatory compliance, no standardized audit trail mechanism exists to track agent decisions or attribute autonomous actions - insufficient for AI operational transparency.",
+    "confidence": 0.8
+  },
+  "data_governance": {
+    "score": 1,
+    "evidence": "None explicitly. ISO 15118-20 Part 2 Clause 8.4 references PCDocuments where certificates replace RFID cards with implicit privacy protections; data handling details are implementation-dependent.",
+    "rationale": "Certificate-based authentication provides some privacy benefits, but comprehensive governance regarding ownership attribution, consent frameworks and mandatory retention periods is absent from this communication-focused standard.",
+    "confidence": 0.7
+  }
+}
