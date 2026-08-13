@@ -74,6 +74,13 @@ button.replay { background: var(--blue); border: 0; color: #fff; font-weight: 70
 .slot { display: grid; gap: 6px; font-size: 13px; }
 .std-row { display: flex; flex-wrap: wrap; gap: 14px; font-size: 13px; color: var(--muted); }
 .run-actions { display: flex; gap: 12px; }
+.listbtn { background: var(--panel2); border: 1px solid var(--line); color: var(--text); border-radius: 6px; padding: 6px 10px; font-size: 12px; cursor: pointer; }
+.listbtn:hover { border-color: var(--blue); }
+.std-row em { color: var(--amber); font-style: normal; font-size: 11px; }
+.custom-std { font-size: 13px; color: var(--muted); }
+.custom-std summary { cursor: pointer; }
+.custom-std input, .custom-std textarea { display: block; width: 100%; max-width: 640px; margin-top: 8px; background: var(--panel2); border: 1px solid var(--line); border-radius: 6px; color: var(--text); padding: 7px 10px; font-size: 13px; }
+.custom-std button { margin-top: 8px; }
 .run-actions button:disabled { opacity: 0.4; cursor: default; }
 #runlog { margin-top: 12px; background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 10px 14px; max-height: 220px; overflow-y: auto; font-family: ui-monospace, Menlo, monospace; font-size: 12px; }
 #runlog:empty { display: none; }
