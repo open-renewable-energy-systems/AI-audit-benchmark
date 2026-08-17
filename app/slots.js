@@ -117,6 +117,26 @@ function currentMode() {
   return document.querySelector('input[name="mode"]:checked')?.value ?? "web";
 }
 
+// Returns true if at least one saved slot was reflected into the UI.
+function restoreSavedSlots(savedSlots) {
+  if (!savedSlots?.some((s) => s?.endpoint && s?.model)) return false;
+  const provs = PROVIDERS[currentMode()];
+  let restored = 0;
+  savedSlots.forEach((s) => {
+    const i = s?.idx;
+    if (i === undefined || !s.endpoint || !s.model) return;
+    const name = Object.keys(provs).find((n) => provs[n].endpoint === s.endpoint) ??
+      ("custom" in provs ? "custom" : null);
+    if (!name) return;
+    document.getElementById(`prov${i}`).value = name;
+    onProviderChange(i, s.model);
+    if (name === "custom") document.getElementById(`ep${i}`).value = s.endpoint;
+    document.getElementById(`key${i}`).value = s.key ?? "";
+    restored++;
+  });
+  return restored > 0;
+}
+
 function fillProviderOptions(i) {
   const sel = document.getElementById(`prov${i}`);
   const names = Object.keys(PROVIDERS[currentMode()]);
@@ -130,7 +150,7 @@ function onProviderChange(i, presetModel = null) {
   const ep = document.getElementById(`ep${i}`);
   const model = document.getElementById(`model${i}`);
   const key = document.getElementById(`key${i}`);
-  if (presetModel === null) slotPreset[i] = null; // manual change clears preset
+  slotPreset[i] = presetModel; // seeded/restored model sticks; manual change clears it
   if (!name) { ep.value = ""; setModelOptions(i, [], ""); return; }
   const p = PROVIDERS[mode][name];
   ep.value = p.endpoint;
@@ -176,9 +196,10 @@ function initSlotModes() {
       input.value = v === CUSTOM_MODEL ? "" : v;
     };
   });
-  // restore saved slots if any; otherwise seed slot 1 from the mode default
+  // Reflect saved slots into the provider/model dropdowns; anything that
+  // can't be reconciled falls back to the regional defaults.
   const savedSlots = JSON.parse(localStorage.getItem("sage_slots") || "null");
-  if (!savedSlots?.some((s) => s.endpoint)) seedDefaults();
+  if (!restoreSavedSlots(savedSlots)) seedDefaults();
 }
 
 initSlotModes();

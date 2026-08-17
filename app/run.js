@@ -213,12 +213,7 @@ async function initRunPanel() {
       "<h2>Run an audit</h2><p class='hint'>Unavailable: prompts/eval_system_prompt.md could not be loaded (serve the repo root, not app/ alone).</p>";
     return;
   }
-  const saved = JSON.parse(localStorage.getItem("sage_slots") || "null");
-  if (saved) [0, 1, 2].forEach((i) => {
-    document.getElementById(`ep${i}`).value = saved[i]?.endpoint ?? "";
-    document.getElementById(`model${i}`).value = saved[i]?.model ?? "";
-    document.getElementById(`key${i}`).value = saved[i]?.key ?? "";
-  });
+  // Saved-slot restore lives in slots.js (it also drives the dropdowns).
   renderStandards();
   [0, 1, 2].forEach((i) => {
     document.getElementById(`list${i}`).onclick = () => listModels(i);
