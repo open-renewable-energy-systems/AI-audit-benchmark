@@ -23,6 +23,8 @@ section > p.hint { color: var(--muted); font-size: 13px; margin-bottom: 14px; }
 table.gapmap { border-collapse: separate; border-spacing: 4px; }
 table.gapmap th { font-size: 12px; color: var(--muted); font-weight: 600; padding: 6px 10px; }
 table.gapmap th.rowhead { text-align: right; }
+table.gapmap th.dimhead { cursor: pointer; }
+table.gapmap th.dimhead:hover { color: var(--blue); }
 td.cell {
   width: 150px; height: 46px; border-radius: 8px; text-align: center;
   font-weight: 700; font-size: 15px; cursor: pointer; position: relative;

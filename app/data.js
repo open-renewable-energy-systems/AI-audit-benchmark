@@ -1,11 +1,23 @@
 // MOCK DATA — illustrative placeholders until the real SAGE runs land.
 // Shapes mirror docs/rubric-and-deliverables.md; numbers are the doc's
 // illustrative gap map, NOT audit results.
+// Definitions mirror the frozen rubric in prompts/eval_system_prompt.md.
 const DIMENSIONS = [
-  { key: "capability_declaration", label: "Capability declaration" },
-  { key: "bounded_authority", label: "Bounded authority" },
-  { key: "decision_auditability", label: "Decision auditability" },
-  { key: "data_governance", label: "Data governance" },
+  { key: "capability_declaration", label: "Capability declaration",
+    desc: "Can a device/agent declare what it is capable of doing (functions, operating limits, ramp rates, modes)?" },
+  { key: "bounded_authority", label: "Bounded authority",
+    desc: "Can the standard express limits on what an agent is allowed to do — scope, ceilings, expiry, revocation, human override?" },
+  { key: "decision_auditability", label: "Decision auditability",
+    desc: "Can an agent's decisions be logged, attributed, and reconstructed after the fact?" },
+  { key: "data_governance", label: "Data governance",
+    desc: "Are data ownership, consent, retention, and sharing addressed?" },
+];
+
+const SCORE_SCALE = [
+  "0 Absent — no coverage at all",
+  "1 Implicit — inferable, but no clause states it",
+  "2 Partial — some clauses, incomplete for agent use",
+  "3 Explicit — directly specified",
 ];
 
 const MODELS = ["claude", "gpt", "gemini", "mistral", "open-8b"];

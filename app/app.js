@@ -52,7 +52,10 @@ function renderGapmap() {
   const table = document.getElementById("gapmap");
   const head = document.createElement("tr");
   head.innerHTML =
-    "<th></th>" + DIMENSIONS.map((d) => `<th>${d.label}</th>`).join("");
+    "<th></th>" + DIMENSIONS.map((d) => `<th class="dimhead" data-key="${d.key}" title="Click for definition">${d.label} ⓘ</th>`).join("");
+  head.querySelectorAll("th.dimhead").forEach((th) => {
+    th.onclick = () => showDimensionInfo(DIMENSIONS.find((d) => d.key === th.dataset.key));
+  });
   table.appendChild(head);
 
   GAPMAP.forEach((row) => {
@@ -69,6 +72,16 @@ function renderGapmap() {
   });
 }
 
+function showDimensionInfo(dim) {
+  const box = document.getElementById("detail");
+  box.hidden = false;
+  box.innerHTML =
+    `<h3>${dim.label} — what the models are asked</h3>
+     <p class="verdict">${dim.desc}</p>
+     <p class="verdict">Scale: ${SCORE_SCALE.join(" · ")}. Each model also cites the clause it relied on (or "none") and reports its own confidence.</p>
+     <p class="verdict">The definitions are frozen in <code>prompts/eval_system_prompt.md</code> — every model gets them verbatim, which is what makes cross-model agreement meaningful.</p>`;
+}
+
 function showDetail(standard, dim, score, td) {
   document.querySelectorAll("td.cell.selected").forEach((c) => c.classList.remove("selected"));
   td.classList.add("selected");
@@ -82,7 +95,7 @@ function showDetail(standard, dim, score, td) {
     box.innerHTML = html;
     return;
   }
-  html += `<table><tr><th>Model</th><th>Score</th><th>Evidence</th><th>Rationale</th><th>Conf.</th></tr>`;
+  html += `<table><tr><th>Model</th><th title="Median of the model's runs; ⚠unstable if its runs spread more than 1">Score</th><th>Evidence</th><th>Rationale</th><th title="The model's self-reported confidence (0–1), averaged over its runs — a signal, not proof">Conf.</th></tr>`;
   rows.forEach((r) => {
     html += `<tr><td>${r.model}</td><td class="score">${r.score}</td><td>${r.evidence}</td><td>${r.rationale}</td><td>${r.confidence}</td></tr>`;
   });
@@ -96,6 +109,7 @@ function showDetail(standard, dim, score, td) {
   } else {
     html += `<p class="verdict covered">✓ Convergent coverage — models agree this is handled. GAIFARE reuses it instead of reinventing it.</p>`;
   }
+  html += `<p class="verdict">How this cell is computed: each model scores 0–3 itself (with a clause citation); per model = median of its runs; the cell = median of the model medians when they agree within ±1, otherwise "contested". Conf. is the model's self-reported confidence — the evidence citation and cross-model agreement are the real checks.</p>`;
   box.innerHTML = html;
 }
 
