@@ -86,13 +86,18 @@ function parseModelJson(text) {
   return data;
 }
 
-async function callModel(slot, standard, docText = "") {
+function slotHeaders(slot) {
   const headers = { "Content-Type": "application/json" };
   if (slot.key) {
     headers["Authorization"] = "Bearer " + slot.key;
   } else if (!slot.endpoint.includes("localhost") && !slot.endpoint.includes("127.0.0.1")) {
     throw new Error("API key required for remote endpoint");
   }
+  return headers;
+}
+
+async function callModel(slot, standard, docText = "") {
+  const headers = slotHeaders(slot);
   const res = await fetch(slot.endpoint, {
     method: "POST", headers,
     body: JSON.stringify({

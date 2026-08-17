@@ -22,7 +22,21 @@ import argparse
 import json
 import subprocess
 import time
+import urllib.request
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
+
+OLLAMA_CLOUD_CATALOG = "https://ollama.com/api/tags"
+_cloud_cache = {"at": 0.0, "data": None}
+
+
+def ollama_cloud_models():
+    """Proxy the ollama.com cloud catalog (the browser can't: no CORS there)."""
+    if _cloud_cache["data"] is None or time.time() - _cloud_cache["at"] > 3600:
+        with urllib.request.urlopen(OLLAMA_CLOUD_CATALOG, timeout=10) as res:
+            names = [m["name"] for m in json.load(res)["models"]]
+        _cloud_cache.update(at=time.time(),
+                            data=[{"id": f"{n}:cloud", "object": "model"} for n in names])
+    return {"object": "list", "data": _cloud_cache["data"]}
 
 ALLOWED_ORIGINS = {
     "http://localhost:8642",
@@ -91,6 +105,12 @@ class Handler(BaseHTTPRequestHandler):
         self._send(200, {})
 
     def do_GET(self):
+        if self.path == "/ollama-cloud/models":
+            try:
+                self._send(200, ollama_cloud_models())
+            except Exception as e:
+                self._send(502, {"error": f"cloud catalog unavailable: {e}"})
+            return
         backend = self._backend()
         if backend and self.path.endswith("/models"):
             self._send(200, {"object": "list",
