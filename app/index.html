@@ -26,24 +26,6 @@
   <div id="detail" hidden></div>
 </section>
 
-<section id="scenario-section">
-  <h2>The gap, live — Hyphae village microgrid</h2>
-  <p class="hint">15 houses × 5 kW, solar + shared battery. 18:30 price spike: the agent wants to discharge at full 5 kW. Flip GAIFARE on and replay.</p>
-  <div class="scenario-head">
-    <div class="toggle" id="gaifareToggle" role="switch" aria-checked="false" tabindex="0">
-      <span class="knob"></span><b>GAIFARE enforcement</b>
-    </div>
-    <button class="replay" id="replayBtn">▶ Replay scenario</button>
-  </div>
-  <div class="scenario-grid">
-    <div id="timeline"></div>
-    <div id="grantbox">
-      <h3>authority_grant (GAIFARE v0)</h3>
-      <pre id="grantYaml"></pre>
-    </div>
-  </div>
-</section>
-
 <section id="run-section">
   <h2>Run an audit</h2>
   <p class="hint">Calls any OpenAI-compatible endpoint straight from your browser with the frozen system prompt (temperature 0, ×3 runs) — OpenRouter, Mistral, Groq, a corporate proxy, or local Ollama (no key; needs <code>OLLAMA_ORIGINS</code> to allow this page). Each slot's key is stored only in this browser's localStorage and sent only to that slot's endpoint.</p>
@@ -71,6 +53,24 @@
     </div>
   </div>
   <div id="runlog"></div>
+</section>
+
+<section id="scenario-section">
+  <h2>The gap, live — Hyphae village microgrid</h2>
+  <p class="hint">15 houses × 5 kW, solar + shared battery. 18:30 price spike: the agent wants to discharge at full 5 kW. Flip GAIFARE on and replay.</p>
+  <div class="scenario-head">
+    <div class="toggle" id="gaifareToggle" role="switch" aria-checked="false" tabindex="0">
+      <span class="knob"></span><b>GAIFARE enforcement</b>
+    </div>
+    <button class="replay" id="replayBtn">▶ Replay scenario</button>
+  </div>
+  <div class="scenario-grid">
+    <div id="timeline"></div>
+    <div id="grantbox">
+      <h3>authority_grant (GAIFARE v0)</h3>
+      <pre id="grantYaml"></pre>
+    </div>
+  </div>
 </section>
 
 <footer>
