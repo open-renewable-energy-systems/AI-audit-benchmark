@@ -33,9 +33,11 @@ def ollama_cloud_models():
     """Proxy the ollama.com cloud catalog (the browser can't: no CORS there)."""
     if _cloud_cache["data"] is None or time.time() - _cloud_cache["at"] > 3600:
         with urllib.request.urlopen(OLLAMA_CLOUD_CATALOG, timeout=10) as res:
-            names = [m["name"] for m in json.load(res)["models"]]
+            models = json.load(res)["models"]
+        # newest first, so clients can default to the latest model
+        models.sort(key=lambda m: m.get("modified_at", ""), reverse=True)
         _cloud_cache.update(at=time.time(),
-                            data=[{"id": f"{n}:cloud", "object": "model"} for n in names])
+                            data=[{"id": f"{m['name']}:cloud", "object": "model"} for m in models])
     return {"object": "list", "data": _cloud_cache["data"]}
 
 ALLOWED_ORIGINS = {
