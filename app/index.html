@@ -57,7 +57,12 @@
     <details class="custom-std">
       <summary>Add a custom standard</summary>
       <input id="customName" placeholder="standard name, e.g. IEEE 1815 (DNP3)">
-      <textarea id="customText" rows="4" placeholder="Optional: paste the standard's text here (document-fed audit; stays in your browser, never uploaded). Leave empty for a knowledge-only audit."></textarea>
+      <div class="doc-input-row">
+        <input id="customUrl" placeholder="URL of an open/CORS-friendly source (best-effort)">
+        <button type="button" class="listbtn" id="fetchUrlBtn">Fetch URL</button>
+        <label class="listbtn pdf-label">Upload PDF<input type="file" id="pdfFile" accept=".pdf" hidden></label>
+      </div>
+      <textarea id="customText" rows="4" placeholder="Optional: paste the standard's text here — or fill via Fetch URL / Upload PDF above (document-fed audit; everything stays in your browser, never uploaded). Leave empty for a knowledge-only audit."></textarea>
       <button type="button" class="listbtn" id="addCustomBtn">Add standard</button>
     </details>
     <div class="run-actions">
@@ -75,5 +80,6 @@
 <script src="data.js"></script>
 <script src="app.js"></script>
 <script src="run.js"></script>
+<script src="doc-input.js"></script>
 </body>
 </html>

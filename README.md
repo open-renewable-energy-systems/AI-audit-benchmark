@@ -52,6 +52,24 @@ cd ..
 open app/index.html             # explore results
 ```
 
+### Web app — run audits from the browser
+
+The hosted app (https://open-renewable-energy-systems.github.io/AI-audit-benchmark/app/)
+can run audits directly: each model slot takes any OpenAI-compatible endpoint —
+OpenRouter, Mistral, etc. (your key, stored only in your browser), or local
+Ollama (no key). Custom standards can be added by name (knowledge-only) or
+document-fed via pasted text, a URL (best-effort; many spec sites block it),
+or a PDF (text extracted client-side; nothing is uploaded).
+
+To use the claude-code / codex CLIs as slots, run the local bridge:
+
+```bash
+python3 runner/bridge.py   # exposes http://localhost:8765/{claude,codex}/chat/completions
+```
+
+CLI-wrapped models run inside the vendor's agent loop — fine for demos, but
+use raw API slots for official audit numbers.
+
 ---
 
 ## Status
