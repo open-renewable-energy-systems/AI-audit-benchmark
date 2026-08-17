@@ -49,7 +49,7 @@ async function appendOllamaCloud(i) {
     sel.insertBefore(og, sel.querySelector(`option[value="${CUSTOM_MODEL}"]`));
   }
   logLine(`Added ${ids.length} Ollama cloud models (need ollama.com sign-in; big ones may need extra usage enabled).`, "info", i);
-  if (ids.length) syncModelField(i, pickBestCloud(ids));
+  if (ids.length) syncModelField(i, slotPreset[i] ?? pickBestCloud(ids));
 }
 
 // Default = most capable recent model. The catalog has no capability
@@ -89,6 +89,30 @@ async function testSlot(i) {
   }
 }
 
+// Regional defaults — one model per region per slot (CN / US / EU), so the
+// convergence claim spans different training pipelines by default.
+const MODE_DEFAULTS = {
+  local: [
+    { prov: "ollama", model: "deepseek-v4-pro:0813:cloud" },      // China
+    { prov: "ollama", model: "gpt-oss:120b:cloud" },               // US (OpenAI open-weights)
+    { prov: "ollama", model: "mistral-large-3:675b:cloud" },       // Europe
+  ],
+  web: [
+    { prov: "openrouter", model: "deepseek/deepseek-v4-pro" },     // China
+    { prov: "openrouter", model: "openai/gpt-5.6-luna" },          // US
+    { prov: "openrouter", model: "mistralai/mistral-large-2512" }, // Europe
+  ],
+};
+const slotPreset = [null, null, null]; // regional preset per slot, if seeded
+
+function seedDefaults() {
+  MODE_DEFAULTS[currentMode()].forEach((d, i) => {
+    document.getElementById(`prov${i}`).value = d.prov;
+    slotPreset[i] = d.model;
+    onProviderChange(i, d.model);
+  });
+}
+
 function currentMode() {
   return document.querySelector('input[name="mode"]:checked')?.value ?? "web";
 }
@@ -100,17 +124,18 @@ function fillProviderOptions(i) {
     names.map((n) => `<option value="${n}">${n}</option>`).join("");
 }
 
-function onProviderChange(i) {
+function onProviderChange(i, presetModel = null) {
   const mode = currentMode();
   const name = document.getElementById(`prov${i}`).value;
   const ep = document.getElementById(`ep${i}`);
   const model = document.getElementById(`model${i}`);
   const key = document.getElementById(`key${i}`);
+  if (presetModel === null) slotPreset[i] = null; // manual change clears preset
   if (!name) { ep.value = ""; setModelOptions(i, [], ""); return; }
   const p = PROVIDERS[mode][name];
   ep.value = p.endpoint;
   ep.hidden = name !== "custom";
-  model.value = p.defaultModel;
+  model.value = presetModel ?? p.defaultModel;
   key.placeholder = p.keyHint;
   if (p.endpoint) {
     const listed = listModels(i); // auto-list; suggested default stays selected
@@ -130,9 +155,7 @@ function onModeChange() {
     document.getElementById(`model${i}`).value = "";
     setModelOptions(i, [], "");
   });
-  // sensible starting point: slot 1 gets the mode's first provider
-  document.getElementById("prov0").selectedIndex = 1;
-  onProviderChange(0);
+  seedDefaults();
 }
 
 function initSlotModes() {
@@ -155,10 +178,7 @@ function initSlotModes() {
   });
   // restore saved slots if any; otherwise seed slot 1 from the mode default
   const savedSlots = JSON.parse(localStorage.getItem("sage_slots") || "null");
-  if (!savedSlots?.some((s) => s.endpoint)) {
-    document.getElementById("prov0").selectedIndex = 1;
-    onProviderChange(0);
-  }
+  if (!savedSlots?.some((s) => s.endpoint)) seedDefaults();
 }
 
 initSlotModes();
