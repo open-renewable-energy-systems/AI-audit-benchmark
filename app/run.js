@@ -6,13 +6,7 @@
 const RUN_STANDARDS = ["IEC 61850", "CIM", "OpenADR 3", "ISO 15118",
   "IEEE 1547", "SunSpec", "IEEE 2030.5"]; // mirrors runner/evaluate_model_knowledge.py
 const RUNS_PER_MODEL = 3;
-const OPENROUTER_URL = "https://openrouter.ai/api/v1/chat/completions";
-const OLLAMA_URL = "http://localhost:11434/v1/chat/completions";
-const DEFAULT_SLOTS = [
-  { endpoint: OPENROUTER_URL, model: "anthropic/claude-sonnet-4.5" },
-  { endpoint: OPENROUTER_URL, model: "openai/gpt-5" },
-  { endpoint: OLLAMA_URL, model: "qwen2.5:32b" },
-];
+// Slot defaults and provider presets live in slots.js.
 
 const MAX_DOC_CHARS = 150000; // keep pasted standard text within context limits
 
@@ -174,8 +168,8 @@ async function initRunPanel() {
       "<h2>Run an audit</h2><p class='hint'>Unavailable: prompts/eval_system_prompt.md could not be loaded (serve the repo root, not app/ alone).</p>";
     return;
   }
-  const saved = JSON.parse(localStorage.getItem("sage_slots") || "null") || DEFAULT_SLOTS;
-  [0, 1, 2].forEach((i) => {
+  const saved = JSON.parse(localStorage.getItem("sage_slots") || "null");
+  if (saved) [0, 1, 2].forEach((i) => {
     document.getElementById(`ep${i}`).value = saved[i]?.endpoint ?? "";
     document.getElementById(`model${i}`).value = saved[i]?.model ?? "";
     document.getElementById(`key${i}`).value = saved[i]?.key ?? "";

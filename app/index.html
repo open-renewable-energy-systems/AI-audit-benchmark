@@ -30,10 +30,15 @@
   <h2>Run an audit</h2>
   <p class="hint">Calls any OpenAI-compatible endpoint straight from your browser with the frozen system prompt (temperature 0, ×3 runs) — OpenRouter, Mistral, Groq, a corporate proxy, or local Ollama (no key; needs <code>OLLAMA_ORIGINS</code> to allow this page). Each slot's key is stored only in this browser's localStorage and sent only to that slot's endpoint.</p>
   <div class="run-config">
+    <div class="mode-row">
+      <b>Mode:</b>
+      <label><input type="radio" name="mode" value="local"> Local (Ollama, claude &amp; codex CLIs via <code>runner/bridge.py</code>)</label>
+      <label><input type="radio" name="mode" value="web"> Web (OpenRouter or any OpenAI-compatible URL)</label>
+    </div>
     <div class="slots">
-      <div class="slot"><b>Slot 1</b><input id="ep0" placeholder="endpoint URL"><input id="model0" list="models0" placeholder="model id"><datalist id="models0"></datalist><input type="password" id="key0" placeholder="API key (blank for local)" autocomplete="off"><button type="button" class="listbtn" id="list0">List models</button></div>
-      <div class="slot"><b>Slot 2</b><input id="ep1" placeholder="endpoint URL"><input id="model1" list="models1" placeholder="model id"><datalist id="models1"></datalist><input type="password" id="key1" placeholder="API key (blank for local)" autocomplete="off"><button type="button" class="listbtn" id="list1">List models</button></div>
-      <div class="slot"><b>Slot 3</b><input id="ep2" placeholder="endpoint URL"><input id="model2" list="models2" placeholder="model id"><datalist id="models2"></datalist><input type="password" id="key2" placeholder="API key (blank for local)" autocomplete="off"><button type="button" class="listbtn" id="list2">List models</button></div>
+      <div class="slot"><b>Slot 1</b><select id="prov0"></select><input id="ep0" placeholder="OpenAI-compatible endpoint URL" hidden><input id="model0" list="models0" placeholder="model id"><datalist id="models0"></datalist><input type="password" id="key0" placeholder="API key" autocomplete="off"><button type="button" class="listbtn" id="list0">Refresh models</button></div>
+      <div class="slot"><b>Slot 2</b><select id="prov1"></select><input id="ep1" placeholder="OpenAI-compatible endpoint URL" hidden><input id="model1" list="models1" placeholder="model id"><datalist id="models1"></datalist><input type="password" id="key1" placeholder="API key" autocomplete="off"><button type="button" class="listbtn" id="list1">Refresh models</button></div>
+      <div class="slot"><b>Slot 3</b><select id="prov2"></select><input id="ep2" placeholder="OpenAI-compatible endpoint URL" hidden><input id="model2" list="models2" placeholder="model id"><datalist id="models2"></datalist><input type="password" id="key2" placeholder="API key" autocomplete="off"><button type="button" class="listbtn" id="list2">Refresh models</button></div>
     </div>
     <div id="standards-checks" class="std-row"></div>
     <details class="custom-std">
@@ -80,6 +85,7 @@
 <script src="data.js"></script>
 <script src="app.js"></script>
 <script src="run.js"></script>
+<script src="slots.js"></script>
 <script src="doc-input.js"></script>
 </body>
 </html>
