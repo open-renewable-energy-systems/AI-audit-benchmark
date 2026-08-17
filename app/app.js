@@ -3,16 +3,24 @@
 // served from the repo root; falls back to the mock data in data.js.
 
 let usingRealData = false;
+let badgeText = "MOCK DATA"; // what the badge says when published results are shown
+const liveRows = [];       // rows produced by this session's runs
+let committedRows = null;  // published rows (repo gap map or mock), shown on demand
+
+function visibleRows() {
+  const showPub = document.getElementById("showPublished").checked;
+  return (showPub ? committedRows ?? [] : []).concat(liveRows);
+}
 
 async function loadRealGapmap() {
   try {
     const res = await fetch("../gapmap/gap-map.json");
     if (!res.ok) return false;
     const g = await res.json();
-    GAPMAP.length = 0;
+    committedRows = [];
     Object.keys(CELL_DETAIL).forEach((k) => delete CELL_DETAIL[k]);
     g.standards.forEach((s) => {
-      GAPMAP.push({
+      committedRows.push({
         standard: s.display_name,
         scores: DIMENSIONS.map((d) => {
           const c = s.cells[d.key];
@@ -32,12 +40,7 @@ async function loadRealGapmap() {
       });
     });
     usingRealData = true;
-    const badge = document.getElementById("mockBadge");
-    if (g.convergence_claimable) {
-      badge.hidden = true;
-    } else {
-      badge.textContent = `REAL DATA · ${g.model_count} MODEL — CONVERGENCE NEEDS ≥2`;
-    }
+    badgeText = g.convergence_claimable ? "" : `REAL DATA · ${g.model_count} MODEL — CONVERGENCE NEEDS ≥2`;
     return true;
   } catch {
     return false; // no server / no gap map yet -> mock fallback is the feature
@@ -75,11 +78,10 @@ function mergeLiveResults(results) {
         };
       });
     });
-    const row = GAPMAP.find((r) => r.standard === std);
-    if (row) { row.scores = scores; row.live = true; }
-    else GAPMAP.push({ standard: std, scores, live: true });
+    const row = liveRows.find((r) => r.standard === std);
+    if (row) row.scores = scores;
+    else liveRows.push({ standard: std, scores, live: true });
   });
-  document.getElementById("gapmap").innerHTML = "";
   renderGapmap();
 }
 
@@ -89,6 +91,12 @@ function scoreClass(s) {
 
 function renderGapmap() {
   const table = document.getElementById("gapmap");
+  table.innerHTML = "";
+  const rows = visibleRows();
+  if (!rows.length) {
+    table.innerHTML = `<tr><td class="empty-hint">No results yet — configure slots in "Run an audit" below and run one, or tick "show published results".</td></tr>`;
+    return;
+  }
   const head = document.createElement("tr");
   head.innerHTML =
     "<th></th>" + DIMENSIONS.map((d) => `<th class="dimhead" data-key="${d.key}" title="Click for definition">${d.label} ⓘ</th>`).join("");
@@ -97,7 +105,7 @@ function renderGapmap() {
   });
   table.appendChild(head);
 
-  GAPMAP.forEach((row) => {
+  rows.forEach((row) => {
     const tr = document.createElement("tr");
     tr.innerHTML = `<th class="rowhead${row.live ? " live" : ""}" ${row.live ? 'title="updated by this session\'s run"' : ""}>${row.standard}${row.live ? " ●" : ""}</th>`;
     row.scores.forEach((s, i) => {
@@ -198,8 +206,18 @@ document.getElementById("gaifareToggle").onkeydown = (e) => {
   if (e.key === " " || e.key === "Enter") setToggle(!gaifareOn);
 };
 document.getElementById("replayBtn").onclick = replay;
+function updateBadge() {
+  const badge = document.getElementById("mockBadge");
+  const showPub = document.getElementById("showPublished").checked;
+  badge.hidden = !(showPub && badgeText);
+  if (!badge.hidden) badge.textContent = badgeText;
+}
+
 async function init() {
   await loadRealGapmap();
+  if (!committedRows) committedRows = MOCK_GAPMAP; // no served gap map -> mock set
+  document.getElementById("showPublished").onchange = () => { renderGapmap(); updateBadge(); };
+  updateBadge();
   renderGapmap();
   renderGrant();
   replay();

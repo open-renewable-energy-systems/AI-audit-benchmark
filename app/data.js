@@ -23,7 +23,7 @@ const SCORE_SCALE = [
 const MODELS = ["claude", "gpt", "gemini", "mistral", "open-8b"];
 
 // Convergent gap map (rows = standards). null = contested.
-const GAPMAP = [
+const MOCK_GAPMAP = [
   { standard: "IEEE 2030.5", scores: [3, 1, 1, 0] },
   { standard: "IEC 61850",   scores: [3, 0, null, 0] },
   { standard: "CIM",         scores: [2, 0, 1, 0] },

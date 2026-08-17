@@ -8,13 +8,13 @@
 </head>
 <body>
 <header>
-  <h1>SAGE <span>·</span> Standards Audit &amp; Gap Evaluator <span class="mock-badge" id="mockBadge">MOCK DATA</span></h1>
+  <h1>SAGE <span>·</span> Standards Audit &amp; Gap Evaluator <span class="mock-badge" id="mockBadge" hidden>MOCK DATA</span></h1>
   <p class="sub">Multi-model audit of microgrid standards for AI-agent readiness — <b>SAGE finds the gaps, GAIFARE fills them.</b></p>
 </header>
 
 <section id="gapmap-section">
   <h2>Gap map — convergent scores across models</h2>
-  <p class="hint">Rows: standards corpus. Columns: the four agentic dimensions. Cell = score all models agree on (±1); hatched = contested. Click a cell to see per-model evidence.</p>
+  <p class="hint">Shows this session's live run results (●). Tick the box below to also show the published results committed in the repo. Columns: the four agentic dimensions. Cell = score all models agree on (±1); hatched = contested. Click a cell to see per-model evidence.</p>
   <table class="gapmap" id="gapmap"></table>
   <div class="legend">
     <span><span class="chip s3"></span>3 explicit</span>
@@ -22,6 +22,7 @@
     <span><span class="chip s1"></span>1 implicit</span>
     <span><span class="chip s0"></span>0 absent</span>
     <span><span class="chip contested"></span>contested (models disagree)</span>
+    <label class="showpub"><input type="checkbox" id="showPublished"> show published results (repo)</label>
   </div>
   <div id="detail" hidden></div>
 </section>
