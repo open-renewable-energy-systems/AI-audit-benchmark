@@ -5,7 +5,7 @@
 
 const RUN_STANDARDS = ["IEC 61850", "CIM", "OpenADR 3", "ISO 15118",
   "IEEE 1547", "SunSpec", "IEEE 2030.5"]; // mirrors runner/evaluate_model_knowledge.py
-const RUNS_PER_MODEL = 3;
+function runsPerModel() { return Number(document.getElementById("runsSel").value); }
 // Slot defaults and provider presets live in slots.js.
 
 const MAX_DOC_CHARS = 150000; // keep pasted standard text within context limits
@@ -39,7 +39,7 @@ function syncModelField(i, value) {
 async function listModels(i) {
   const endpoint = document.getElementById(`ep${i}`).value.trim();
   const key = document.getElementById(`key${i}`).value.trim();
-  if (!endpoint) { logLine(`Slot ${i + 1}: enter an endpoint URL first.`, "bad"); return; }
+  if (!endpoint) { logLine("Enter an endpoint URL first.", "bad", i); return; }
   const url = endpoint.replace(/\/chat\/completions\/?$/, "") + "/models";
   try {
     const headers = key ? { Authorization: "Bearer " + key } : {};
@@ -48,9 +48,9 @@ async function listModels(i) {
     const ids = (await res.json()).data.map((m) => m.id).sort();
     setModelOptions(i, [{ label: "available models", ids }],
       document.getElementById(`model${i}`).value || undefined);
-    logLine(`Slot ${i + 1}: ${ids.length} models listed.`, "ok");
+    logLine(`${ids.length} models listed.`, "ok", i);
   } catch (e) {
-    logLine(`Slot ${i + 1}: could not list models (${e.message}).`, "bad");
+    logLine(`Could not list models (${e.message}).`, "bad", i);
   }
 }
 
@@ -83,17 +83,26 @@ function resolveStandard(value) {
 
 function slotConfigs() {
   return [0, 1, 2].map((i) => ({
+    idx: i,
     endpoint: document.getElementById(`ep${i}`).value.trim(),
     model: document.getElementById(`model${i}`).value.trim(),
     key: document.getElementById(`key${i}`).value.trim(),
   })).filter((s) => s.endpoint && s.model);
 }
 
-function logLine(text, cls = "info") {
+// slot = 0..2 routes the line to that slot's log column; omit for run-wide lines.
+function logLine(text, cls = "info", slot = null) {
   const el = document.createElement("div");
   el.className = "runlog-line " + cls;
   el.textContent = text;
-  const log = document.getElementById("runlog");
+  let log;
+  if (slot === null) {
+    log = document.getElementById("runlog");
+  } else {
+    const col = document.getElementById(`slotlog${slot}`);
+    col.hidden = false;
+    log = col.querySelector(".lines");
+  }
   log.appendChild(el);
   log.scrollTop = log.scrollHeight;
 }
@@ -138,6 +147,28 @@ async function callModel(slot, standard, docText = "") {
 
 function fileSafe(s) { return s.replaceAll(" ", "_").replaceAll("/", "_").replaceAll(":", "_"); }
 
+// One slot's full sequential pass (a provider handles one request at a time
+// kindly); slots themselves run concurrently in runAudit.
+async function runSlot(slot, standards) {
+  const total = standards.length * runsPerModel();
+  let done = 0;
+  logLine(`${slot.model}: starting ${total} runs`, "info", slot.idx);
+  for (const std of standards) {
+    for (let i = 1; i <= runsPerModel(); i++) {
+      try {
+        const data = await callModel(slot, std.name, std.text);
+        data.audit_mode = std.text ? "document_fed" : "knowledge_only";
+        runResults.push({ standard: std.name, model: slot.model, iteration: i, data });
+        const scores = DIMENSIONS.map((d) => data[d.key].score).join("/");
+        logLine(`[${++done}/${total}] ${std.name} run ${i}: ${scores}`, "ok", slot.idx);
+      } catch (e) {
+        done++;
+        logLine(`[${done}/${total}] ${std.name} run ${i} FAILED: ${e.message}`, "bad", slot.idx);
+      }
+    }
+  }
+}
+
 async function runAudit() {
   const btn = document.getElementById("runAuditBtn");
   const slots = slotConfigs();
@@ -149,25 +180,9 @@ async function runAudit() {
   localStorage.setItem("sage_slots", JSON.stringify(slots));
   btn.disabled = true;
   runResults.length = 0;
-  const total = slots.length * standards.length * RUNS_PER_MODEL;
-  let done = 0;
-  for (const slot of slots) {
-    for (const std of standards) {
-      for (let i = 1; i <= RUNS_PER_MODEL; i++) {
-        try {
-          const data = await callModel(slot, std.name, std.text);
-          data.audit_mode = std.text ? "document_fed" : "knowledge_only";
-          runResults.push({ standard: std.name, model: slot.model, iteration: i, data });
-          const scores = DIMENSIONS.map((d) => data[d.key].score).join("/");
-          logLine(`[${++done}/${total}] ${slot.model} × ${std.name} run ${i}: ${scores}`, "ok");
-        } catch (e) {
-          done++;
-          logLine(`[${done}/${total}] ${slot.model} × ${std.name} run ${i} FAILED: ${e.message}`, "bad");
-        }
-      }
-    }
-  }
+  await Promise.all(slots.map((slot) => runSlot(slot, standards)));
   btn.disabled = false;
+  const total = slots.length * standards.length * runsPerModel();
   const failed = total - runResults.length;
   logLine(`Done: ${runResults.length}/${total} runs succeeded${failed ? `, ${failed} FAILED (not exported — a failed run is a failure, not a result)` : ""}.`,
     failed ? "warn" : "ok");

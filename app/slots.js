@@ -48,7 +48,7 @@ async function appendOllamaCloud(i) {
     og.innerHTML = fresh.map((id) => `<option value="${id}">${id}</option>`).join("");
     sel.insertBefore(og, sel.querySelector(`option[value="${CUSTOM_MODEL}"]`));
   }
-  logLine(`Slot ${i + 1}: added ${ids.length} Ollama cloud models (need ollama.com sign-in; big ones may need extra usage enabled).`, "info");
+  logLine(`Added ${ids.length} Ollama cloud models (need ollama.com sign-in; big ones may need extra usage enabled).`, "info", i);
   if (ids.length) syncModelField(i, pickBestCloud(ids));
 }
 
@@ -71,8 +71,8 @@ async function testSlot(i) {
     model: document.getElementById(`model${i}`).value.trim(),
     key: document.getElementById(`key${i}`).value.trim(),
   };
-  if (!slot.endpoint || !slot.model) { logLine(`Slot ${i + 1}: set endpoint and model first.`, "bad"); return; }
-  logLine(`Slot ${i + 1}: testing ${slot.model}…`, "info");
+  if (!slot.endpoint || !slot.model) { logLine("Set endpoint and model first.", "bad", i); return; }
+  logLine(`Testing ${slot.model}…`, "info", i);
   const t0 = performance.now();
   try {
     const res = await fetch(slot.endpoint, {
@@ -83,9 +83,9 @@ async function testSlot(i) {
     if (!res.ok) throw new Error(`HTTP ${res.status}: ${(await res.text()).slice(0, 140)}`);
     const msg = (await res.json()).choices[0].message;
     const text = (msg.content || "").trim() || "(empty text — reasoning-only reply, still working)";
-    logLine(`Slot ${i + 1} ✓ ${slot.model} responded in ${((performance.now() - t0) / 1000).toFixed(1)}s: ${text.slice(0, 60)}`, "ok");
+    logLine(`✓ ${slot.model} responded in ${((performance.now() - t0) / 1000).toFixed(1)}s: ${text.slice(0, 60)}`, "ok", i);
   } catch (e) {
-    logLine(`Slot ${i + 1} ✗ ${slot.model} FAILED: ${e.message}`, "bad");
+    logLine(`✗ ${slot.model} FAILED: ${e.message}`, "bad", i);
   }
 }
 

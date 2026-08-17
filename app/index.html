@@ -53,9 +53,21 @@
       <button type="button" class="listbtn" id="addCustomBtn">Add standard</button>
     </details>
     <div class="run-actions">
+      <label class="runs-label">Runs per model
+        <select id="runsSel">
+          <option value="1">1 (quick check)</option>
+          <option value="3" selected>3 (official — catches run-to-run instability)</option>
+          <option value="5">5</option>
+        </select>
+      </label>
       <button class="replay" id="runAuditBtn">▶ Run audit</button>
       <button class="replay" id="exportBtn" disabled>⬇ Export results JSON</button>
     </div>
+  </div>
+  <div class="slotlogs">
+    <div class="runlog-col" id="slotlog0" hidden><h4>Slot 1</h4><div class="lines"></div></div>
+    <div class="runlog-col" id="slotlog1" hidden><h4>Slot 2</h4><div class="lines"></div></div>
+    <div class="runlog-col" id="slotlog2" hidden><h4>Slot 3</h4><div class="lines"></div></div>
   </div>
   <div id="runlog"></div>
 </section>
