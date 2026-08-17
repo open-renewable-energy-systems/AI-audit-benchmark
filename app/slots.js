@@ -38,10 +38,15 @@ async function appendOllamaCloud(i) {
   } catch {
     ids = OLLAMA_CLOUD_FALLBACK; // bridge not running -> curated snapshot
   }
-  const dl = document.getElementById(`models${i}`);
-  const have = new Set([...dl.options].map((o) => o.value));
-  dl.innerHTML += ids.filter((id) => !have.has(id))
-    .map((id) => `<option value="${id}" label="cloud">`).join("");
+  const sel = document.getElementById(`modelsel${i}`);
+  const have = new Set([...sel.options].map((o) => o.value));
+  const fresh = ids.filter((id) => !have.has(id));
+  if (fresh.length) {
+    const og = document.createElement("optgroup");
+    og.label = "Ollama cloud (subscription)";
+    og.innerHTML = fresh.map((id) => `<option value="${id}">${id}</option>`).join("");
+    sel.insertBefore(og, sel.querySelector(`option[value="${CUSTOM_MODEL}"]`));
+  }
   logLine(`Slot ${i + 1}: added ${ids.length} Ollama cloud models (need ollama.com sign-in; big ones may need extra usage enabled).`, "info");
 }
 
@@ -86,7 +91,7 @@ function onProviderChange(i) {
   const ep = document.getElementById(`ep${i}`);
   const model = document.getElementById(`model${i}`);
   const key = document.getElementById(`key${i}`);
-  if (!name) { ep.value = ""; model.value = ""; return; }
+  if (!name) { ep.value = ""; setModelOptions(i, [], ""); return; }
   const p = PROVIDERS[mode][name];
   ep.value = p.endpoint;
   ep.hidden = name !== "custom";
@@ -95,6 +100,8 @@ function onProviderChange(i) {
   if (p.endpoint) {
     const listed = listModels(i); // auto-list; suggested default stays selected
     if (name === "ollama") listed.then(() => appendOllamaCloud(i));
+  } else {
+    setModelOptions(i, [], ""); // custom endpoint -> free-typed model id
   }
 }
 
@@ -106,7 +113,7 @@ function onModeChange() {
     const ep = document.getElementById(`ep${i}`);
     ep.hidden = true; ep.value = "";
     document.getElementById(`model${i}`).value = "";
-    document.getElementById(`models${i}`).innerHTML = "";
+    setModelOptions(i, [], "");
   });
   // sensible starting point: slot 1 gets the mode's first provider
   document.getElementById("prov0").selectedIndex = 1;
@@ -124,6 +131,12 @@ function initSlotModes() {
     fillProviderOptions(i);
     document.getElementById(`prov${i}`).onchange = () => onProviderChange(i);
     document.getElementById(`test${i}`).onclick = () => testSlot(i);
+    document.getElementById(`modelsel${i}`).onchange = () => {
+      const v = document.getElementById(`modelsel${i}`).value;
+      const input = document.getElementById(`model${i}`);
+      input.hidden = v !== CUSTOM_MODEL;
+      input.value = v === CUSTOM_MODEL ? "" : v;
+    };
   });
   // restore saved slots if any; otherwise seed slot 1 from the mode default
   const savedSlots = JSON.parse(localStorage.getItem("sage_slots") || "null");

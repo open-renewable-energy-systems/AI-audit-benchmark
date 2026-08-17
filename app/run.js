@@ -14,6 +14,28 @@ let systemPromptTemplate = null;
 const runResults = []; // {standard, model, iteration, data}
 const customStandards = []; // {name, text} — text = document-fed, else knowledge-only
 
+const CUSTOM_MODEL = "__custom__";
+
+function setModelOptions(i, groups, selected) {
+  // groups: [{label, ids}]; keeps a "custom model id…" escape hatch.
+  const sel = document.getElementById(`modelsel${i}`);
+  sel.innerHTML = groups.map((g) =>
+    `<optgroup label="${g.label}">` +
+    g.ids.map((id) => `<option value="${id}">${id}</option>`).join("") +
+    `</optgroup>`).join("") +
+    `<option value="${CUSTOM_MODEL}">custom model id…</option>`;
+  syncModelField(i, selected ?? groups[0]?.ids[0] ?? CUSTOM_MODEL);
+}
+
+function syncModelField(i, value) {
+  const sel = document.getElementById(`modelsel${i}`);
+  const input = document.getElementById(`model${i}`);
+  if ([...sel.options].some((o) => o.value === value)) sel.value = value;
+  else sel.value = CUSTOM_MODEL;
+  input.hidden = sel.value !== CUSTOM_MODEL;
+  if (sel.value !== CUSTOM_MODEL) input.value = value;
+}
+
 async function listModels(i) {
   const endpoint = document.getElementById(`ep${i}`).value.trim();
   const key = document.getElementById(`key${i}`).value.trim();
@@ -24,9 +46,9 @@ async function listModels(i) {
     const res = await fetch(url, { headers });
     if (!res.ok) throw new Error("HTTP " + res.status);
     const ids = (await res.json()).data.map((m) => m.id).sort();
-    document.getElementById(`models${i}`).innerHTML =
-      ids.map((id) => `<option value="${id}">`).join("");
-    logLine(`Slot ${i + 1}: ${ids.length} models available — pick from the model field's dropdown.`, "ok");
+    setModelOptions(i, [{ label: "available models", ids }],
+      document.getElementById(`model${i}`).value || undefined);
+    logLine(`Slot ${i + 1}: ${ids.length} models listed.`, "ok");
   } catch (e) {
     logLine(`Slot ${i + 1}: could not list models (${e.message}).`, "bad");
   }
