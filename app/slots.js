@@ -21,13 +21,14 @@ const PROVIDERS = {
 };
 
 // Fallback when the bridge isn't running (snapshot of ollama.com/api/tags,
-// 2026-08-17); the bridge proxies the live catalog when available.
-const OLLAMA_CLOUD_FALLBACK = ["deepseek-v4-flash:preview", "deepseek-v4-flash:0731",
-  "minimax-m2.7", "mistral-large-3:675b", "nemotron-3-super", "glm-5.2",
-  "deepseek-v4-pro:preview", "minimax-m3", "nemotron-3-ultra", "gpt-oss:120b",
-  "gemma4:31b", "kimi-k2.6", "kimi-k2.7-code", "qwen3.5:397b", "glm-5.1",
-  "deepseek-v4-pro:0813", "gpt-oss:20b", "kimi-k3", "nemotron-3-nano:30b"]
-  .map((n) => `${n}:cloud`);
+// 2026-08-17, newest first); the bridge proxies the live catalog sorted by
+// release date when available.
+const OLLAMA_CLOUD_FALLBACK = ["deepseek-v4-pro:0813", "deepseek-v4-flash:0731",
+  "kimi-k3", "glm-5.2", "kimi-k2.7-code", "nemotron-3-ultra", "glm-5.1",
+  "qwen3.5:397b", "minimax-m3", "kimi-k2.6", "deepseek-v4-pro:preview",
+  "deepseek-v4-flash:preview", "minimax-m2.7", "mistral-large-3:675b",
+  "nemotron-3-super", "gpt-oss:120b", "gemma4:31b", "gpt-oss:20b",
+  "nemotron-3-nano:30b"].map((n) => `${n}:cloud`);
 
 async function appendOllamaCloud(i) {
   let ids;
@@ -48,6 +49,20 @@ async function appendOllamaCloud(i) {
     sel.insertBefore(og, sel.querySelector(`option[value="${CUSTOM_MODEL}"]`));
   }
   logLine(`Slot ${i + 1}: added ${ids.length} Ollama cloud models (need ollama.com sign-in; big ones may need extra usage enabled).`, "info");
+  if (ids.length) syncModelField(i, pickBestCloud(ids));
+}
+
+// Default = most capable recent model. The catalog has no capability
+// metadata, so rank by name tier (pro/ultra/large > base > flash/mini/nano);
+// ids arrive newest-first, so recency breaks ties.
+function cloudTier(id) {
+  if (/pro|ultra|large|max/.test(id)) return 2;
+  if (/flash|mini|nano|air|lite/.test(id)) return 0;
+  return 1;
+}
+
+function pickBestCloud(ids) {
+  return ids.reduce((best, id) => (cloudTier(id) > cloudTier(best) ? id : best), ids[0]);
 }
 
 async function testSlot(i) {
