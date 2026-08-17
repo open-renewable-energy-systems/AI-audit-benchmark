@@ -44,6 +44,45 @@ async function loadRealGapmap() {
   }
 }
 
+function median(arr) {
+  const s = [...arr].sort((a, b) => a - b);
+  const m = s.length >> 1;
+  return s.length % 2 ? s[m] : (s[m - 1] + s[m]) / 2;
+}
+
+// Merge this session's run results into the gap map (same rules as the
+// aggregator: per-model median across runs; cross-model spread <=1 ->
+// convergent, else contested). Rows touched this session are marked ●.
+function mergeLiveResults(results) {
+  const byStd = {};
+  results.forEach((r) => {
+    ((byStd[r.standard] ??= {})[r.model] ??= []).push(r.data);
+  });
+  Object.entries(byStd).forEach(([std, byModel]) => {
+    const scores = DIMENSIONS.map((d) => {
+      const medians = Object.values(byModel).map((runs) => median(runs.map((x) => x[d.key].score)));
+      return Math.max(...medians) - Math.min(...medians) > 1 ? null : Math.round(median(medians));
+    });
+    DIMENSIONS.forEach((d) => {
+      CELL_DETAIL[`${std}|${d.key}`] = Object.entries(byModel).map(([m, runs]) => {
+        const ss = runs.map((x) => x[d.key].score);
+        const md = median(ss);
+        const rep = runs.reduce((b, x) => (Math.abs(x[d.key].score - md) < Math.abs(b[d.key].score - md) ? x : b));
+        return {
+          model: m + (Math.max(...ss) - Math.min(...ss) <= 1 ? "" : " ⚠unstable"),
+          score: md, evidence: rep[d.key].evidence,
+          rationale: rep[d.key].rationale, confidence: rep[d.key].confidence,
+        };
+      });
+    });
+    const row = GAPMAP.find((r) => r.standard === std);
+    if (row) { row.scores = scores; row.live = true; }
+    else GAPMAP.push({ standard: std, scores, live: true });
+  });
+  document.getElementById("gapmap").innerHTML = "";
+  renderGapmap();
+}
+
 function scoreClass(s) {
   return s === null ? "contested" : "s" + s;
 }
@@ -60,7 +99,7 @@ function renderGapmap() {
 
   GAPMAP.forEach((row) => {
     const tr = document.createElement("tr");
-    tr.innerHTML = `<th class="rowhead">${row.standard}</th>`;
+    tr.innerHTML = `<th class="rowhead${row.live ? " live" : ""}" ${row.live ? 'title="updated by this session\'s run"' : ""}>${row.standard}${row.live ? " ●" : ""}</th>`;
     row.scores.forEach((s, i) => {
       const td = document.createElement("td");
       td.className = "cell " + scoreClass(s);

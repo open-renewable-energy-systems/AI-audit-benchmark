@@ -190,6 +190,11 @@ async function runAudit() {
   logLine(`Done: ${runResults.length}/${total} runs succeeded${failed ? `, ${failed} FAILED (not exported — a failed run is a failure, not a result)` : ""}.`,
     failed ? "warn" : "ok");
   document.getElementById("exportBtn").disabled = !runResults.length;
+  if (runResults.length) {
+    mergeLiveResults(runResults);
+    logLine("Gap map above updated with this session's results (● rows).", "info");
+    document.getElementById("gapmap-section").scrollIntoView({ behavior: "smooth" });
+  }
 }
 
 function exportResults() {
