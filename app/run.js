@@ -5,6 +5,7 @@
 
 const RUN_STANDARDS = ["IEC 61850", "CIM", "OpenADR 3", "ISO 15118",
   "IEEE 1547", "SunSpec", "IEEE 2030.5"]; // mirrors runner/evaluate_model_knowledge.py
+const DEFAULT_STANDARD = "IEEE 2030.5";
 function runsPerModel() { return Number(document.getElementById("runsSel").value); }
 // Slot defaults and provider presets live in slots.js.
 
@@ -55,8 +56,10 @@ async function listModels(i) {
 }
 
 function renderStandards() {
+  // Demo default: only one standard pre-checked (the talk's worked example);
+  // check more for a full audit.
   const builtin = RUN_STANDARDS.map((s) =>
-    `<label><input type="checkbox" class="std-check" value="${s}" checked> ${s}</label>`);
+    `<label><input type="checkbox" class="std-check" value="${s}"${s === DEFAULT_STANDARD ? " checked" : ""}> ${s}</label>`);
   const custom = customStandards.map((c, i) =>
     `<label><input type="checkbox" class="std-check" value="__custom${i}" checked> ${c.name} <em>(${c.text ? "document-fed" : "knowledge-only"})</em></label>`);
   document.getElementById("standards-checks").innerHTML = builtin.concat(custom).join("");
