@@ -25,6 +25,8 @@ table.gapmap th { font-size: 12px; color: var(--muted); font-weight: 600; paddin
 table.gapmap th.rowhead { text-align: right; }
 table.gapmap th.dimhead { cursor: pointer; }
 table.gapmap th.rowhead.live { color: var(--green2); }
+td.empty-hint { color: var(--muted); font-size: 13px; padding: 18px 6px; }
+.legend .showpub { cursor: pointer; color: var(--text); }
 table.gapmap th.dimhead:hover { color: var(--blue); }
 td.cell {
   width: 150px; height: 46px; border-radius: 8px; text-align: center;
