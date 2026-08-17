@@ -52,8 +52,11 @@ BACKENDS = {
         "models": ["sonnet", "opus", "haiku"],
     },
     "codex": {
-        "cmd": lambda prompt, model: ["codex", "exec", "--model", model, prompt],
-        "models": ["gpt-5.2-codex", "gpt-5.2", "gpt-5.1-codex-mini"],
+        # ChatGPT-account Codex only accepts its own current models; "default"
+        # omits --model and uses whatever the CLI is configured for.
+        "cmd": lambda prompt, model: ["codex", "exec"]
+        + ([] if model == "default" else ["--model", model]) + [prompt],
+        "models": ["default", "gpt-5.6-sol"],
     },
 }
 

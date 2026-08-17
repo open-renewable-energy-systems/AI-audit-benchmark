@@ -11,7 +11,7 @@ const PROVIDERS = {
     claude: { endpoint: `${BRIDGE}/claude/chat/completions`,
       defaultModel: "sonnet", keyHint: "API key — not needed (uses your claude login)" },
     codex: { endpoint: `${BRIDGE}/codex/chat/completions`,
-      defaultModel: "gpt-5.2", keyHint: "API key — not needed (uses your codex login)" },
+      defaultModel: "default", keyHint: "API key — not needed (uses your codex login)" },
   },
   web: {
     openrouter: { endpoint: "https://openrouter.ai/api/v1/chat/completions",
