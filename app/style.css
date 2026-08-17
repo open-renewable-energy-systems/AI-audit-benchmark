@@ -71,6 +71,9 @@ button.replay { background: var(--blue); border: 0; color: #fff; font-weight: 70
 #grantbox pre { font-size: 12px; line-height: 1.55; color: #b9d4a8; overflow-x: auto; }
 /* Run panel */
 .run-config { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 16px 20px; display: grid; gap: 14px; }
+.mode-row { display: flex; gap: 18px; align-items: center; font-size: 13px; color: var(--muted); flex-wrap: wrap; }
+.mode-row label { cursor: pointer; }
+.run-config select { background: var(--panel2); border: 1px solid var(--line); border-radius: 6px; color: var(--text); padding: 7px 10px; font-size: 13px; }
 .run-config input { background: var(--panel2); border: 1px solid var(--line); border-radius: 6px; color: var(--text); padding: 7px 10px; font-size: 13px; }
 .slots { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
 .slot { display: grid; gap: 6px; font-size: 13px; }
