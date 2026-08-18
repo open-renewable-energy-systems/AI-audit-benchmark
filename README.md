@@ -4,6 +4,8 @@ An open, multi-model auditor that scores an interoperability standard for **AI-a
 
 > **SAGE finds the gaps, [GAIFARE](#gaifare) fills them.**
 
+**▶ Try it now: https://open-renewable-energy-systems.github.io/AI-audit-benchmark/app/** — view the gap map, or run your own audit from the browser (OpenRouter/Mistral key, or your local Ollama).
+
 Today's microgrid / DER standards describe *what a device can do* — not *what an autonomous agent may do, what it did, or who owns the data.* SAGE runs the **same prompt and metrics across multiple AI models** so the gaps it reports are the ones models *agree* on, not one model's hallucination. GAIFARE is the companion interface contract that fills those gaps while reusing what the standards already do well.
 
 First presented at **LF Energy Summit Europe 2026** — *"AI-Audited: An Open Interface for Autonomous DER Agents on the Microgrid"* (Sept 16, Berlin).
