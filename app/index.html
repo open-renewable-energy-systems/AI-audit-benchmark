@@ -8,7 +8,7 @@
 </head>
 <body>
 <header>
-  <h1>SAGE <span>·</span> Standards Audit &amp; Gap Evaluator <span class="mock-badge" id="mockBadge" hidden>MOCK DATA</span></h1>
+  <h1>SAGE <span>·</span> Standards Audit &amp; Gap Evaluator <span class="mock-badge" id="mockBadge" hidden></span></h1>
   <p class="sub">Multi-model audit of microgrid standards for AI-agent readiness — <b>SAGE finds the gaps, GAIFARE fills them.</b></p>
 </header>
 
@@ -45,7 +45,7 @@
       <dt>Cell value</dt><dd>Per model: median of its runs. Per cell: median of the model medians when they agree within ±1 — otherwise <b>contested</b> (hatched, no number claimed).</dd>
       <dt>⚠ unstable</dt><dd>One model's runs disagreed with each other by more than 1 — its score for that cell is not reproducible.</dd>
       <dt>● live row</dt><dd>Produced by an audit run in this browser session. Published rows come from results committed in the <a href="https://github.com/open-renewable-energy-systems/AI-audit-benchmark">repo</a>.</dd>
-      <dt>knowledge-only vs document-fed</dt><dd>Whether the model answered from its training knowledge alone, or was given the standard's text to cite from. Every exported result records which.</dd>
+      <dt>knowledge-only vs document-fed</dt><dd>Whether the model answered from its training knowledge alone, or was given the standard's text to cite from. All built-in standards run knowledge-only; only custom standards with pasted/uploaded text are document-fed. Every exported result records which.</dd>
     </dl>
   </details>
 </section>
@@ -69,6 +69,7 @@
     </details>
     <div id="slotSummary" class="slot-summary"></div>
     <div id="standards-checks" class="std-row"></div>
+    <p class="hint std-note">ℹ Built-in standards are audited <b>knowledge-only</b>: the model answers from what it learned <i>about</i> the standard during training — no official text is sent (those are licensed and never stored here). Citations must therefore be verified against the real document. To audit a standard's actual text, use <b>Add a custom standard</b> and paste/upload it (document-fed).</p>
     <details class="custom-std">
       <summary>Add a custom standard</summary>
       <input id="customName" placeholder="standard name, e.g. IEEE 1815 (DNP3)">
