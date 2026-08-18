@@ -125,6 +125,9 @@ function renderSlotSummary() {
   document.getElementById("slotSummary").innerHTML = [0, 1, 2].map((i) => {
     const c = configured.find((x) => x.idx === i);
     const prov = document.getElementById(`prov${i}`).value;
+    // log columns carry the actual model name once configured
+    document.querySelector(`#slotlog${i} h4`).textContent =
+      c ? `Model ${i + 1} — ${c.model}` : `Model ${i + 1}`;
     return c
       ? `<span class="chip-slot on">Model ${i + 1}: ${c.model}${prov ? ` <em>(${prov})</em>` : ""}</span>`
       : `<span class="chip-slot">Model ${i + 1}: not set</span>`;
