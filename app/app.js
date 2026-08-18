@@ -233,6 +233,10 @@ function updateBadge() {
 async function init() {
   await loadRealGapmap();
   if (!committedRows) committedRows = MOCK_GAPMAP; // no served gap map -> mock set
+  // shareable link straight to the published results view
+  if (new URLSearchParams(location.search).has("published")) {
+    document.getElementById("showPublished").checked = true;
+  }
   document.getElementById("showPublished").onchange = () => { renderGapmap(); updateBadge(); };
   updateBadge();
   renderGapmap();
