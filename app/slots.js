@@ -119,14 +119,32 @@ function currentMode() {
   return document.querySelector('input[name="mode"]:checked')?.value ?? "web";
 }
 
-// Log column titles carry the configured model names (the only summary needed).
+// Log column titles carry a model dropdown synced with Model settings.
 function renderSlotSummary() {
   const configured = slotConfigs();
   [0, 1, 2].forEach((i) => {
     const c = configured.find((x) => x.idx === i);
-    document.querySelector(`#slotlog${i} h4`).textContent =
-      c ? `Model ${i + 1} — ${c.model}` : `Model ${i + 1}`;
+    document.getElementById(`qlabel${i}`).textContent = `Model ${i + 1}${c ? " —" : ""}`;
+    const quick = document.getElementById(`quick${i}`);
+    quick.hidden = !c;
+    if (c) {
+      quick.innerHTML = document.getElementById(`modelsel${i}`).innerHTML;
+      if (![...quick.options].some((o) => o.value === c.model)) {
+        quick.innerHTML = `<option value="${c.model}">${c.model}</option>` + quick.innerHTML;
+      }
+      quick.value = c.model;
+    }
   });
+}
+
+function onQuickModelChange(i) {
+  const v = document.getElementById(`quick${i}`).value;
+  if (v === CUSTOM_MODEL) {
+    document.getElementById("slotSettings").open = true; // custom ids are typed in settings
+  } else {
+    syncModelField(i, v);
+  }
+  renderSlotSummary();
 }
 
 function initOnboarding() {
@@ -143,6 +161,16 @@ function initOnboarding() {
 // Returns true if at least one saved slot was reflected into the UI.
 function restoreSavedSlots(savedSlots) {
   if (!savedSlots?.some((s) => s?.endpoint && s?.model)) return false;
+  // If the saved endpoints belong to the other mode's providers, switch
+  // mode first — otherwise everything degrades to "custom".
+  const modeOf = (ep) => Object.keys(PROVIDERS).find((m) =>
+    Object.values(PROVIDERS[m]).some((p) => p.endpoint && p.endpoint === ep));
+  const targetMode = savedSlots.map((s) => modeOf(s?.endpoint)).find(Boolean);
+  if (targetMode && targetMode !== currentMode()) {
+    document.querySelector(`input[name="mode"][value="${targetMode}"]`).checked = true;
+    localStorage.setItem("sage_mode", targetMode);
+    [0, 1, 2].forEach(fillProviderOptions);
+  }
   const provs = PROVIDERS[currentMode()];
   let restored = 0;
   savedSlots.forEach((s) => {
@@ -214,6 +242,7 @@ function initSlotModes() {
     fillProviderOptions(i);
     document.getElementById(`prov${i}`).onchange = () => onProviderChange(i);
     document.getElementById(`test${i}`).onclick = () => testSlot(i);
+    document.getElementById(`quick${i}`).onchange = () => onQuickModelChange(i);
     document.getElementById(`modelsel${i}`).onchange = () => {
       const v = document.getElementById(`modelsel${i}`).value;
       const input = document.getElementById(`model${i}`);
