@@ -12,6 +12,16 @@
   <p class="sub">Multi-model audit of microgrid standards for AI-agent readiness — <b>SAGE finds the gaps, GAIFARE fills them.</b></p>
 </header>
 
+<div id="onboarding" hidden>
+  <h3>First time here? Three steps:</h3>
+  <ol>
+    <li><b>Set up models</b> — open <b>⚙ Model settings</b> below. <i>Local</i> mode uses your own Ollama (and the claude/codex CLIs via <code>python3 runner/bridge.py</code>); <i>Web</i> mode uses OpenRouter or any OpenAI-compatible service with your API key. Three regionally diverse models are preselected. Click <b>Test</b> on each slot until you see a green ✓.</li>
+    <li><b>Run an audit</b> — pick the standards and runs-per-model (1 for a quick look, 3 for official numbers), then <b>▶ Run audit</b>. Each model scores each standard 0–3 on four agent-readiness dimensions, citing the clauses it relies on.</li>
+    <li><b>Read the gap map</b> — your results appear in the table above (● rows). Click any cell for each model's evidence; click a column header for what that dimension means. See the <b>glossary</b> under the map for score / evidence / rationale / confidence.</li>
+  </ol>
+  <button class="replay" id="onboardDismiss">Got it</button>
+</div>
+
 <section id="gapmap-section">
   <h2>Gap map — convergent scores across models</h2>
   <p class="hint">Shows this session's live run results (●). Tick the box below to also show the published results committed in the repo. Columns: the four agentic dimensions. Cell = score all models agree on (±1); hatched = contested. Click a cell to see per-model evidence.</p>
@@ -25,12 +35,27 @@
     <label class="showpub"><input type="checkbox" id="showPublished"> show published results (repo)</label>
   </div>
   <div id="detail" hidden></div>
+  <details class="glossary">
+    <summary>Glossary — what the numbers and columns mean</summary>
+    <dl>
+      <dt>Score (0–3)</dt><dd>The model's own judgment of how well the standard covers a dimension: 0 absent · 1 implicit (inferable, no clause states it) · 2 partial · 3 explicit. The app never scores anything itself — it aggregates the models' judgments.</dd>
+      <dt>Evidence</dt><dd>The clause/section the model cites for its score (or "none"). Cited from the model's own knowledge in knowledge-only runs — citations can be wrong or invented, so they must be verified against the actual document. Feeding the standard's text (document-fed) forces citations from the real text.</dd>
+      <dt>Rationale</dt><dd>The model's one-sentence justification for the score.</dd>
+      <dt>Conf.</dt><dd>The model's self-reported confidence (0–1), averaged over its runs. A signal, not proof — a model can be confidently wrong. Evidence checking and cross-model agreement are the real safeguards.</dd>
+      <dt>Cell value</dt><dd>Per model: median of its runs. Per cell: median of the model medians when they agree within ±1 — otherwise <b>contested</b> (hatched, no number claimed).</dd>
+      <dt>⚠ unstable</dt><dd>One model's runs disagreed with each other by more than 1 — its score for that cell is not reproducible.</dd>
+      <dt>● live row</dt><dd>Produced by an audit run in this browser session. Published rows come from results committed in the <a href="https://github.com/open-renewable-energy-systems/AI-audit-benchmark">repo</a>.</dd>
+      <dt>knowledge-only vs document-fed</dt><dd>Whether the model answered from its training knowledge alone, or was given the standard's text to cite from. Every exported result records which.</dd>
+    </dl>
+  </details>
 </section>
 
 <section id="run-section">
   <h2>Run an audit</h2>
   <p class="hint">Calls any OpenAI-compatible endpoint straight from your browser with the frozen system prompt (temperature 0, ×3 runs) — OpenRouter, Mistral, Groq, a corporate proxy, or local Ollama (no key; needs <code>OLLAMA_ORIGINS</code> to allow this page). Each slot's key is stored only in this browser's localStorage and sent only to that slot's endpoint.</p>
   <div class="run-config">
+    <details class="settings-panel" id="slotSettings">
+    <summary>⚙ Model settings — modes, slots, API keys</summary>
     <div class="mode-row">
       <b>Mode:</b>
       <label><input type="radio" name="mode" value="local"> Local (Ollama, claude &amp; codex CLIs via <code>runner/bridge.py</code>)</label>
@@ -41,6 +66,8 @@
       <div class="slot"><b>Slot 2</b><select id="prov1"></select><input id="ep1" placeholder="OpenAI-compatible endpoint URL" hidden><select id="modelsel1"></select><input id="model1" placeholder="custom model id" hidden><input type="password" id="key1" placeholder="API key" autocomplete="off"><button type="button" class="listbtn" id="list1">Refresh models</button><button type="button" class="listbtn" id="test1">Test</button></div>
       <div class="slot"><b>Slot 3</b><select id="prov2"></select><input id="ep2" placeholder="OpenAI-compatible endpoint URL" hidden><select id="modelsel2"></select><input id="model2" placeholder="custom model id" hidden><input type="password" id="key2" placeholder="API key" autocomplete="off"><button type="button" class="listbtn" id="list2">Refresh models</button><button type="button" class="listbtn" id="test2">Test</button></div>
     </div>
+    </details>
+    <div id="slotSummary" class="slot-summary"></div>
     <div id="standards-checks" class="std-row"></div>
     <details class="custom-std">
       <summary>Add a custom standard</summary>

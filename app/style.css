@@ -107,3 +107,24 @@ button.replay { background: var(--blue); border: 0; color: #fff; font-weight: 70
 
 footer { margin-top: 44px; color: var(--muted); font-size: 12px; }
 footer a { color: var(--blue); }
+
+/* Onboarding, settings panel, slot summary, glossary, log timestamps */
+#onboarding { background: var(--panel); border: 1px solid var(--blue); border-radius: 10px; padding: 16px 20px; margin-top: 22px; }
+#onboarding h3 { font-size: 15px; margin-bottom: 8px; }
+#onboarding ol { margin: 0 0 12px 18px; font-size: 13px; color: var(--muted); display: grid; gap: 6px; }
+#onboarding b { color: var(--text); }
+.settings-panel { border: 1px solid var(--line); border-radius: 10px; padding: 10px 14px; }
+.settings-panel > summary { cursor: pointer; font-size: 14px; font-weight: 600; }
+.settings-panel[open] > summary { margin-bottom: 12px; }
+.settings-panel .mode-row { margin-bottom: 12px; }
+.slot-summary { display: flex; gap: 10px; flex-wrap: wrap; }
+.chip-slot { font-size: 12px; color: var(--muted); border: 1px solid var(--line); border-radius: 999px; padding: 4px 12px; }
+.chip-slot.on { color: var(--text); border-color: var(--green); }
+.chip-slot em { color: var(--muted); font-style: normal; }
+.glossary { margin-top: 14px; font-size: 13px; color: var(--muted); }
+.glossary summary { cursor: pointer; }
+.glossary dl { margin-top: 10px; display: grid; grid-template-columns: max-content 1fr; gap: 6px 16px; }
+.glossary dt { font-weight: 600; color: var(--text); }
+.glossary dd { margin: 0; }
+.glossary a { color: var(--blue); }
+.runlog-line .lt { color: var(--muted); opacity: 0.7; font-size: 11px; }
