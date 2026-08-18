@@ -119,8 +119,18 @@ function renderGapmap() {
   });
 }
 
+let shownDimKey = null;
+
 function showDimensionInfo(dim) {
   const box = document.getElementById("detail");
+  if (!box.hidden && shownDimKey === dim.key) {
+    // clicking the same header again closes the panel
+    box.hidden = true;
+    shownDimKey = null;
+    return;
+  }
+  shownDimKey = dim.key;
+  document.querySelectorAll("td.cell.selected").forEach((c) => c.classList.remove("selected"));
   box.hidden = false;
   box.innerHTML =
     `<h3>${dim.label} — what the models are asked</h3>
@@ -130,9 +140,16 @@ function showDimensionInfo(dim) {
 }
 
 function showDetail(standard, dim, score, td) {
+  const box = document.getElementById("detail");
+  if (td.classList.contains("selected")) {
+    // clicking the selected cell again closes the detail panel
+    td.classList.remove("selected");
+    box.hidden = true;
+    return;
+  }
   document.querySelectorAll("td.cell.selected").forEach((c) => c.classList.remove("selected"));
   td.classList.add("selected");
-  const box = document.getElementById("detail");
+  shownDimKey = null;
   box.hidden = false;
   const key = `${standard}|${dim.key}`;
   const rows = CELL_DETAIL[key];
