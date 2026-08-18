@@ -15,6 +15,7 @@ header p.sub { color: var(--muted); margin-top: 4px; font-size: 14px; }
   background: var(--amber); color: #1a1405; font-size: 12px; font-weight: 700;
   vertical-align: middle;
 }
+.mock-badge[hidden] { display: none; }
 section { margin-top: 34px; }
 section > h2 { font-size: 17px; margin-bottom: 4px; }
 section > p.hint { color: var(--muted); font-size: 13px; margin-bottom: 14px; }
@@ -97,7 +98,7 @@ button.replay { background: var(--blue); border: 0; color: #fff; font-weight: 70
 #runlog:empty { display: none; }
 .slotlogs { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 12px; }
 .runlog-col { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 8px 12px; }
-.runlog-col h4 { font-size: 12px; color: var(--muted); margin-bottom: 6px; }
+.runlog-col h4 { font-size: 12px; color: var(--text); font-weight: 600; background: var(--panel2); border: 1px solid var(--green); border-radius: 999px; padding: 4px 12px; display: inline-block; margin-bottom: 8px; }
 .runlog-col .lines { max-height: 220px; overflow-y: auto; font-family: ui-monospace, Menlo, monospace; font-size: 12px; }
 .runlog-col[hidden] { display: none; }
 .runlog-line { padding: 2px 0; }
