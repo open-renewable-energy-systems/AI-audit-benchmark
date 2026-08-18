@@ -63,7 +63,40 @@ Ollama (no key). Custom standards can be added by name (knowledge-only) or
 document-fed via pasted text, a URL (best-effort; many spec sites block it),
 or a PDF (text extracted client-side; nothing is uploaded).
 
-To use the claude-code / codex CLIs as slots, run the local bridge:
+### Run the app locally — step by step
+
+Requirements: Python 3 (any recent version; used only as a static file server)
+and a browser. For local models, [Ollama](https://ollama.com/download).
+
+```bash
+# 1. Get the code
+git clone https://github.com/open-renewable-energy-systems/AI-audit-benchmark.git
+cd AI-audit-benchmark
+
+# 2. Serve the repo root (the app loads prompts/ and gapmap/ from here —
+#    opening app/index.html as a file will NOT work)
+python3 -m http.server 8642
+
+# 3. Open the app
+open http://localhost:8642/app/        # or paste the URL into your browser
+```
+
+Then pick a mode in **⚙ Model settings**:
+
+**Local mode (no API keys)** — install [Ollama](https://ollama.com/download),
+then pull at least one model:
+
+```bash
+ollama pull qwen3:8b        # small/fast local model, or any from ollama.com/library
+```
+
+With an ollama.com sign-in (`ollama signin`), the subscription **cloud models**
+(deepseek-v4, gpt-oss, mistral-large, kimi, …) also work through the same local
+endpoint — the app lists them automatically. On localhost no extra setup is
+needed; only when using the *hosted* page against your local Ollama must you
+start it with `OLLAMA_ORIGINS=https://open-renewable-energy-systems.github.io`.
+
+Optional — use your claude-code / codex CLI logins as models via the bridge:
 
 ```bash
 python3 runner/bridge.py   # exposes http://localhost:8765/{claude,codex}/chat/completions
@@ -71,6 +104,14 @@ python3 runner/bridge.py   # exposes http://localhost:8765/{claude,codex}/chat/c
 
 CLI-wrapped models run inside the vendor's agent loop — fine for demos, but
 use raw API slots for official audit numbers.
+
+**Web mode (API keys)** — no install beyond steps 1–3: choose openrouter or
+mistral in a slot and paste your key (stored only in your browser), or pick
+*custom* for any other OpenAI-compatible endpoint.
+
+Finally: **Test** each model until it shows ✓, pick standards and runs-per-model,
+**▶ Run audit**, and export the result JSONs into `results/` —
+`python3 runner/aggregate_to_gap_map.py` folds them into the published gap map.
 
 ---
 
