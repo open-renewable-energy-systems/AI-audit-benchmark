@@ -15,7 +15,7 @@
 <div id="onboarding" hidden>
   <h3>First time here? Three steps:</h3>
   <ol>
-    <li><b>Set up models</b> — open <b>⚙ Model settings</b> below. <i>Local</i> mode uses your own Ollama (and the claude/codex CLIs via <code>python3 runner/bridge.py</code>); <i>Web</i> mode uses OpenRouter or any OpenAI-compatible service with your API key. Three regionally diverse models are preselected. Click <b>Test</b> on each slot until you see a green ✓.</li>
+    <li><b>Set up models</b> — open <b>⚙ Model settings</b> below. <i>Local</i> mode uses your own Ollama (and the claude/codex CLIs via <code>python3 runner/bridge.py</code>); <i>Web</i> mode uses OpenRouter or any OpenAI-compatible service with your API key. Three regionally diverse models are preselected. Click <b>Test</b> on each model until you see a green ✓.</li>
     <li><b>Run an audit</b> — pick the standards and runs-per-model (1 for a quick look, 3 for official numbers), then <b>▶ Run audit</b>. Each model scores each standard 0–3 on four agent-readiness dimensions, citing the clauses it relies on.</li>
     <li><b>Read the gap map</b> — your results appear in the table above (● rows). Click any cell for each model's evidence; click a column header for what that dimension means. See the <b>glossary</b> under the map for score / evidence / rationale / confidence.</li>
   </ol>
@@ -52,19 +52,19 @@
 
 <section id="run-section">
   <h2>Run an audit</h2>
-  <p class="hint" title="Calls any OpenAI-compatible endpoint straight from your browser with the frozen system prompt at temperature 0 — OpenRouter, Mistral, a corporate proxy, or local Ollama (no key; needs OLLAMA_ORIGINS to allow this page when hosted). Each slot's key is stored only in this browser's localStorage and sent only to that slot's endpoint.">Runs entirely in your browser with the frozen system prompt; API keys never leave this browser. <span class="hint-more">ⓘ hover for details</span></p>
+  <p class="hint" title="Calls any OpenAI-compatible endpoint straight from your browser with the frozen system prompt at temperature 0 — OpenRouter, Mistral, a corporate proxy, or local Ollama (no key; needs OLLAMA_ORIGINS to allow this page when hosted). Each model's API key is stored only in this browser's localStorage and sent only to that model's endpoint.">Runs entirely in your browser with the frozen system prompt; API keys never leave this browser. <span class="hint-more">ⓘ hover for details</span></p>
   <div class="run-config">
     <details class="settings-panel" id="slotSettings">
-    <summary>⚙ Model settings — modes, slots, API keys</summary>
+    <summary>⚙ Model settings — mode, models, API keys</summary>
     <div class="mode-row">
       <b>Mode:</b>
       <label><input type="radio" name="mode" value="local"> Local (Ollama, claude &amp; codex CLIs via <code>runner/bridge.py</code>)</label>
       <label><input type="radio" name="mode" value="web"> Web (OpenRouter or any OpenAI-compatible URL)</label>
     </div>
     <div class="slots">
-      <div class="slot"><b>Slot 1</b><select id="prov0"></select><input id="ep0" placeholder="OpenAI-compatible endpoint URL" hidden><select id="modelsel0"></select><input id="model0" placeholder="custom model id" hidden><input type="password" id="key0" placeholder="API key" autocomplete="off"><button type="button" class="listbtn" id="list0">Refresh models</button><button type="button" class="listbtn" id="test0">Test</button></div>
-      <div class="slot"><b>Slot 2</b><select id="prov1"></select><input id="ep1" placeholder="OpenAI-compatible endpoint URL" hidden><select id="modelsel1"></select><input id="model1" placeholder="custom model id" hidden><input type="password" id="key1" placeholder="API key" autocomplete="off"><button type="button" class="listbtn" id="list1">Refresh models</button><button type="button" class="listbtn" id="test1">Test</button></div>
-      <div class="slot"><b>Slot 3</b><select id="prov2"></select><input id="ep2" placeholder="OpenAI-compatible endpoint URL" hidden><select id="modelsel2"></select><input id="model2" placeholder="custom model id" hidden><input type="password" id="key2" placeholder="API key" autocomplete="off"><button type="button" class="listbtn" id="list2">Refresh models</button><button type="button" class="listbtn" id="test2">Test</button></div>
+      <div class="slot"><b>Model 1</b><select id="prov0"></select><input id="ep0" placeholder="OpenAI-compatible endpoint URL" hidden><select id="modelsel0"></select><input id="model0" placeholder="custom model id" hidden><input type="password" id="key0" placeholder="API key" autocomplete="off"><button type="button" class="listbtn" id="list0">Refresh models</button><button type="button" class="listbtn" id="test0">Test</button></div>
+      <div class="slot"><b>Model 2</b><select id="prov1"></select><input id="ep1" placeholder="OpenAI-compatible endpoint URL" hidden><select id="modelsel1"></select><input id="model1" placeholder="custom model id" hidden><input type="password" id="key1" placeholder="API key" autocomplete="off"><button type="button" class="listbtn" id="list1">Refresh models</button><button type="button" class="listbtn" id="test1">Test</button></div>
+      <div class="slot"><b>Model 3</b><select id="prov2"></select><input id="ep2" placeholder="OpenAI-compatible endpoint URL" hidden><select id="modelsel2"></select><input id="model2" placeholder="custom model id" hidden><input type="password" id="key2" placeholder="API key" autocomplete="off"><button type="button" class="listbtn" id="list2">Refresh models</button><button type="button" class="listbtn" id="test2">Test</button></div>
     </div>
     </details>
     <div id="slotSummary" class="slot-summary"></div>
@@ -93,9 +93,9 @@
     </div>
   </div>
   <div class="slotlogs">
-    <div class="runlog-col" id="slotlog0" hidden><h4>Slot 1</h4><div class="lines"></div></div>
-    <div class="runlog-col" id="slotlog1" hidden><h4>Slot 2</h4><div class="lines"></div></div>
-    <div class="runlog-col" id="slotlog2" hidden><h4>Slot 3</h4><div class="lines"></div></div>
+    <div class="runlog-col" id="slotlog0" hidden><h4>Model 1</h4><div class="lines"></div></div>
+    <div class="runlog-col" id="slotlog1" hidden><h4>Model 2</h4><div class="lines"></div></div>
+    <div class="runlog-col" id="slotlog2" hidden><h4>Model 3</h4><div class="lines"></div></div>
   </div>
   <div id="runlog"></div>
 </section>

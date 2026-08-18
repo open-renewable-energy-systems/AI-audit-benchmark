@@ -187,7 +187,7 @@ async function runAudit() {
   const slots = slotConfigs();
   const standards = [...document.querySelectorAll(".std-check:checked")].map((c) => resolveStandard(c.value));
   if (!slots.length || !standards.length) {
-    logLine("Configure at least one model slot and one standard.", "bad");
+    logLine("Configure at least one model and select at least one standard.", "bad");
     return;
   }
   localStorage.setItem("sage_slots", JSON.stringify(slots));

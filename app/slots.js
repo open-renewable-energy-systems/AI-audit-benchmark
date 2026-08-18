@@ -126,8 +126,8 @@ function renderSlotSummary() {
     const c = configured.find((x) => x.idx === i);
     const prov = document.getElementById(`prov${i}`).value;
     return c
-      ? `<span class="chip-slot on">Slot ${i + 1}: ${c.model}${prov ? ` <em>(${prov})</em>` : ""}</span>`
-      : `<span class="chip-slot">Slot ${i + 1}: not set</span>`;
+      ? `<span class="chip-slot on">Model ${i + 1}: ${c.model}${prov ? ` <em>(${prov})</em>` : ""}</span>`
+      : `<span class="chip-slot">Model ${i + 1}: not set</span>`;
   }).join("");
 }
 
