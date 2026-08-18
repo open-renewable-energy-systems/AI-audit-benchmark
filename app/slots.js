@@ -119,19 +119,14 @@ function currentMode() {
   return document.querySelector('input[name="mode"]:checked')?.value ?? "web";
 }
 
-// Compact always-visible summary of the configured slots (settings collapse).
+// Log column titles carry the configured model names (the only summary needed).
 function renderSlotSummary() {
   const configured = slotConfigs();
-  document.getElementById("slotSummary").innerHTML = [0, 1, 2].map((i) => {
+  [0, 1, 2].forEach((i) => {
     const c = configured.find((x) => x.idx === i);
-    const prov = document.getElementById(`prov${i}`).value;
-    // log columns carry the actual model name once configured
     document.querySelector(`#slotlog${i} h4`).textContent =
       c ? `Model ${i + 1} — ${c.model}` : `Model ${i + 1}`;
-    return c
-      ? `<span class="chip-slot on">Model ${i + 1}: ${c.model}${prov ? ` <em>(${prov})</em>` : ""}</span>`
-      : `<span class="chip-slot">Model ${i + 1}: not set</span>`;
-  }).join("");
+  });
 }
 
 function initOnboarding() {
