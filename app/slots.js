@@ -16,6 +16,8 @@ const PROVIDERS = {
   web: {
     openrouter: { endpoint: "https://openrouter.ai/api/v1/chat/completions",
       defaultModel: "anthropic/claude-sonnet-5", keyHint: "OpenRouter API key (sk-or-…)" },
+    mistral: { endpoint: "https://api.mistral.ai/v1/chat/completions",
+      defaultModel: "mistral-large-latest", keyHint: "Mistral API key (console.mistral.ai)" },
     custom: { endpoint: "", defaultModel: "", keyHint: "API key for your endpoint (blank if none)" },
   },
 };
@@ -117,6 +119,29 @@ function currentMode() {
   return document.querySelector('input[name="mode"]:checked')?.value ?? "web";
 }
 
+// Compact always-visible summary of the configured slots (settings collapse).
+function renderSlotSummary() {
+  const configured = slotConfigs();
+  document.getElementById("slotSummary").innerHTML = [0, 1, 2].map((i) => {
+    const c = configured.find((x) => x.idx === i);
+    const prov = document.getElementById(`prov${i}`).value;
+    return c
+      ? `<span class="chip-slot on">Slot ${i + 1}: ${c.model}${prov ? ` <em>(${prov})</em>` : ""}</span>`
+      : `<span class="chip-slot">Slot ${i + 1}: not set</span>`;
+  }).join("");
+}
+
+function initOnboarding() {
+  const seen = localStorage.getItem("sage_onboarded");
+  const banner = document.getElementById("onboarding");
+  banner.hidden = !!seen;
+  if (!seen) document.getElementById("slotSettings").open = true;
+  document.getElementById("onboardDismiss").onclick = () => {
+    banner.hidden = true;
+    localStorage.setItem("sage_onboarded", "1");
+  };
+}
+
 // Returns true if at least one saved slot was reflected into the UI.
 function restoreSavedSlots(savedSlots) {
   if (!savedSlots?.some((s) => s?.endpoint && s?.model)) return false;
@@ -159,10 +184,12 @@ function onProviderChange(i, presetModel = null) {
   key.placeholder = p.keyHint;
   if (p.endpoint) {
     const listed = listModels(i); // auto-list; suggested default stays selected
-    if (name === "ollama") listed.then(() => appendOllamaCloud(i));
+    if (name === "ollama") listed.then(() => appendOllamaCloud(i)).then(renderSlotSummary);
+    else listed.then(renderSlotSummary);
   } else {
     setModelOptions(i, [], ""); // custom endpoint -> free-typed model id
   }
+  renderSlotSummary();
 }
 
 function onModeChange() {
@@ -194,12 +221,15 @@ function initSlotModes() {
       const input = document.getElementById(`model${i}`);
       input.hidden = v !== CUSTOM_MODEL;
       input.value = v === CUSTOM_MODEL ? "" : v;
+      renderSlotSummary();
     };
   });
   // Reflect saved slots into the provider/model dropdowns; anything that
   // can't be reconciled falls back to the regional defaults.
   const savedSlots = JSON.parse(localStorage.getItem("sage_slots") || "null");
   if (!restoreSavedSlots(savedSlots)) seedDefaults();
+  renderSlotSummary();
+  initOnboarding();
 }
 
 initSlotModes();

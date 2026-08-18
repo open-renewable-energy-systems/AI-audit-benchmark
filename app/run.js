@@ -93,11 +93,16 @@ function slotConfigs() {
   })).filter((s) => s.endpoint && s.model);
 }
 
+function ts() {
+  return new Date().toLocaleTimeString([], { hour12: false });
+}
+
 // slot = 0..2 routes the line to that slot's log column; omit for run-wide lines.
 function logLine(text, cls = "info", slot = null) {
   const el = document.createElement("div");
   el.className = "runlog-line " + cls;
-  el.textContent = text;
+  el.innerHTML = `<span class="lt">${ts()}</span> `;
+  el.appendChild(document.createTextNode(text));
   let log;
   if (slot === null) {
     log = document.getElementById("runlog");
@@ -155,21 +160,25 @@ function fileSafe(s) { return s.replaceAll(" ", "_").replaceAll("/", "_").replac
 async function runSlot(slot, standards) {
   const total = standards.length * runsPerModel();
   let done = 0;
+  const slotT0 = performance.now();
   logLine(`${slot.model}: starting ${total} runs`, "info", slot.idx);
   for (const std of standards) {
     for (let i = 1; i <= runsPerModel(); i++) {
+      const t0 = performance.now();
+      const dur = () => ((performance.now() - t0) / 1000).toFixed(1) + "s";
       try {
         const data = await callModel(slot, std.name, std.text);
         data.audit_mode = std.text ? "document_fed" : "knowledge_only";
         runResults.push({ standard: std.name, model: slot.model, iteration: i, data });
         const scores = DIMENSIONS.map((d) => data[d.key].score).join("/");
-        logLine(`[${++done}/${total}] ${std.name} run ${i}: ${scores}`, "ok", slot.idx);
+        logLine(`[${++done}/${total}] ${std.name} run ${i}: ${scores} (${dur()})`, "ok", slot.idx);
       } catch (e) {
         done++;
-        logLine(`[${done}/${total}] ${std.name} run ${i} FAILED: ${e.message}`, "bad", slot.idx);
+        logLine(`[${done}/${total}] ${std.name} run ${i} FAILED after ${dur()}: ${e.message}`, "bad", slot.idx);
       }
     }
   }
+  logLine(`${slot.model}: finished in ${((performance.now() - slotT0) / 1000).toFixed(1)}s`, "info", slot.idx);
 }
 
 async function runAudit() {
