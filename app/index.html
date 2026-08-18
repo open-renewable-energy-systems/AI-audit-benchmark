@@ -24,7 +24,7 @@
 
 <section id="gapmap-section">
   <h2>Gap map — convergent scores across models</h2>
-  <p class="hint">Shows this session's live run results (●). Tick the box below to also show the published results committed in the repo. Columns: the four agentic dimensions. Cell = score all models agree on (±1); hatched = contested. Click a cell to see per-model evidence.</p>
+  <p class="hint" title="Rows: standards. Columns: the four agentic dimensions. Cell = score all models agree on (±1); hatched = contested. ● rows are this session's runs; tick 'show published results' for the results committed in the repo.">Click a cell for per-model evidence, a column header for the dimension's definition — details in the glossary below.</p>
   <table class="gapmap" id="gapmap"></table>
   <div class="legend">
     <span><span class="chip s3"></span>3 explicit</span>
@@ -52,7 +52,7 @@
 
 <section id="run-section">
   <h2>Run an audit</h2>
-  <p class="hint">Calls any OpenAI-compatible endpoint straight from your browser with the frozen system prompt (temperature 0, ×3 runs) — OpenRouter, Mistral, Groq, a corporate proxy, or local Ollama (no key; needs <code>OLLAMA_ORIGINS</code> to allow this page). Each slot's key is stored only in this browser's localStorage and sent only to that slot's endpoint.</p>
+  <p class="hint" title="Calls any OpenAI-compatible endpoint straight from your browser with the frozen system prompt at temperature 0 — OpenRouter, Mistral, a corporate proxy, or local Ollama (no key; needs OLLAMA_ORIGINS to allow this page when hosted). Each slot's key is stored only in this browser's localStorage and sent only to that slot's endpoint.">Runs entirely in your browser with the frozen system prompt; API keys never leave this browser. <span class="hint-more">ⓘ hover for details</span></p>
   <div class="run-config">
     <details class="settings-panel" id="slotSettings">
     <summary>⚙ Model settings — modes, slots, API keys</summary>
