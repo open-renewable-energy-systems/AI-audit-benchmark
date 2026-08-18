@@ -3,7 +3,7 @@
 // served from the repo root; falls back to the mock data in data.js.
 
 let usingRealData = false;
-let badgeText = "MOCK DATA"; // what the badge says when published results are shown
+let badgeText = "SAMPLE DATA — illustrative placeholders, not model results"; // shown when the repo gap map could not be loaded
 const liveRows = [];       // rows produced by this session's runs
 let committedRows = null;  // published rows (repo gap map or mock), shown on demand
 
