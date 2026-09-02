@@ -48,12 +48,12 @@ function acceptDocText(name, text) {
   if (text.length > TEXTAREA_LIMIT) {
     pendingDoc = { name, text };
     box.value = "";
-    box.placeholder = `${name} loaded (${text.length.toLocaleString()} chars, held in memory — too large to display). Click Add standard to use it, or paste text here to replace it.`;
-    logLine(`Loaded ${text.length.toLocaleString()} chars from ${name} — click Add standard. Note: audits use the first ${MAX_DOC_CHARS.toLocaleString()} chars.`, text.length > MAX_DOC_CHARS ? "warn" : "ok");
+    box.placeholder = `${name} loaded (${text.length.toLocaleString()} chars, held in memory — too large to display).`;
+    logLine(`Loaded ${text.length.toLocaleString()} chars from ${name}. Note: audits use the first ${MAX_DOC_CHARS.toLocaleString()} chars.`, text.length > MAX_DOC_CHARS ? "warn" : "ok");
   } else {
     pendingDoc = null;
     box.value = text;
-    logLine(`Loaded ${text.length.toLocaleString()} chars from ${name} — review it, then Add standard.`, "ok");
+    logLine(`Loaded ${text.length.toLocaleString()} chars from ${name}.`, "ok");
   }
 }
 
@@ -66,6 +66,7 @@ async function onPdfChosen(ev) {
     const text = (isText ? await file.text() : await extractPdf(file)).trim();
     if (!text) throw new Error(isText ? "file is empty" : "no extractable text (scanned/image-only PDF?)");
     acceptDocText(file.name, text);
+    addCustomStandard(); // an upload is explicit intent — no second click needed
   } catch (e) {
     logLine(`File read FAILED: ${e.message}. Paste the text instead.`, "bad");
   } finally {
