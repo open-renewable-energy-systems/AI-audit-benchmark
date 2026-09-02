@@ -36,11 +36,18 @@ def ollama_cloud_models():
             models = json.load(res)["models"]
         # newest first, so clients can default to the latest model
         models.sort(key=lambda m: m.get("modified_at", ""), reverse=True)
-        _cloud_cache.update(at=time.time(),
-                            data=[{"id": f"{m['name']}:cloud", "object": "model"} for m in models])
+        _cloud_cache.update(
+            at=time.time(),
+            data=[{"id": f"{m['name']}:cloud", "object": "model"} for m in models],
+        )
     return {"object": "list", "data": _cloud_cache["data"]}
 
+
 ALLOWED_ORIGINS = {
+    # Origins for Ollama
+    "http://localhost:11434",
+    "http://127.0.0.1:11434",
+    # Origins for the app
     "http://localhost:8642",
     "http://127.0.0.1:8642",
     "https://open-renewable-energy-systems.github.io",
@@ -56,8 +63,11 @@ BACKENDS = {
     "codex": {
         # ChatGPT-account Codex only accepts its own current models; "default"
         # omits --model and uses whatever the CLI is configured for.
-        "cmd": lambda prompt, model: ["codex", "exec"]
-        + ([] if model == "default" else ["--model", model]) + [prompt],
+        "cmd": lambda prompt, model: (
+            ["codex", "exec"]
+            + ([] if model == "default" else ["--model", model])
+            + [prompt]
+        ),
         "models": ["default", "gpt-5.6-sol"],
     },
 }
@@ -74,18 +84,31 @@ def flatten_messages(messages):
 
 def run_backend(backend, body):
     cmd = BACKENDS[backend]["cmd"](
-        flatten_messages(body["messages"]), body.get("model") or BACKENDS[backend]["models"][0]
+        flatten_messages(body["messages"]),
+        body.get("model") or BACKENDS[backend]["models"][0],
     )
-    proc = subprocess.run(cmd, capture_output=True, text=True,
-                          timeout=CLI_TIMEOUT_S, stdin=subprocess.DEVNULL)
+    proc = subprocess.run(
+        cmd,
+        capture_output=True,
+        text=True,
+        timeout=CLI_TIMEOUT_S,
+        stdin=subprocess.DEVNULL,
+    )
     if proc.returncode != 0:
-        raise RuntimeError(f"{backend} CLI exited {proc.returncode}: {proc.stderr[:300]}")
+        raise RuntimeError(
+            f"{backend} CLI exited {proc.returncode}: {proc.stderr[:300]}"
+        )
     return {
         "id": f"bridge-{backend}-{int(time.time())}",
         "object": "chat.completion",
         "model": f"{backend}-cli:{body.get('model', 'default')}",
-        "choices": [{"index": 0, "finish_reason": "stop",
-                     "message": {"role": "assistant", "content": proc.stdout.strip()}}],
+        "choices": [
+            {
+                "index": 0,
+                "finish_reason": "stop",
+                "message": {"role": "assistant", "content": proc.stdout.strip()},
+            }
+        ],
     }
 
 
@@ -96,7 +119,9 @@ class Handler(BaseHTTPRequestHandler):
         origin = self.headers.get("Origin", "")
         if origin in ALLOWED_ORIGINS:
             self.send_header("Access-Control-Allow-Origin", origin)
-            self.send_header("Access-Control-Allow-Headers", "Content-Type, Authorization")
+            self.send_header(
+                "Access-Control-Allow-Headers", "Content-Type, Authorization"
+            )
         self.send_header("Content-Type", "application/json")
         self.send_header("Content-Length", str(len(data)))
         self.end_headers()
@@ -118,20 +143,32 @@ class Handler(BaseHTTPRequestHandler):
             return
         backend = self._backend()
         if backend and self.path.endswith("/models"):
-            self._send(200, {"object": "list",
-                             "data": [{"id": m, "object": "model"} for m in BACKENDS[backend]["models"]]})
+            self._send(
+                200,
+                {
+                    "object": "list",
+                    "data": [
+                        {"id": m, "object": "model"}
+                        for m in BACKENDS[backend]["models"]
+                    ],
+                },
+            )
         else:
             self._send(404, {"error": "unknown path; use /claude/... or /codex/..."})
 
     def do_POST(self):
         backend = self._backend()
         if not backend or not self.path.endswith("/chat/completions"):
-            self._send(404, {"error": "unknown path; use /{claude,codex}/chat/completions"})
+            self._send(
+                404, {"error": "unknown path; use /{claude,codex}/chat/completions"}
+            )
             return
         try:
             body = json.loads(self.rfile.read(int(self.headers["Content-Length"])))
             self._send(200, run_backend(backend, body))
-        except Exception as e:  # surfaced to the caller — bridge must never fail silently
+        except (
+            Exception
+        ) as e:  # surfaced to the caller — bridge must never fail silently
             self._send(500, {"error": f"{type(e).__name__}: {e}"})
 
     def log_message(self, fmt, *args):
@@ -141,11 +178,17 @@ class Handler(BaseHTTPRequestHandler):
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--port", type=int, default=8765)
-    parser.add_argument("--allow-origin", action="append", default=[],
-                        help="additional browser origin allowed to call the bridge")
+    parser.add_argument(
+        "--allow-origin",
+        action="append",
+        default=[],
+        help="additional browser origin allowed to call the bridge",
+    )
     args = parser.parse_args()
     ALLOWED_ORIGINS.update(args.allow_origin)
-    print(f"SAGE bridge on http://127.0.0.1:{args.port} — backends: {', '.join(BACKENDS)}")
+    print(
+        f"SAGE bridge on http://127.0.0.1:{args.port} — backends: {', '.join(BACKENDS)}"
+    )
     ThreadingHTTPServer(("127.0.0.1", args.port), Handler).serve_forever()
 
 

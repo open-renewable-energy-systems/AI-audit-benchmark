@@ -6,3 +6,7 @@ standards/
 
 # Ignore users .env settings
 .env
+.ruff_cache/
+
+# Python bytecode
+__pycache__/
