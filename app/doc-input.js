@@ -35,40 +35,20 @@ async function extractPdf(file) {
   return pages.join("\n\n").trim();
 }
 
-// Documents beyond this size skip the textarea (rendering ~1MB there
-// freezes the page) and are held in memory until Add standard.
-const TEXTAREA_LIMIT = 50000;
-let pendingDoc = null; // {name, text} from an uploaded file
-
-function acceptDocText(name, text) {
-  const box = document.getElementById("customText");
-  if (!document.getElementById("customName").value.trim()) {
-    document.getElementById("customName").value = name.replace(/\.(pdf|txt|md)$/i, "");
-  }
-  if (text.length > TEXTAREA_LIMIT) {
-    pendingDoc = { name, text };
-    box.value = "";
-    box.placeholder = `${name} loaded (${text.length.toLocaleString()} chars, held in memory — too large to display).`;
-    logLine(`Loaded ${text.length.toLocaleString()} chars from ${name}. Note: audits use the first ${MAX_DOC_CHARS.toLocaleString()} chars.`, text.length > MAX_DOC_CHARS ? "warn" : "ok");
-  } else {
-    pendingDoc = null;
-    box.value = text;
-    logLine(`Loaded ${text.length.toLocaleString()} chars from ${name}.`, "ok");
-  }
-}
-
 async function onPdfChosen(ev) {
   const file = ev.target.files[0];
   if (!file) return;
-  const isText = /\.(txt|md)$/i.test(file.name);
-  logLine(`Reading ${file.name} (${(file.size / 1e6).toFixed(1)} MB) — stays in your browser…`, "info");
+  logLine(`Extracting text from ${file.name} (${(file.size / 1e6).toFixed(1)} MB) — stays in your browser…`, "info");
   try {
-    const text = (isText ? await file.text() : await extractPdf(file)).trim();
-    if (!text) throw new Error(isText ? "file is empty" : "no extractable text (scanned/image-only PDF?)");
-    acceptDocText(file.name, text);
-    addCustomStandard(); // an upload is explicit intent — no second click needed
+    const text = await extractPdf(file);
+    if (!text) throw new Error("no extractable text (scanned/image-only PDF?)");
+    document.getElementById("customText").value = text;
+    if (!document.getElementById("customName").value.trim()) {
+      document.getElementById("customName").value = file.name.replace(/\.pdf$/i, "");
+    }
+    logLine(`Extracted ${text.length} chars from ${file.name} — review it, then Add standard.`, "ok");
   } catch (e) {
-    logLine(`File read FAILED: ${e.message}. Paste the text instead.`, "bad");
+    logLine(`PDF extraction FAILED: ${e.message}. Paste the text instead.`, "bad");
   } finally {
     ev.target.value = "";
   }

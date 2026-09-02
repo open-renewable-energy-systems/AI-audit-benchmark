@@ -61,24 +61,14 @@ function renderStandards() {
   const KO_TIP = "ℹ Built-in standards run knowledge-only (model training data, no official text — see glossary above). Citations must be verified against the real document; for the actual text, use Add a custom standard.";
   const builtin = RUN_STANDARDS.map((s) =>
     `<label title="${KO_TIP}"><input type="checkbox" class="std-check" value="${s}"${s === DEFAULT_STANDARD ? " checked" : ""}> ${s}</label>`);
-  const custom = customStandards.map((c, i) => {
-    const tag = c.name.includes("document-fed") ? "" : ` <em>(${c.text ? "document-fed" : "knowledge-only"})</em>`;
-    return `<label><input type="checkbox" class="std-check" value="__custom${i}" checked> ${c.name}${tag}</label>`;
-  });
+  const custom = customStandards.map((c, i) =>
+    `<label><input type="checkbox" class="std-check" value="__custom${i}" checked> ${c.name} <em>(${c.text ? "document-fed" : "knowledge-only"})</em></label>`);
   document.getElementById("standards-checks").innerHTML = builtin.concat(custom).join("");
 }
 
 function addCustomStandard() {
-  let name = document.getElementById("customName").value.trim();
-  // A custom standard may share a built-in's name (the memory-vs-document
-  // experiment) — suffix it so the gap map shows two comparable rows.
-  if (RUN_STANDARDS.some((s) => s.toLowerCase() === name.toLowerCase())) {
-    name += " (document-fed)";
-    logLine(`Renamed to "${name}" so it appears alongside the built-in (knowledge-only) row for comparison.`, "info");
-  }
-  // pasted text wins; otherwise use a large uploaded document held in memory
+  const name = document.getElementById("customName").value.trim();
   let text = document.getElementById("customText").value.trim();
-  if (!text && typeof pendingDoc !== "undefined" && pendingDoc) text = pendingDoc.text;
   if (!name) { logLine("Custom standard needs a name.", "bad"); return; }
   if (text.length > MAX_DOC_CHARS) {
     text = text.slice(0, MAX_DOC_CHARS);
@@ -87,8 +77,6 @@ function addCustomStandard() {
   customStandards.push({ name, text });
   document.getElementById("customName").value = "";
   document.getElementById("customText").value = "";
-  if (typeof pendingDoc !== "undefined") pendingDoc = null;
-  document.getElementById("customText").placeholder = "Optional: paste the standard's text here — or fill via Fetch URL / Upload PDF / TXT above (document-fed audit; everything stays in your browser, never uploaded). Leave empty for a knowledge-only audit.";
   renderStandards();
 }
 

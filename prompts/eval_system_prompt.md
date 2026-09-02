@@ -9,7 +9,7 @@ You assess a given input standard for how well it supports an autonomous AI agen
 STANDARD UNDER AUDIT: {{STANDARD_NAME}}
 
 Score each dimension 0-3 and cite the specific clause/section (or "none"):
-  1. `capability_declaration` : allows a device/agent to declare what it's capable of doing. 
+  1. `capability_declaration` : allows a device/agent to declare what it's capable of doing.
   2. `bounded_authority` : defines limits on what an agent is allowed to do (e.g. scope, ceilings, expiry, revocation, override).
   3. `decision_auditability` : covered how an agent's decisions should be logged and attributed.
   4. `data_governance` : defines requirements on data ownership, consent, retention.

@@ -133,4 +133,3 @@ footer a { color: var(--blue); }
 .hint-more { opacity: 0.6; font-size: 12px; }
 .runlog-col h4 .quickmodel { background: transparent; border: 0; color: var(--text); font-size: 12px; font-weight: 600; cursor: pointer; max-width: 240px; }
 .runlog-col h4 .quickmodel:focus { outline: none; }
-.custom-std input[hidden] { display: none; }

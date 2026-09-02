@@ -27,6 +27,7 @@ First presented at **LF Energy Summit Europe 2026** — *"AI-Audited: An Open In
 
 ```
 AI-audit-benchmark/
+  .pre-commit-config.yaml   <- pre-commits to cleanup code on commit
   README.md                 <- this file
   rubric/                   <- frozen system prompt + metrics + JSON schema
   standards/                <- corpus: notes + source pointers per standard
@@ -75,7 +76,7 @@ cd AI-audit-benchmark
 
 # 2. Serve the repo root (the app loads prompts/ and gapmap/ from here —
 #    opening app/index.html as a file will NOT work)
-python3 -m http.server 8642
+uv run python -m http.server 8642
 
 # 3. Open the app
 open http://localhost:8642/app/        # or paste the URL into your browser
@@ -99,19 +100,26 @@ start it with `OLLAMA_ORIGINS=https://open-renewable-energy-systems.github.io`.
 Optional — use your claude-code / codex CLI logins as models via the bridge:
 
 ```bash
-python3 runner/bridge.py   # exposes http://localhost:8765/{claude,codex}/chat/completions
+uv run runner/bridge.py   # exposes http://localhost:8765/{claude,codex}/chat/completions
 ```
 
 CLI-wrapped models run inside the vendor's agent loop — fine for demos, but
 use raw API slots for official audit numbers.
 
-**Web mode (API keys)** — no install beyond steps 1–3: choose openrouter or
-mistral in a slot and paste your key (stored only in your browser), or pick
+**Web mode (API keys)** — no install beyond steps 1–3: choose your provider among:
+- [Openrouter](https://openrouter.ai/)
+- [Mistral AI](https://mistral.ai/pricing/api/)
+
+If you don't have an account with any of them, you'll first have to create one. Then generate an API key (note: usage of this API key will incur costs, so keep it safe). Then copy/paste your key (stored only in your browser), or pick
 *custom* for any other OpenAI-compatible endpoint.
 
-Finally: **Test** each model until it shows ✓, pick standards and runs-per-model,
-**▶ Run audit**, and export the result JSONs into `results/` —
-`python3 runner/aggregate_to_gap_map.py` folds them into the published gap map.
+Finally:
+- **Test** each model until it shows ✓,
+- pick standards and runs-per-model,
+- **▶ Run audit**,
+- and export the result JSONs into `results/`
+
+(note: `uv run runner/aggregate_to_gap_map.py` folds the JSON results into the published gap map.)
 
 ---
 
@@ -136,4 +144,4 @@ SAGE is designed to be pointed at **any** interoperability standard, not just th
 
 ## License
 
-recommend Apache-2.0 for the code, CC-BY-4.0 for the docs/gap map.
+The code is licensed under Apache-2.0 for the code. The docs and Gap Map is licensed under CC-BY-4.0.

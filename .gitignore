@@ -6,3 +6,4 @@ standards/
 
 # Ignore users .env settings
 .env
+.ruff_cache/
