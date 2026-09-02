@@ -42,7 +42,7 @@ AI-audit-benchmark/
 
 ---
 
-## Quick start 
+## Quick start
 
 
 ### Pre-requisites
@@ -50,7 +50,7 @@ AI-audit-benchmark/
 To run the analysis, you will need to have an LLM backend. Here, several approaches are supported:
 
 - **Local mode (no API keys)** :
-  
+
   - using [Ollama](https://ollama.com/download),then pull at least one model:
 
     ```bash
@@ -78,13 +78,13 @@ To run the analysis, you will need to have an LLM backend. Here, several approac
   - [Openrouter](https://openrouter.ai/) (for a large selection of different models)
   - [Mistral AI](https://mistral.ai/pricing/api/) (only serving Mistral models)
 
-  For each of these, you will need an API key. An account is required to generate such an API key and usage of this API key will incur costs (so keep it safe and remember to watch your usage as you test to avoid bad surprises). 
+  For each of these, you will need an API key. An account is required to generate such an API key and usage of this API key will incur costs (so keep it safe and remember to watch your usage as you test to avoid bad surprises).
 
 ### Run the web app
 
 #### Using the web version
 
-The hosted app ( https://open-renewable-energy-systems.github.io/AI-audit-benchmark/app/ ) can run audits directly: each model slot takes any OpenAI-compatible endpoint — OpenRouter, Mistral, etc. (your key, stored only in your browser), or local Ollama (no key). 
+The hosted app ( https://open-renewable-energy-systems.github.io/AI-audit-benchmark/app/ ) can run audits directly: each model slot takes any OpenAI-compatible endpoint — OpenRouter, Mistral, etc. (your key, stored only in your browser), or local Ollama (no key).
 
 Custom standards can be added as either:
 - name (knowledge-only)
@@ -94,7 +94,7 @@ Custom standards can be added as either:
 
 #### Using local runs
 
-To run the code locally, make sure that you have [UV](https://docs.astral.sh/uv/) installed on your computer (install instructions are [here](https://docs.astral.sh/uv/getting-started/installation/)). 
+To run the code locally, make sure that you have [UV](https://docs.astral.sh/uv/) installed on your computer (install instructions are [here](https://docs.astral.sh/uv/getting-started/installation/)).
 
 Note: it's also possible to run the app commands directly with python (any recent version will do, as it's used only as a static file server), but that's not the recommended approach.
 
