@@ -1,0 +1,31 @@
+#
+# Style check on pull requests: runs the repo's pre-commit hooks and fails
+# if any file would be modified. Check-only by design — no pushes back to
+# contributor branches (auto-push cannot work on fork PRs, and authors
+# should own their commits). Fix locally with:  uv tool run pre-commit run --all-files
+#
+name: Pull request checker
+
+on:
+  pull_request
+
+jobs:
+  check_pull_request:
+    name: check pull request
+
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+
+    steps:
+      - name: "Checkout code"
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+
+      - name: "Create UV installation"
+        uses: astral-sh/setup-uv@08807647e7069bb48b6ef5acd8ec9567f424441b # v8.1.0
+        with:
+          version: "0.11.17"
+
+      - name: Run pre-commit checks (fails if reformatting is needed)
+        run: |
+          uv tool run pre-commit run --all-files --show-diff-on-failure
