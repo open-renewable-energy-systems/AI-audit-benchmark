@@ -120,7 +120,7 @@ class _ExecutionSettings(BaseSettings):
         )
 
     @property
-    def openrouter_model(self) -> OpenRouterProvider | None:
+    def openrouter_model(self) -> OpenRouterModel | None:
         if self.OPENROUTER_MODEL in (None, ""):
             print(" - (No Openrouter model configured)")
             return None
