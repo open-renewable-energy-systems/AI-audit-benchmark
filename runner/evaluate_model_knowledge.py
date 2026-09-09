@@ -211,7 +211,8 @@ for m_name, m in [
 
         for j in range(SETTINGS.RUNS_PER_MODEL):
             f_out = (
-                output_folder / f"{cleaned_standard}--{m_name}--iteration_{j + 1}.json"
+                output_folder
+                / f"{cleaned_standard}--{m_name.replace('/', '-')}--iteration_{j + 1}.json"
             )
             if os.path.exists(f_out):
                 print(f"> Skipped {f_out}")
