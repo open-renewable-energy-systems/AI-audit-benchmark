@@ -130,7 +130,7 @@ class _ExecutionSettings(BaseSettings):
         return OpenRouterModel(
             self.OPENROUTER_MODEL,
             provider=OpenRouterProvider(
-                api_key=self.OPENROUTER_MODEL,
+                api_key=self.OPENROUTER_API_KEY,
             ),
             settings=self._model_settings,
         )
