@@ -183,6 +183,9 @@ candidate_standards = [
 
 output_folder = SETTINGS.output_folder
 
+if not os.path.exists(output_folder):
+    os.makedirs(output_folder, exist_ok=True)
+
 for m_name, m in [
     (
         f"local_{SETTINGS.LOCAL_LLM_MODEL.replace('/', '_')}",
