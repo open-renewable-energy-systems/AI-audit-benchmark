@@ -124,7 +124,7 @@ class _ExecutionSettings(BaseSettings):
         if self.OPENROUTER_MODEL in (None, ""):
             print(" - (No Openrouter model configured)")
             return None
-        if self.OPENROUTER_MODEL in (None, ""):
+        if self.OPENROUTER_API_KEY in (None, ""):
             print(" - (No Openrouter API key configured)")
             return None
         return OpenRouterModel(
