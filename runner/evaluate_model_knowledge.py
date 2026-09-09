@@ -12,6 +12,7 @@ from pathlib import Path
 from dotenv import load_dotenv
 from pydantic import BaseModel, Field
 from pydantic_ai import Agent, ModelSettings
+from pydantic_ai.model.openrouter import OpenRouterModel
 from pydantic_ai.models.anthropic import AnthropicModel
 from pydantic_ai.models.mistral import MistralModel
 from pydantic_ai.models.openai import OpenAIChatModel
@@ -126,9 +127,9 @@ class _ExecutionSettings(BaseSettings):
         if self.OPENROUTER_MODEL in (None, ""):
             print(" - (No Openrouter API key configured)")
             return None
-        return OpenRouterProvider(
+        return OpenRouterModel(
             self.OPENROUTER_MODEL,
-            provider=MistralProvider(
+            provider=OpenRouterProvider(
                 api_key=self.OPENROUTER_MODEL,
             ),
             settings=self._model_settings,
