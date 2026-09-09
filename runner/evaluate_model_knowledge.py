@@ -18,6 +18,7 @@ from pydantic_ai.models.openai import OpenAIChatModel
 from pydantic_ai.providers.anthropic import AnthropicProvider
 from pydantic_ai.providers.mistral import MistralProvider
 from pydantic_ai.providers.openai import OpenAIProvider
+from pydantic_ai.providers.openrouter import OpenRouterProvider
 from pydantic_settings import BaseSettings
 
 
@@ -40,6 +41,10 @@ class _ExecutionSettings(BaseSettings):
     # Mistral
     MISTRAL_MODEL: str | None
     MISTRAL_API_KEY: str | None
+
+    # Openrouter
+    OPENROUTER_MODEL: str | None
+    OPENROUTER_KEY: str | None
 
     @property
     def _model_settings(self) -> ModelSettings:
@@ -114,6 +119,22 @@ class _ExecutionSettings(BaseSettings):
         )
 
     @property
+    def openrouter_model(self) -> OpenRouterProvider | None:
+        if self.OPENROUTER_MODEL in (None, ""):
+            print(" - (No Openrouter model configured)")
+            return None
+        if self.OPENROUTER_MODEL in (None, ""):
+            print(" - (No Openrouter API key configured)")
+            return None
+        return OpenRouterProvider(
+            self.OPENROUTER_MODEL,
+            provider=MistralProvider(
+                api_key=self.OPENROUTER_MODEL,
+            ),
+            settings=self._model_settings,
+        )
+
+    @property
     def output_folder(self) -> Path:
         out = Path(__file__).parent.parent / "results"
         if not os.path.exists(out):
@@ -166,6 +187,7 @@ for m_name, m in [
         f"local_{SETTINGS.LOCAL_LLM_MODEL.replace('/', '_')}",
         SETTINGS.local_openai_compatible_model,
     ),
+    (SETTINGS.OPENROUTER_MODEL, SETTINGS.openrouter_model),
     (SETTINGS.OPENAI_MODEL, SETTINGS.openai_model),
     (SETTINGS.ANTHROPIC_MODEL, SETTINGS.anthropic_model),
     (SETTINGS.MISTRAL_MODEL, SETTINGS.mistral_model),
