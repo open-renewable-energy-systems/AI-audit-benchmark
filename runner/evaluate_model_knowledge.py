@@ -45,7 +45,7 @@ class _ExecutionSettings(BaseSettings):
 
     # Openrouter
     OPENROUTER_MODEL: str | None
-    OPENROUTER_KEY: str | None
+    OPENROUTER_API_KEY: str | None
 
     @property
     def _model_settings(self) -> ModelSettings:
