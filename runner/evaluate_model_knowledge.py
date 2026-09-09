@@ -106,10 +106,10 @@ class _ExecutionSettings(BaseSettings):
     @property
     def mistral_model(self) -> MistralModel | None:
         if self.MISTRAL_MODEL in (None, ""):
-            print(" - (No Anthropic model configured)")
+            print(" - (No Mistral model configured)")
             return None
         if self.MISTRAL_API_KEY in (None, ""):
-            print(" - (No Anthropic API key configured)")
+            print(" - (No Mistral API key configured)")
             return None
         return MistralModel(
             self.MISTRAL_MODEL,
