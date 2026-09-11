@@ -15,9 +15,11 @@ from pydantic_ai import Agent, ModelSettings
 from pydantic_ai.models.anthropic import AnthropicModel
 from pydantic_ai.models.mistral import MistralModel
 from pydantic_ai.models.openai import OpenAIChatModel
+from pydantic_ai.models.openrouter import OpenRouterModel
 from pydantic_ai.providers.anthropic import AnthropicProvider
 from pydantic_ai.providers.mistral import MistralProvider
 from pydantic_ai.providers.openai import OpenAIProvider
+from pydantic_ai.providers.openrouter import OpenRouterProvider
 from pydantic_settings import BaseSettings
 
 
@@ -40,6 +42,10 @@ class _ExecutionSettings(BaseSettings):
     # Mistral
     MISTRAL_MODEL: str | None
     MISTRAL_API_KEY: str | None
+
+    # Openrouter
+    OPENROUTER_MODEL: str | None
+    OPENROUTER_API_KEY: str | None
 
     @property
     def _model_settings(self) -> ModelSettings:
@@ -100,15 +106,31 @@ class _ExecutionSettings(BaseSettings):
     @property
     def mistral_model(self) -> MistralModel | None:
         if self.MISTRAL_MODEL in (None, ""):
-            print(" - (No Anthropic model configured)")
+            print(" - (No Mistral model configured)")
             return None
         if self.MISTRAL_API_KEY in (None, ""):
-            print(" - (No Anthropic API key configured)")
+            print(" - (No Mistral API key configured)")
             return None
         return MistralModel(
             self.MISTRAL_MODEL,
             provider=MistralProvider(
                 api_key=self.MISTRAL_API_KEY,
+            ),
+            settings=self._model_settings,
+        )
+
+    @property
+    def openrouter_model(self) -> OpenRouterModel | None:
+        if self.OPENROUTER_MODEL in (None, ""):
+            print(" - (No Openrouter model configured)")
+            return None
+        if self.OPENROUTER_API_KEY in (None, ""):
+            print(" - (No Openrouter API key configured)")
+            return None
+        return OpenRouterModel(
+            self.OPENROUTER_MODEL,
+            provider=OpenRouterProvider(
+                api_key=self.OPENROUTER_API_KEY,
             ),
             settings=self._model_settings,
         )
@@ -161,11 +183,15 @@ candidate_standards = [
 
 output_folder = SETTINGS.output_folder
 
+if not os.path.exists(output_folder):
+    os.makedirs(output_folder, exist_ok=True)
+
 for m_name, m in [
     (
         f"local_{SETTINGS.LOCAL_LLM_MODEL.replace('/', '_')}",
         SETTINGS.local_openai_compatible_model,
     ),
+    (SETTINGS.OPENROUTER_MODEL, SETTINGS.openrouter_model),
     (SETTINGS.OPENAI_MODEL, SETTINGS.openai_model),
     (SETTINGS.ANTHROPIC_MODEL, SETTINGS.anthropic_model),
     (SETTINGS.MISTRAL_MODEL, SETTINGS.mistral_model),
@@ -185,7 +211,8 @@ for m_name, m in [
 
         for j in range(SETTINGS.RUNS_PER_MODEL):
             f_out = (
-                output_folder / f"{cleaned_standard}--{m_name}--iteration_{j + 1}.json"
+                output_folder
+                / f"{cleaned_standard}--{m_name.replace('/', '-')}--iteration_{j + 1}.json"
             )
             if os.path.exists(f_out):
                 print(f"> Skipped {f_out}")
