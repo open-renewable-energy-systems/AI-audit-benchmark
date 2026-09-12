@@ -1,0 +1,26 @@
+{
+  "capability_declaration": {
+    "score": 2,
+    "evidence": "Clause 7.3 (EVCC Communication Setup) and Clause 8.3 (EVSE Capability Declaration) in ISO 15118-2",
+    "rationale": "The standard explicitly requires DERs (e.g., EVs and EVSEs) to declare their capabilities during communication setup, but lacks detailed granularity for all DER types.",
+    "confidence": 0.85
+  },
+  "bounded_authority": {
+    "score": 1,
+    "evidence": "Clause 8.4 (Authorization and Authentication) and Clause 9.3 (Contract-Based Access Control) in ISO 15118-2",
+    "rationale": "The standard implies limits on agent authority through authentication and contract-based access, but does not explicitly define ceilings, expiry, or revocation.",
+    "confidence": 0.7
+  },
+  "decision_auditability": {
+    "score": 1,
+    "evidence": "Clause 10.2 (Logging and Diagnostics) in ISO 15118-2",
+    "rationale": "The standard mentions logging for diagnostics but does not explicitly address decision auditability or attribution for autonomous agents.",
+    "confidence": 0.65
+  },
+  "data_governance": {
+    "score": 2,
+    "evidence": "Clause 7.5 (Data Privacy and Security) and Clause 9.6 (Data Ownership and Consent) in ISO 15118-2",
+    "rationale": "The standard partially covers data ownership, consent, and retention, but lacks comprehensive requirements for all aspects of data governance.",
+    "confidence": 0.8
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "capability_declaration": {
+    "score": 3,
+    "evidence": "SunSpec Modbus Information Models for DER (e.g., IEEE 1547-2018 models) specify a mandatory 'DER Capacity' (803) model including nameplate maximum active/reactive power ratings (WMax, VArMax, etc.) and nameplate storage capacity (WhMax, etc.). Section 10 of the DER Information Model Specification defines these explicit capability registers.",
+    "rationale": "The SunSpec DER models include dedicated registers for declaring what a device is capable of, making capability declaration explicit.",
+    "confidence": 0.95
+  },
+  "bounded_authority": {
+    "score": 2,
+    "evidence": "The SunSpec DER model includes scheduling/limit parameters (e.g., Watt-Var curves, power limit setpoints like WMaxLimPct, VArMaxPct) in the 'DER AC Controls' (804) model, and the 'Connect/Disconnect' (802) model for connection state. However, there is no explicit clause defining expiry, revocation, or override mechanisms for agent authority.",
+    "rationale": "Power and control limits are well-specified, but authority lifecycle (expiry, revocation, human override) is not explicitly addressed, leaving coverage partial.",
+    "confidence": 0.85
+  },
+  "decision_auditability": {
+    "score": 1,
+    "evidence": "Section 9.5 in the SunSpec DER Information Model Specification mentions event logging (e.g., 'Log Events' model 808) and alarms, which could implicitly capture agent-driven state changes. However, there is no explicit requirement for logging agent decision rationale, attribution, or an audit trail tied to autonomous agent actions.",
+    "rationale": "Event logging exists but is not designed for agent decision attribution; auditability can only be inferred, not directly mandated.",
+    "confidence": 0.75
+  },
+  "data_governance": {
+    "score": 0,
+    "evidence": "none",
+    "rationale": "SunSpec is a communication protocol specification focused on data models and transport; it does not address data ownership, consent, retention, or broader data governance requirements at any level.",
+    "confidence": 0.95
+  }
+}

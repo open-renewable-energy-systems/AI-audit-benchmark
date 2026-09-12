@@ -1,0 +1,26 @@
+{
+  "capability_declaration": {
+    "score": 2,
+    "evidence": "IEEE 2030.5-2018, Section 10 (Device Capability), Section 11 (End Device Control), and Annex D (Device Capability Model)",
+    "rationale": "The standard explicitly defines device capabilities and allows DERs to declare their functions, but lacks granularity for autonomous AI agent-specific declarations.",
+    "confidence": 0.85
+  },
+  "bounded_authority": {
+    "score": 2,
+    "evidence": "IEEE 2030.5-2018, Section 8 (Security), Section 11 (End Device Control), and Section 12 (Demand Response)",
+    "rationale": "The standard defines limits on device control, authorization scopes, and revocation, but does not explicitly address AI-specific bounded authority.",
+    "confidence": 0.8
+  },
+  "decision_auditability": {
+    "score": 1,
+    "evidence": "IEEE 2030.5-2018, Section 9 (Logging) and Section 14 (Metering)",
+    "rationale": "Logging and metering requirements are implied for decisions, but explicit auditability and attribution for AI agents are not detailed.",
+    "confidence": 0.7
+  },
+  "data_governance": {
+    "score": 1,
+    "evidence": "IEEE 2030.5-2018, Section 8 (Security) and Section 15 (Privacy)",
+    "rationale": "Data ownership, consent, and retention are implicitly covered under security and privacy clauses, but lack explicit governance requirements.",
+    "confidence": 0.75
+  }
+}

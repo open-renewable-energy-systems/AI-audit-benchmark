@@ -1,0 +1,26 @@
+{
+  "capability_declaration": {
+    "score": 3,
+    "evidence": "IEEE 2030.5 defines explicit resource capability discovery via the DeviceCapability resource (dcap) and associated function sets (e.g., DERCapability under Clause 10/Section 10, DERSettings, DERStatus). Devices advertise supported function sets and DER capabilities including mode support, power limits, and ramp rates through structured XML resources.",
+    "rationale": "The standard explicitly defines DERCapability and DeviceCapability resources allowing devices/agents to formally declare their operational capabilities to a server/aggregator.",
+    "confidence": 0.95
+  },
+  "bounded_authority": {
+    "score": 2,
+    "evidence": "IEEE 2030.5 defines DERControl resources with scheduling, primacy levels (Clause 10.10), and DERControlBase parameters that set operational boundaries (opModConnect, opModEnergize, power limits, ramp rates). The primacy field establishes a hierarchy of control authority. However, explicit agent-level authority scoping, token expiry, or formal revocation mechanisms for autonomous agents are not fully specified.",
+    "rationale": "Primacy levels and DERControl parameters provide partial bounded authority, but agent-specific authority scoping, expiry, and revocation are not comprehensively defined.",
+    "confidence": 0.85
+  },
+  "decision_auditability": {
+    "score": 1,
+    "evidence": "IEEE 2030.5 includes a LogEvent resource (Clause 6, LogEventList) for devices to report events, and DERStatus for reporting current operational state. However, there is no explicit requirement for logging agent decision rationale, attributing autonomous decisions, or maintaining an auditable decision trail specific to AI/agent actions.",
+    "rationale": "LogEvent and status resources imply some auditability, but the standard does not explicitly address agent decision logging or attribution for autonomous operations.",
+    "confidence": 0.8
+  },
+  "data_governance": {
+    "score": 1,
+    "evidence": "IEEE 2030.5 specifies TLS-based security (Clause 5, IEEE 2030.5 Security) and certificate-based device identity, which implicitly supports data access control. However, explicit provisions for data ownership, end-user consent, data retention policies, or data lifecycle governance are absent from the standard.",
+    "rationale": "Security and identity mechanisms imply some data governance, but ownership, consent, and retention requirements are not explicitly defined in the standard.",
+    "confidence": 0.85
+  }
+}

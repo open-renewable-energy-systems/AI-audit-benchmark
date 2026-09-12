@@ -1,0 +1,26 @@
+{
+  "capability_declaration": {
+    "score": 3,
+    "evidence": "SunSpec Modbus Information Models define device profiles and registers for declaring capabilities. Models such as the Common Model (1) include Manufacturer, Model, Version, and Options registers. The 'Capability' registers (e.g., 'WMax', 'VAMax', 'PF_Max') explicitly enumerate functional limits. The certification process requires passing a Specified Conformance Profile that asserts supported capabilities.",
+    "rationale": "SunSpec explicitly requires devices to declare capabilities via standard information models, profile registers, and conformance testing — a hallmark of explicit coverage.",
+    "confidence": 0.95
+  },
+  "bounded_authority": {
+    "score": 2,
+    "evidence": "SunSpec defines writable Modbus registers for control setpoints (e.g., 'WMax', 'WMaxLimPct', 'PF_Set', 'FixedW') in models 121–123 and the Common Model. Control authority is bounded by these numeric limits. However, no explicit clauses govern temporal expiry, revocation tokens, or override escalation for autonomous agent delegation.",
+    "rationale": "Authority is bounded via operational setpoint registers, but lacks explicit temporal expiry, delegation revocation, or override protocols needed for fully autonomous AI agent oversight.",
+    "confidence": 0.85
+  },
+  "decision_auditability": {
+    "score": 1,
+    "evidence": "SunSpec specifies real-time telemetry registers (e.g., total energy, instantaneous power, status/event flags) and alarm/warning codes in models 121–123. These provide operational data that could be used to infer agent decisions. No clause explicitly mandates logging of agent decision rationale, attribution identifiers, or audit trail formats.",
+    "rationale": "Telemetry data can implicitly support audit reconstruction, but the standard does not explicitly address decision logging, attribution, or structured audit trails for autonomous agents.",
+    "confidence": 0.8
+  },
+  "data_governance": {
+    "score": 1,
+    "evidence": "SunSpec specifies transport security via Modbus/TLS in its IEEE 1547-2018 profile conformance requirements (CSIP) and references SunSpec Modbus Security. It secures data in transit but does not define data ownership, user consent mechanisms, data retention policies, or purpose-limitation clauses.",
+    "rationale": "Transport security implies confidentiality but does not constitute data governance. Ownership, consent, retention, and purpose limitation are absent from the standard.",
+    "confidence": 0.9
+  }
+}

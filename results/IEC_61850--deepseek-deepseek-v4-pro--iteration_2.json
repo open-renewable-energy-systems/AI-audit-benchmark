@@ -1,0 +1,26 @@
+{
+  "capability_declaration": {
+    "score": 3,
+    "evidence": "Clause 6 (Configuration language SCL) and Clause 7 (Communication modelling). Logical devices (LD), logical nodes (LN) from groups such as L (System LN), G (Generic), and D (DER) define standardised classes (e.g. LN group D = DER, with nodes like DRCT, DRCC, DSCH, DSFC). Each LN has mandatory, optional and conditional data objects (DO) with common data class types (CDC). SCL files (IEC 61850-6) enumerate IED capabilities: SubNetwork → IED → AccessPoint → LDevice → LN instances, including DOI (instantiated data object) settings. IEC 61850-7-420 extends the model for DERs specifically, adding LN classes for generators, storage, EVs etc. Clause 7-3 defines GetLogicalNodeDirectory and GetDataDirectory ACSI services for runtime discovery.",
+    "rationale": "The standard's entire modelling framework is capability declaration: SCL for configuration-time and ACSI directory services for runtime. DER-specific LNs in 7-420 make this explicit for DER agents.",
+    "confidence": 0.95
+  },
+  "bounded_authority": {
+    "score": 1,
+    "evidence": "Clause 7-2 (ACSI) defines access control via AccessSecurity class and association establishment (Associate). Clause 8-1 (Mapping to MMS) references MMS objects. SCL Clause 6 defines AccessControl in IED sections with role-based permissions on logical nodes. IEC 62351-8 (not 61850 per se but referenced in the 61850 security ecosystem) defines role-based access control (RBAC) profiles. However, the standard itself does not define ceiling limits, expiry of authority, revocation protocols, or override chains for autonomous agent decisions. These are implied through RBAC but not codified for AI agents.",
+    "rationale": "RBAC and access control exist but bounded authority for autonomous agents (ceilings, expiry, revocation, override chains) is not explicitly defined. It can only be inferred via RBAC constructs.",
+    "confidence": 0.8
+  },
+  "decision_auditability": {
+    "score": 2,
+    "evidence": "Clause 7-1 defines the Log (L) logical node group including LN class LLN0 (for device-wide logs) and GEN (generic log). Clause 7-2 ACSI services include GetLog, GetLogStatus, QueryLogByTime, QueryLogByEntry. Clause 7-3 defines LogControlBlock (LCB) for configuring what is logged. Data set members can include any DO/DA. IEC 61850-8 (MMS mapping) maps journal services. IEC 61850-7-4 §5.3 defines LCs (Log Control). However, the standard does not prescribe decision-attribution semantics: it logs events/changes but does not specify that agent decisions must be logged with agent ID, reasoning, or context—that is left to the implementer's data set design.",
+    "rationale": "Logging framework is well-defined (LCB, GetLog, journaling), giving partial coverage. But decision-attribution semantics (agent ID, rationale, context per decision) are not mandated, leaving a gap.",
+    "confidence": 0.85
+  },
+  "data_governance": {
+    "score": 0,
+    "evidence": "None. The standard addresses data modelling (LN/DO/DA) and communication but does not contain clauses on data ownership, user consent, data retention policies, data sovereignty, or purpose limitation. IEC 62351 addresses security (authentication, encryption) but not governance. GDPR-style governance concepts are entirely external to the standard.",
+    "rationale": "IEC 61850 is a communications and data modelling standard. Data governance (ownership, consent, retention) is absent from its scope.",
+    "confidence": 0.92
+  }
+}

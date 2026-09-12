@@ -1,0 +1,26 @@
+{
+  "capability_declaration": {
+    "score": 3,
+    "evidence": "ISO 15118 defines explicit service discovery and capability exchange mechanisms. In ISO 15118-2, the 'SupportedEnergyTransferMode' and 'ChargeService' elements allow an EV/EVSE to declare supported charging modes, power levels, and services. ISO 15118-20 extends this with detailed capability negotiation for BPT (Bidirectional Power Transfer), dynamic control modes, and scheduled modes via 'ServiceDiscoveryReq/Res' and 'ServiceDetailReq/Res' message pairs.",
+    "rationale": "Standard explicitly defines structured capability exchange messages between EV and EVSE, covering energy transfer modes, power limits, and service offerings in dedicated protocol phases.",
+    "confidence": 0.95
+  },
+  "bounded_authority": {
+    "score": 2,
+    "evidence": "ISO 15118-2 Clause 8 and ISO 15118-20 define schedule/limit constructs such as 'SAScheduleTuple', 'PMaxSchedule', and 'SalesTariff' that bound what a charging session may do in terms of power and time. ISO 15118-20 introduces dynamic control modes with operator-defined power limits and departure time constraints. However, explicit agent-level authority scoping (e.g., delegation tokens, expiry of autonomous control grants, or revocation mechanisms for AI agents) is not directly addressed.",
+    "rationale": "Power and schedule ceilings are well-defined for charging sessions, but agent-specific authority delegation, expiry, and revocation constructs are absent, making coverage partial.",
+    "confidence": 0.88
+  },
+  "decision_auditability": {
+    "score": 1,
+    "evidence": "ISO 15118 does not contain explicit clauses mandating logging or attribution of decisions made during a charging session. However, the structured message exchange (e.g., 'MeteringReceiptReq/Res', signed metering values in ISO 15118-2 Clause 8.7, and the use of TLS with certificate-based authentication) implicitly creates an auditable trail of session events and authenticated actors. ISO 15118-20 retains signed metering records.",
+    "rationale": "No explicit decision-logging or audit-trail requirements exist; auditability is only inferrable from cryptographically signed metering and authenticated message exchanges.",
+    "confidence": 0.82
+  },
+  "data_governance": {
+    "score": 1,
+    "evidence": "ISO 15118 does not define data ownership, consent frameworks, or retention policies. The standard focuses on communication protocol mechanics. Privacy considerations are touched upon implicitly through the use of TLS (transport security) and the optional use of anonymous/pseudonymous contract certificates (Plug & Charge via EVCC/SECC certificate chains in ISO 15118-2 Annex H and ISO 15118-20), but no explicit data governance clauses (ownership, consent, retention periods) are present.",
+    "rationale": "Data governance is not a stated scope of ISO 15118; only implicit privacy protections via PKI/TLS can be inferred, with no explicit ownership, consent, or retention requirements.",
+    "confidence": 0.9
+  }
+}

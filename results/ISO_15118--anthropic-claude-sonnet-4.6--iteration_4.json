@@ -1,0 +1,26 @@
+{
+  "capability_declaration": {
+    "score": 3,
+    "evidence": "ISO 15118-2 and ISO 15118-20 define explicit service discovery and capability exchange mechanisms. Specifically, the 'ServiceDiscoveryReq/Res' message pair (ISO 15118-2, Section 8.7.3) and the 'ServiceDetailReq/Res' (Section 8.7.4) allow an EV/EVSE to declare supported energy transfer modes, charge parameters, and value-added services. ISO 15118-20 extends this with dynamic capability negotiation including BPT (bidirectional power transfer) and grid services.",
+    "rationale": "The standard explicitly defines structured message exchanges for capability declaration between EV and EVSE, covering energy modes, services, and parameters in dedicated protocol messages.",
+    "confidence": 0.95
+  },
+  "bounded_authority": {
+    "score": 2,
+    "evidence": "ISO 15118-2 Sections 8.8 (ChargeParameterDiscovery) and 8.11 (PowerDelivery) define charge schedule constraints including maximum current/power limits (EVSEMaxCurrent, EVSEMaxVoltage), charging profiles, and schedule tuples. ISO 15118-20 introduces dynamic control mode with power limits and departure time constraints. However, explicit agent-level authority scoping, delegation expiry tokens, or revocation mechanisms for autonomous AI agents are not defined — authority is implicitly bounded by physical and schedule parameters.",
+    "rationale": "Power and schedule ceilings are defined, but the standard lacks explicit agent authority scoping, delegation expiry, or revocation constructs beyond physical charge parameters.",
+    "confidence": 0.85
+  },
+  "decision_auditability": {
+    "score": 1,
+    "evidence": "ISO 15118 does not contain explicit clauses mandating logging or attribution of agent decisions. However, the structured request/response message sequences (e.g., PowerDeliveryReq with ChargeProgress indicators, MeteringReceiptReq in ISO 15118-2 Section 8.10) implicitly create a traceable record of session states and energy transactions. Metering data signing (Section 8.10.3) provides some non-repudiation for energy values but not for autonomous decision steps.",
+    "rationale": "No explicit audit logging or decision attribution requirements exist; only implicit traceability through signed metering receipts and session message flows.",
+    "confidence": 0.8
+  },
+  "data_governance": {
+    "score": 2,
+    "evidence": "ISO 15118-2 Section 7 (Security) and Annex B define PKI-based identity management, TLS mutual authentication, and certificate handling (contract certificates, EVSE certificates). ISO 15118-20 further addresses Plug & Charge (PnC) certificate provisioning and privacy considerations for user identity (e.g., use of pseudonymous eMAIDs). However, explicit data ownership, consent frameworks, or data retention policies are not defined within the standard itself — these are deferred to backend/operator policies.",
+    "rationale": "Strong identity and certificate governance is specified, with some privacy provisions, but data ownership, consent, and retention requirements are absent or deferred to external frameworks.",
+    "confidence": 0.85
+  }
+}

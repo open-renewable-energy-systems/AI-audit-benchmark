@@ -1,0 +1,26 @@
+{
+  "capability_declaration": {
+    "score": 2,
+    "evidence": "SunSpec Information Models (e.g., SunSpec Model 1, Model 101-103, Model 111-113, Model 120-123)",
+    "rationale": "SunSpec explicitly defines standard data models for DER capabilities (e.g., inverter capabilities, storage capabilities), but lacks a dynamic declaration mechanism for autonomous agents.",
+    "confidence": 0.85
+  },
+  "bounded_authority": {
+    "score": 1,
+    "evidence": "SunSpec Modbus and IEEE 2030.5 profiles (e.g., sections on operational limits in SunSpec Model 120-123)",
+    "rationale": "Operational limits are defined, but authority scoping, revocation, and override mechanisms are not explicitly addressed for autonomous agents.",
+    "confidence": 0.7
+  },
+  "decision_auditability": {
+    "score": 1,
+    "evidence": "SunSpec Model 122 (Logging), but not specific to agent decisions",
+    "rationale": "Logging is supported, but attribution and auditability of autonomous agent decisions are not explicitly covered.",
+    "confidence": 0.65
+  },
+  "data_governance": {
+    "score": 0,
+    "evidence": "none",
+    "rationale": "SunSpec does not address data ownership, consent, or retention requirements.",
+    "confidence": 0.9
+  }
+}

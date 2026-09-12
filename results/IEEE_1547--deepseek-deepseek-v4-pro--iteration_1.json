@@ -1,0 +1,26 @@
+{
+  "capability_declaration": {
+    "score": 3,
+    "evidence": "Clause 5.3 (DER capabilities), Clause 10 (Interoperability and communication), Table 1 (Mandatory DER capabilities), Clause 6.4.2 (Voltage-reactive power modes), Clause 7.3.2 (Frequency-watt droop parameters), Clause 5.7 (Capability categories A & B).",
+    "rationale": "IEEE 1547 explicitly requires DERs to declare operational capabilities upon commissioning and nameplate data with extensive parameterization tables.",
+    "confidence": 0.92
+  },
+  "bounded_authority": {
+    "score": 1,
+    "evidence": "Clause 5.8 (DER settings), Clause 8 (Islanding), Clause 10.3 (Authorization to operate), Clause 6.5 (Voltage ride-through curves).",
+    "rationale": "Settings boundaries exist but authority is human/operator-centric; no clause defines autonomous agent scope, revocation logic, or dynamic delegation.",
+    "confidence": 0.87
+  },
+  "decision_auditability": {
+    "score": 0,
+    "evidence": "none",
+    "rationale": "No clauses address logging, attribution, or traceability of autonomous decisions. Monitoring requirements in Clause 10 are about operational states, not decision records.",
+    "confidence": 0.94
+  },
+  "data_governance": {
+    "score": 0,
+    "evidence": "none",
+    "rationale": "IEEE 1547 is silent on data ownership, consent, retention, or privacy. Communication protocols are scoped but governance of the data itself is not addressed.",
+    "confidence": 0.95
+  }
+}

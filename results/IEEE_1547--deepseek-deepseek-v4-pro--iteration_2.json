@@ -1,0 +1,26 @@
+{
+  "capability_declaration": {
+    "score": 2,
+    "evidence": "Clause 5 (General requirements), Clause 6 (Interoperability), especially 6.4.1 (nameplate data), 6.4.2 (configuration information), 6.4.3 (monitoring information), and Clause 10 (DER capabilities — Volt-Var, Frequency-Watt, Volt-Watt, etc.)",
+    "rationale": "IEEE 1547 specifies DER capability categories (Volt-Var, Frequency-Watt, etc.) and requires nameplate/configuration data exchange via DNP3 or IEEE 2030.5. However, it does not define a generic machine-readable capability declaration format for autonomous agents beyond these pre-defined function categories.",
+    "confidence": 0.85
+  },
+  "bounded_authority": {
+    "score": 2,
+    "evidence": "Clause 5.4 (DER response to Area EPS abnormal conditions), Clause 8 (Area EPS control), Clause 10.3 (authority to adjust settings), Annex B (default settings and ranges)",
+    "rationale": "The standard defines permissive operating ranges (voltage, frequency) and adjustable parameter limits with default settings. It implies bounded operational authority but lacks explicit agent-authority constructs like delegation ceilings, expiry, or revocation protocols.",
+    "confidence": 0.8
+  },
+  "decision_auditability": {
+    "score": 1,
+    "evidence": "Clause 6.4.3 (monitoring information), Clause 6.6 (event logging and recording), Annex D (DER communication and information exchange guidelines)",
+    "rationale": "IEEE 1547 requires DER systems to log events and monitoring data, which implicitly supports audit trails. But it does not mandate agent-specific decision logging with attribution (who/what decided), timestamps, or standardized audit report formats.",
+    "confidence": 0.75
+  },
+  "data_governance": {
+    "score": 0,
+    "evidence": "none",
+    "rationale": "IEEE 1547 is a technical interconnection standard focused on electrical performance and communication protocols. It does not address data ownership, consent, retention, or privacy requirements.",
+    "confidence": 0.9
+  }
+}

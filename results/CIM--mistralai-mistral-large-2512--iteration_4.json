@@ -1,0 +1,26 @@
+{
+  "capability_declaration": {
+    "score": 2,
+    "evidence": "IEC 61970-301 (Common Information Model - CIM): Sections 4.3 (Equipment Profiles) and 5.6 (Device Capability Modeling)",
+    "rationale": "The CIM provides partial explicit modeling for device capabilities, particularly for electrical equipment, but lacks a unified agent-centric capability declaration framework.",
+    "confidence": 0.85
+  },
+  "bounded_authority": {
+    "score": 1,
+    "evidence": "IEC 61970-301: Section 6.5 (Role-Based Access Control) and IEC 62325-451 (Market Participation)",
+    "rationale": "Bounded authority is implicitly covered through role-based access control and market participation rules, but not explicitly defined for autonomous AI agents.",
+    "confidence": 0.75
+  },
+  "decision_auditability": {
+    "score": 1,
+    "evidence": "IEC 61968-1 (CIM for Distribution): Section 8.4 (Logging and Event Handling)",
+    "rationale": "Auditability is implicitly supported through logging and event handling, but lacks explicit requirements for AI agent decision attribution.",
+    "confidence": 0.7
+  },
+  "data_governance": {
+    "score": 1,
+    "evidence": "IEC 61970-301: Section 7.2 (Data Ownership and Metadata)",
+    "rationale": "Data governance is implicitly addressed through metadata and ownership definitions, but lacks explicit consent and retention policies for AI agents.",
+    "confidence": 0.7
+  }
+}

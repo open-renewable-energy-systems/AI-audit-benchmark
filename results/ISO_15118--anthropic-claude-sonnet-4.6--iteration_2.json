@@ -1,0 +1,26 @@
+{
+  "capability_declaration": {
+    "score": 3,
+    "evidence": "ISO 15118 defines explicit service discovery and capability exchange mechanisms. In ISO 15118-2, the 'SupportedEnergyTransferMode' and 'ChargeService' elements allow an EV/EVSE to declare supported charging modes, power levels, and services. ISO 15118-20 extends this with detailed capability negotiation for BPT (Bidirectional Power Transfer), dynamic control modes, and scheduled modes via 'ServiceDiscoveryReq/Res' and 'ServiceDetailReq/Res' message pairs.",
+    "rationale": "Standard explicitly defines structured capability exchange messages between EV and EVSE, covering energy transfer modes, power limits, and service offerings in dedicated protocol phases.",
+    "confidence": 0.95
+  },
+  "bounded_authority": {
+    "score": 2,
+    "evidence": "ISO 15118-2 Clause 8 and ISO 15118-20 define schedule/limit constructs such as 'SAScheduleTuple', 'PMaxSchedule', and 'ChargingProfile' that bound what a charging session may do in terms of power and time. ISO 15118-20 introduces dynamic control mode with operator-set limits. However, explicit agent-level authority constructs (e.g., delegation scopes, expiry tokens, revocation mechanisms for autonomous AI agents) are not directly specified; authority is implicitly bounded by contract certificates (Plug & Charge, ISO 15118-2 Clause 7.9) and schedule constraints.",
+    "rationale": "Power and schedule ceilings are explicitly defined, and contract-based authentication bounds session authority, but there is no formal agent delegation, expiry, or revocation framework for autonomous operation.",
+    "confidence": 0.88
+  },
+  "decision_auditability": {
+    "score": 1,
+    "evidence": "ISO 15118 does not contain explicit clauses mandating logging or attribution of charging decisions made by an EV energy management system or grid-side agent. Some auditability is implicitly supported through the signed contract certificate chain (Plug & Charge, ISO 15118-2 Annex H) and metering receipt messages ('MeteringReceiptReq/Res') which provide a tamper-evident record of energy exchanged, but decision-level logging (why a particular schedule was chosen, agent identity attribution) is absent.",
+    "rationale": "Metering receipts and PKI-signed certificates provide implicit transaction auditability, but no explicit decision logging, agent attribution, or audit trail requirements are defined.",
+    "confidence": 0.85
+  },
+  "data_governance": {
+    "score": 2,
+    "evidence": "ISO 15118-2 Clause 7.9 and Annex H address the handling of contract certificates, EMAID (e-Mobility Account Identifier), and private key protection within the Plug & Charge ecosystem, implying data ownership and consent via contract. ISO 15118-20 references the need for privacy-preserving certificate handling. However, explicit data retention periods, consent withdrawal mechanisms, data minimisation requirements, or ownership transfer rules for metering/session data are not defined within the standard itself — these are deferred to backend/OCPP or regulatory frameworks.",
+    "rationale": "Contract certificate and identity management clauses partially address data ownership and consent, but retention, minimisation, and explicit consent lifecycle are not covered within the standard.",
+    "confidence": 0.82
+  }
+}

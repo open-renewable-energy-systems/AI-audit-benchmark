@@ -1,0 +1,26 @@
+{
+  "capability_declaration": {
+    "score": 2,
+    "evidence": "Clause 5.3 (Capabilities), Clause 10 (Interoperability), Table 2 (Default DER capabilities), Annex B (Interoperability settings)",
+    "rationale": "IEEE 1547 defines DER capability categories (e.g., volt-var, frequency-watt) and requires interoperability settings to be configurable, but it does not specify a machine-readable capability declaration protocol for autonomous agents.",
+    "confidence": 0.75
+  },
+  "bounded_authority": {
+    "score": 2,
+    "evidence": "Clause 5.4 (Limits), Clause 8 (Islanding), Clause 10.2 (Interoperability configuration and control), Clause 13 (DER response to abnormal conditions)",
+    "rationale": "The standard defines operational limits (voltage, frequency, ramp rates) and abnormal condition responses, but does not explicitly define agent-authority constructs such as scope, ceilings, expiry, revocation, or override mechanisms.",
+    "confidence": 0.7
+  },
+  "decision_auditability": {
+    "score": 0,
+    "evidence": "none",
+    "rationale": "IEEE 1547 is a technical interconnection standard; it does not address logging, attribution, or audit trails for agent decisions.",
+    "confidence": 0.85
+  },
+  "data_governance": {
+    "score": 0,
+    "evidence": "none",
+    "rationale": "The standard is silent on data ownership, consent, retention, or privacy requirements. These are outside its interconnection and interoperability scope.",
+    "confidence": 0.9
+  }
+}

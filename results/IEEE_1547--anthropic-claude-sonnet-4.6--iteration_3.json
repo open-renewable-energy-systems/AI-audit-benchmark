@@ -1,0 +1,26 @@
+{
+  "capability_declaration": {
+    "score": 2,
+    "evidence": "IEEE 1547-2018 Sections 4–7 define interoperability requirements including nameplate ratings, operational capabilities (voltage/frequency ride-through, reactive power capability, active power control), and monitoring functions. Clause 4 specifies 'capability requirements' for DERs including voltage regulation, frequency response, and reactive power ranges. Section 10 addresses interoperability and information exchange, referencing IEEE 1547.1 for testing of declared capabilities.",
+    "rationale": "Standard defines DER operational capability parameters (power, voltage, frequency ranges) but does not provide a formal machine-readable capability declaration framework suitable for autonomous agent negotiation.",
+    "confidence": 0.85
+  },
+  "bounded_authority": {
+    "score": 2,
+    "evidence": "IEEE 1547-2018 Clause 4.6 defines 'enter service' criteria and Clause 4.10 specifies 'cease to energize' requirements. Clause 4.8 covers active power control limits including frequency-droop settings and ramp rates. Clause 8 defines requirements for area electric power system (Area EPS) operator authority to change DER settings via communication. However, there is no explicit concept of agent authority scope, expiry tokens, or revocation mechanisms for autonomous agents.",
+    "rationale": "Standard sets operational ceilings and operator override rights for DER control, but lacks formal agent-specific authority bounding constructs such as delegation scope, time-limited permissions, or cryptographic revocation.",
+    "confidence": 0.82
+  },
+  "decision_auditability": {
+    "score": 1,
+    "evidence": "IEEE 1547-2018 Section 10 (Interoperability) references data exchange and monitoring but does not mandate logging of control decisions or attribution of commands to specific agents. Clause 4.9 requires DERs to support monitoring of operational status, but no explicit audit trail, timestamped decision log, or agent attribution requirement is specified. IEEE 1547.3 (guidance for monitoring) touches on data recording but is a separate guideline document.",
+    "rationale": "Auditability of agent decisions is only inferrable from general monitoring requirements; no explicit mandate for decision logging, command attribution, or audit trail exists within the core standard.",
+    "confidence": 0.78
+  },
+  "data_governance": {
+    "score": 1,
+    "evidence": "IEEE 1547-2018 Section 10 addresses interoperability and references cybersecurity considerations, pointing to IEEE 1547.3 and NERC CIP standards. There is no explicit treatment of data ownership, consent frameworks, retention periods, or privacy requirements within the standard itself. Cybersecurity is acknowledged as out of scope in the normative text.",
+    "rationale": "Data governance is largely absent from the normative clauses; only implicit references to external cybersecurity standards exist, with no provisions for data ownership, consent, or retention.",
+    "confidence": 0.8
+  }
+}

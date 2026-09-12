@@ -1,0 +1,26 @@
+{
+  "capability_declaration": {
+    "score": 2,
+    "evidence": "IEC 61968/61970 CIM defines PowerSystemResource and Equipment classes with associated attributes (e.g., GeneratingUnit.maxOperatingP, Battery.ratedE, DERGroupDispatch) that describe device capabilities. The DistributedEnergyResource and related classes (e.g., BatteryUnit, PhotovoltaicUnit) carry nameplate and operational parameters. However, there is no formal 'capability advertisement' mechanism for an autonomous agent to dynamically declare or negotiate its capabilities at runtime.",
+    "rationale": "CIM provides rich static capability modelling via equipment classes and attributes, but lacks a dynamic/runtime capability declaration mechanism suited for autonomous agents.",
+    "confidence": 0.82
+  },
+  "bounded_authority": {
+    "score": 1,
+    "evidence": "CIM includes operational limit classes (OperationalLimit, ActivePowerLimit, VoltageLimit, CurrentLimit) and control classes (Control, RegulatingControl, DispatchSchedule) that implicitly constrain what actions can be taken on a resource. However, there are no explicit constructs for agent authority scopes, delegation ceilings, time-bound permissions, or revocation mechanisms as would be needed for autonomous agent governance.",
+    "rationale": "Operational limits exist for physical constraints, but no explicit agent authority bounding, delegation, expiry, or revocation constructs are defined.",
+    "confidence": 0.78
+  },
+  "decision_auditability": {
+    "score": 1,
+    "evidence": "CIM does not define logging, audit trails, or decision attribution requirements. Some traceability can be inferred from the use of IdentifiedObject (with mRID and name) and timestamp fields on Measurements and Commands, which could support post-hoc reconstruction of actions. IEC 61968-100 (messaging) includes header metadata (Sender, CorrelationID, Timestamp) that implicitly supports some auditability, but no explicit audit log schema or agent decision attribution is specified.",
+    "rationale": "No explicit audit or decision-logging constructs; only implicit traceability via object identifiers and message headers.",
+    "confidence": 0.75
+  },
+  "data_governance": {
+    "score": 1,
+    "evidence": "CIM is a semantic data model standard and does not address data ownership, consent, or retention policies. Some governance-adjacent concepts exist implicitly: IdentifiedObject.mRID enables data lineage, and IEC 61968-100 message envelopes carry sender/receiver identity. However, no clauses address data sovereignty, consent frameworks, retention schedules, or privacy requirements relevant to DER operational data.",
+    "rationale": "CIM is a pure information model; data governance (ownership, consent, retention) is entirely out of scope and not addressed.",
+    "confidence": 0.88
+  }
+}

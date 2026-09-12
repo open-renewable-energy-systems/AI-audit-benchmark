@@ -1,0 +1,26 @@
+{
+  "capability_declaration": {
+    "score": 3,
+    "evidence": "§5-2 (ACS & Logical Device Models), §6-3 (Common Data Classes), §7-3 & §7-4 (Logical Node Classes, esp. LN Group X for DER), §8-1 (SCL/IID files enumerating services/logical nodes). Part 7-420 (DER-specific logical nodes: DOPR, DFLV etc.).",
+    "rationale": "LN classes, data objects and IID/SCL files explicitly declare functional, measurement, control and reporting capabilities of devices, including DERs. Part 7-420 adds DER-specific declaration building blocks.",
+    "confidence": 0.98
+  },
+  "bounded_authority": {
+    "score": 1,
+    "evidence": "§7-2 (Control Model – OrCat, ctlModel with SBO/SBOes; but authority scoping is not explicit). §8-1 (SCL may carry SubNetwork/access point auth config). Clause 17 (Reporting/logging of control actions).",
+    "rationale": "The control model distinguishes originator categories and mandates select-before-operate, but no explicit clause defines scope ceilings, expiry, or revocable authority bounds for autonomous agents.",
+    "confidence": 0.88
+  },
+  "decision_auditability": {
+    "score": 2,
+    "evidence": "§7-2 Clause 17 (Logging: LGs – Histor. Stat. & Events), §7-4 (Common LN: GGIO, GAPC, IARC), §8-1 (SCL: Communication/SubNetwork & access point tracing), Part 6 (system exchange description).",
+    "rationale": "Logging of control commands and events is mandated in detail, but agent decision attribution (linking reasoning to action) is not fully standardised, leaving a gap for end-to-end audit trails.",
+    "confidence": 0.92
+  },
+  "data_governance": {
+    "score": 0,
+    "evidence": "none",
+    "rationale": "IEC 61850 focuses on operational data exchange; it contains no clauses on data ownership, consent management, or retention policies for DER operational data.",
+    "confidence": 0.96
+  }
+}

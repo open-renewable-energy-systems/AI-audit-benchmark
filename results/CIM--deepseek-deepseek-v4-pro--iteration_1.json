@@ -1,0 +1,26 @@
+{
+  "capability_declaration": {
+    "score": 2,
+    "evidence": "IEC 61970-301 (CIM Core) defines classes like GeneratingUnit, PowerSystemResource with attributes for rated capacities, operating modes, and type classifications. IEC 61968-11 (CIM Extensions for Distribution) extends this with DER-specific classes such as DERUnit, DERGeneratingUnit, and DERCapability, which include max/min operating limits, ramp rates, and reactive capability curves.",
+    "rationale": "CIM provides a rich semantic model for describing what a DER device can do via structured class hierarchies and attributes. However, CIM is a static information model, not a protocol — it lacks a dynamic capability advertisement/negotiation mechanism (e.g., discovery or registration handshake).",
+    "confidence": 0.85
+  },
+  "bounded_authority": {
+    "score": 1,
+    "evidence": "IEC 61968-9 (Meter Reading & Control) and IEC 61970-452 (CIM Static Transmission Model) include classes for Control, RegulationSchedule, and SetPoint with attributes such as minValue, maxValue. IEC 61968-5 (Distributed Energy Resources) references operating envelopes and schedules. However, these are modelled as static data structures, not as dynamic authority tokens with expiry, delegation chains, or revocation semantics.",
+    "rationale": "CIM models control limits and schedules structurally, which implicitly constrains what an agent may do. But it does not define an explicit bounded-authority framework — no expiry, delegation, override hierarchy, or revocation semantics are natively specified.",
+    "confidence": 0.8
+  },
+  "decision_auditability": {
+    "score": 0,
+    "evidence": "none",
+    "rationale": "CIM is an information model focused on power system semantics, not operational logging. No clauses address audit trails, decision attribution, or agent-action logging. Auditability would need to be layered via IEC 62351 (security) or external logging standards.",
+    "confidence": 0.92
+  },
+  "data_governance": {
+    "score": 0,
+    "evidence": "none",
+    "rationale": "CIM models data structure and semantics for interoperability but does not address data ownership, consent management, retention policies, or privacy controls. These governance concerns are outside CIM's scope.",
+    "confidence": 0.95
+  }
+}

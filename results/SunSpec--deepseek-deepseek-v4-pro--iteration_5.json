@@ -1,0 +1,26 @@
+{
+  "capability_declaration": {
+    "score": 2,
+    "evidence": "SunSpec Modbus Information Models define device capability registers (e.g., Common Model 1, Model 101–103 for inverter ratings, Model 120–126 for storage, Model 201–204 for meters). The 'SunSpecMap' (Model 0) enumerates which models a device implements, and many models include nameplate/rating registers (WMax, VARating, etc.).",
+    "rationale": "Partial: device capabilities are declared via enumerated model maps and rating registers, but there is no explicit 'agent capability profile' or semantic self-description layer beyond Modbus register enumeration.",
+    "confidence": 0.85
+  },
+  "bounded_authority": {
+    "score": 1,
+    "evidence": "SunSpec Common Model 1 allows writable control setpoints (e.g., active/reactive power limits, ramp rates). DER information models (701–715) and IEEE 1547-2018 profiles include functional modes and trip settings, but the standard itself does not define an explicit authority token, expiry, delegation, or revocation mechanism.",
+    "rationale": "Implicit: control points with writable setpoint registers imply bounded operational scope, but no explicit agent-authority framework (scopes, ceilings, expiry, revocation, override chains) is defined.",
+    "confidence": 0.8
+  },
+  "decision_auditability": {
+    "score": 0,
+    "evidence": "none",
+    "rationale": "SunSpec Modbus models focus on real-time monitoring and control registers; there are no clauses defining event logging, decision attribution, audit trails, or agent-action recording requirements.",
+    "confidence": 0.9
+  },
+  "data_governance": {
+    "score": 0,
+    "evidence": "none",
+    "rationale": "SunSpec covers data format and transport but does not address data ownership, consent management, retention policies, or privacy governance frameworks.",
+    "confidence": 0.9
+  }
+}

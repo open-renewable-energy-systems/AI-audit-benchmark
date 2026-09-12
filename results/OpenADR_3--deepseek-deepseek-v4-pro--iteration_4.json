@@ -1,0 +1,26 @@
+{
+  "capability_declaration": {
+    "score": 3,
+    "evidence": "Clause 6.3 (VEN Resources), Clause 6.4 (Resource Capabilities), and Clause 7 (Reporting). The OpenADR 3 specification defines resources and their capabilities through the 'resource' object which includes properties such as 'resource_type', 'capabilities' arrays, and metadata. Clause 6.3.1 enumerates resource types (e.g., simple, smart, storage, generator). Clause 6.4 defines capability descriptors including ramp rates, power ranges, and energy constraints.",
+    "rationale": "OpenADR 3 explicitly defines resource capability declarations through structured resource objects and capability descriptors, enabling an agent to programmatically announce what it controls.",
+    "confidence": 0.95
+  },
+  "bounded_authority": {
+    "score": 2,
+    "evidence": "Clause 4.2 (VEN-Credentialed Operations), Clause 5 (Events), and Clause 8 (Subscriptions). Events define 'targets' and 'limits' (e.g., curtailment levels, price ceilings). The subscription model in Clause 8 allows VTNs to authorize VENs for specific programs. However, explicit expiry, revocation, and delegation chains are not formally defined as a comprehensive authority framework.",
+    "rationale": "Events and subscriptions implicitly bound authority through targeting and program enrolment, but explicit revocation, delegation, and time-bound authorization are only partially addressed.",
+    "confidence": 0.8
+  },
+  "decision_auditability": {
+    "score": 1,
+    "evidence": "Clause 7 (Reporting) and Clause 7.4 (Telemetry). Reports can include timestamps and event participation data. Clause 9 (Feedback) allows reporting on event outcomes. However, there is no explicit requirement for a tamper-evident decision log or attribution of specific agent decisions to an audit trail.",
+    "rationale": "Reporting and telemetry mechanisms can implicitly support auditability, but the standard does not directly specify how agent decisions should be logged and attributed for audit purposes.",
+    "confidence": 0.75
+  },
+  "data_governance": {
+    "score": 0,
+    "evidence": "none",
+    "rationale": "The standard does not address data ownership, consent management, retention policies, or privacy requirements for data exchanged between VTN and VEN.",
+    "confidence": 0.9
+  }
+}

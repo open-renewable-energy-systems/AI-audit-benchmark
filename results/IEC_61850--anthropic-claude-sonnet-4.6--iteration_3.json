@@ -1,0 +1,26 @@
+{
+  "capability_declaration": {
+    "score": 3,
+    "evidence": "IEC 61850 defines Logical Nodes (LNs) and Data Objects (DOs) that explicitly describe device capabilities, functions, and services. The ACSI (Abstract Communication Service Interface) and SCL (Substation Configuration Language) — particularly ICD (IED Capability Description) and CID files — allow devices to formally declare their capabilities, supported services, and data models (IEC 61850-6, IEC 61850-7-2, IEC 61850-7-4).",
+    "rationale": "SCL/ICD files and Logical Node definitions provide a structured, machine-readable capability declaration mechanism directly specified in the standard.",
+    "confidence": 0.95
+  },
+  "bounded_authority": {
+    "score": 2,
+    "evidence": "IEC 61850-7-2 defines access control at the service level (e.g., GetDataValues, SetDataValues, Control services). Control models in IEC 61850-7-2 (Clause 17) specify authorization checks, select-before-operate (SBO), and direct control with enhanced security, providing operational ceilings. However, explicit agent-level authority scoping, time-bound delegation, or revocation mechanisms for autonomous AI agents are not directly addressed.",
+    "rationale": "Control models and access control provide partial authority bounding, but lack explicit agent-scoped ceilings, expiry, or revocation constructs for autonomous operation.",
+    "confidence": 0.85
+  },
+  "decision_auditability": {
+    "score": 2,
+    "evidence": "IEC 61850-7-2 includes logging services (Log Control Blocks, LCBs) and reporting mechanisms (BRCB/URCB) that record events and data changes with timestamps. IEC 61850-90-13 touches on cybersecurity logging. However, attribution of decisions to a specific autonomous agent, reasoning traceability, or structured audit trails for AI-driven actions are not explicitly specified.",
+    "rationale": "Logging and reporting services exist but are oriented toward event/data logging, not agent decision attribution or AI action auditability.",
+    "confidence": 0.82
+  },
+  "data_governance": {
+    "score": 1,
+    "evidence": "IEC 61850 does not contain explicit clauses on data ownership, consent, or retention policies. Some implicit governance can be inferred from access control roles (IEC 61850-8-1, security extensions) and the SCL configuration model which defines data visibility. IEC 62351 (the companion security standard) addresses some access control aspects, but data governance per se is outside the core scope of IEC 61850.",
+    "rationale": "No explicit data governance clauses; only implicit inference from access control and configuration scoping. Data ownership, consent, and retention are not addressed.",
+    "confidence": 0.88
+  }
+}

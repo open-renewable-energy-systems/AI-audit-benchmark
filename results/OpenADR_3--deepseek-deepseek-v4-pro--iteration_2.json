@@ -1,0 +1,26 @@
+{
+  "capability_declaration": {
+    "score": 3,
+    "evidence": "OpenADR 3 clause 4.2.1 defines 'Resource' objects with 'resourceType' and 'attributes' that describe device capabilities. Clause 4.3 specifies the registration process where a VEN (Virtual End Node) reports its capabilities to the VTN (Virtual Top Node). The standard uses OpenAPI-based resource models that explicitly enumerate controllable loads, generation, and storage characteristics.",
+    "rationale": "VENs must register and declare resource attributes including load profiles, storage capacity, and generation capability — directly enabling agent capability declaration.",
+    "confidence": 0.92
+  },
+  "bounded_authority": {
+    "score": 2,
+    "evidence": "Clause 5.1 defines 'Events' with 'signalName', 'signalType', and numeric 'value' ranges. Clause 5.4 specifies time-bounded event windows (start/end times). Opt-in/opt-out via 'optType' in clause 5.7 provides consent mechanisms. However, no explicit ceiling/limit enforcement, revocation protocol, or scope-override hierarchy is defined beyond temporal boundaries.",
+    "rationale": "Temporal and numeric boundaries exist but ceiling limits, revocation flows, and override hierarchies are missing — partial coverage.",
+    "confidence": 0.85
+  },
+  "decision_auditability": {
+    "score": 1,
+    "evidence": "Clause 7.2 defines 'Report' resources for telemetry and event outcomes. Clause 6.1 defines 'Feedback' resources. However, no clause explicitly requires logging agent decisions with attribution, non-repudiation, or an audit trail linking decisions to actors.",
+    "rationale": "Reporting and feedback mechanisms exist but are for operational data, not explicitly for auditing agent decisions with attribution — implicit coverage only.",
+    "confidence": 0.78
+  },
+  "data_governance": {
+    "score": 1,
+    "evidence": "Clause 8.1 references TLS 1.2+ for transport security and OAuth 2.0 for authorization. Clause 4.3 registration includes party identification ('venID', 'vtnID'). No clause explicitly addresses data ownership, user consent for data usage, retention policies, or data portability.",
+    "rationale": "Security and authorization are present but data ownership, consent management, and retention are not addressed — implicit at best.",
+    "confidence": 0.8
+  }
+}

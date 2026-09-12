@@ -1,0 +1,26 @@
+{
+  "capability_declaration": {
+    "score": 3,
+    "evidence": "Clauses 10.0 (DERControl), 6.0 (FunctionSetAssignments), and the use of EndDevice/FunctionSet assignments. IEEE 2030.5 defines DERCapability, DERSettings, DERStatus, and DERAvailability resources. Section 10.4 specifies how DERs declare operational capabilities (e.g., modes, ramp rates, power ranges). The Discovery mechanism (Clause 5) allows agents to query resources.",
+    "rationale": "IEEE 2030.5 explicitly defines DER capability resources and a discovery/registration mechanism, enabling an AI agent to programmatically determine what a DER can do.",
+    "confidence": 0.95
+  },
+  "bounded_authority": {
+    "score": 2,
+    "evidence": "Clause 10.0 (DERControl) defines schedules, limits, and modes. DERProgram (10.2) binds DERs to specific programs with scope constraints. DefaultDERControl provides fallback authority bounds. However, no explicit clause defines certificate-based authority ceilings, revocation, or override chains for autonomous agents beyond time-limited schedules.",
+    "rationale": "Time-bound schedules and program bindings provide partial bounded authority, but the standard lacks explicit agent-specific authority tokens, revocation, or layered override mechanisms.",
+    "confidence": 0.8
+  },
+  "decision_auditability": {
+    "score": 2,
+    "evidence": "Clause 10.4 (DERStatus), 10.6 (LogEvents), and Event resources provide logging of DER actions. The ResponseSet and DERCurve resources record actual vs. commanded behavior. However, the standard does not mandate per-decision attribution or agent-identity binding for individual control decisions.",
+    "rationale": "Operational logs and event records enable partial audit trails, but no explicit requirement ties each autonomous decision to a specific agent identity with non-repudiation.",
+    "confidence": 0.75
+  },
+  "data_governance": {
+    "score": 1,
+    "evidence": "Clause 14 (Security) references TLS and authentication but does not define data ownership, consent, or retention policies. The Subscription/Notification mechanism (Clause 5) implies data flow control but lacks explicit data governance clauses.",
+    "rationale": "Security provisions imply some data protection, but the standard does not explicitly address ownership, user consent, retention limits, or data-use purpose constraints for DER telemetry or control data.",
+    "confidence": 0.85
+  }
+}

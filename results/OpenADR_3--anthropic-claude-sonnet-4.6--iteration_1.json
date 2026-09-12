@@ -1,0 +1,26 @@
+{
+  "capability_declaration": {
+    "score": 2,
+    "evidence": "OpenADR 3.0 defines 'resources' and 'resource attributes' (Section 4 / Resource object) that allow a VEN (Virtual End Node) to register and describe its controllable assets, including power capacity, ramp rates, and available program types. The POST /resources endpoint allows devices to declare their characteristics. However, this is oriented toward demand response enrollment rather than a generalised machine-readable capability advertisement for autonomous agents.",
+    "rationale": "Resources can be registered with attributes describing capabilities, but the model is DR-program-centric and lacks a formal capability ontology suitable for autonomous AI agent negotiation.",
+    "confidence": 0.8
+  },
+  "bounded_authority": {
+    "score": 2,
+    "evidence": "OpenADR 3.0 defines 'programs' (Section 4 / Program object) with explicit intervals, event payloads, and constraints (e.g., targetType, payloadDescriptors, reportDescriptors). Events carry start/duration fields bounding the time window of authority. OAuth 2.0 scopes (Section 7 / Security) restrict which roles (VTN, VEN, business) can invoke which API endpoints. However, there is no explicit agent-level authority ceiling, revocation mechanism for individual agent actions, or fine-grained per-resource control limits beyond program enrollment.",
+    "rationale": "Time-bounded events and OAuth role scopes provide partial authority bounding, but no explicit per-agent authority ceilings, revocation tokens, or override hierarchies are defined.",
+    "confidence": 0.82
+  },
+  "decision_auditability": {
+    "score": 1,
+    "evidence": "OpenADR 3.0 defines a 'reports' mechanism (Section 4 / Report object, POST /reports) where VENs submit telemetry and event-response confirmations back to the VTN. This implicitly creates a record of what actions were taken in response to events. However, the standard does not mandate logging of agent decision logic, timestamps of autonomous decisions, attribution of decisions to specific agents, or audit trail retention requirements.",
+    "rationale": "The reports endpoint implicitly supports some auditability of responses, but no explicit decision logging, attribution, or audit trail requirements are specified for autonomous agents.",
+    "confidence": 0.78
+  },
+  "data_governance": {
+    "score": 1,
+    "evidence": "OpenADR 3.0 references OAuth 2.0 and HTTPS for data security (Section 7 / Security Considerations) and defines data models for events, reports, and resources. However, the standard contains no explicit clauses on data ownership, consent management, data retention periods, right to erasure, or data sharing restrictions. Compliance with external privacy regulations (e.g., GDPR) is left entirely to implementers.",
+    "rationale": "Security transport is specified, but data ownership, consent, retention, and governance policies are entirely absent from the standard itself.",
+    "confidence": 0.85
+  }
+}
