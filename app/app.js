@@ -42,7 +42,7 @@ async function loadRealGapmap() {
       });
     });
     usingRealData = true;
-    badgeText = g.convergence_claimable ? "" : `REAL DATA · ${g.model_count} MODEL — CONVERGENCE NEEDS ≥2`;
+    badgeText = g.convergence_claimable ? "" : `REAL DATA · ${g.model_count} MODEL${g.model_count > 1 ? 'S' : ''} — CONVERGENCE NEEDS ≥2`;
     return true;
   } catch {
     return false; // no server / no gap map yet -> mock fallback is the feature
@@ -119,8 +119,8 @@ function renderGapmap() {
       if (val === null) {
         td.textContent = "contested";
       } else if (isObj) {
-        if (s.min == s.max) {
-          td.textContent = val
+        if (s.min === s.max) {
+          td.textContent = val;
         } else {
           td.innerHTML = val + ' <span style="color: #999; font-style: italic; font-size: 0.75em;">(' + s.min + ' - ' + s.max + ')</span>';
         }
