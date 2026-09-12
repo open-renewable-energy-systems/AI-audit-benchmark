@@ -1,10 +1,13 @@
 {
   "generated_by": "runner/aggregate_to_gap_map.py",
-  "model_count": 1,
+  "model_count": 4,
   "models": [
-    "local_unsloth_Qwen3.6"
+    "anthropic-claude-sonnet-4.6",
+    "deepseek-deepseek-v4-pro",
+    "local_unsloth_Qwen3.6",
+    "mistralai-mistral-large-2512"
   ],
-  "convergence_claimable": false,
+  "convergence_claimable": true,
   "dimensions": [
     "capability_declaration",
     "bounded_authority",
@@ -21,6 +24,28 @@
           "contested": false,
           "per_model": [
             {
+              "model": "anthropic-claude-sonnet-4.6",
+              "median_score": 2,
+              "min_score": 2,
+              "max_score": 2,
+              "runs": 5,
+              "self_consistent": true,
+              "evidence": "IEC 61968/61970 CIM defines PowerSystemResource and Equipment classes with detailed attributes describing operational characteristics (e.g., GeneratingUnit.maxOperatingP, Battery.ratedE, inverter ratings). DER capabilities can be modelled via classes such as PowerElectronicsUnit, BatteryUnit, and associated limit sets (OperationalLimitSet, ActivePowerLimit).",
+              "rationale": "CIM provides rich equipment/capability modelling classes, but these describe static nameplate/operational parameters rather than a formal machine-readable capability declaration protocol for autonomous agents.",
+              "mean_confidence": 0.82
+            },
+            {
+              "model": "deepseek-deepseek-v4-pro",
+              "median_score": 2,
+              "min_score": 0,
+              "max_score": 3,
+              "runs": 5,
+              "self_consistent": false,
+              "evidence": "IEC 61970-301 (CIM Core) defines classes like GeneratingUnit, PowerSystemResource with attributes for rated capacities, operating modes, and type classifications. IEC 61968-11 (CIM Extensions for Distribution) extends this with DER-specific classes such as DERUnit, DERGeneratingUnit, and DERCapability, which include max/min operating limits, ramp rates, and reactive capability curves.",
+              "rationale": "CIM provides a rich semantic model for describing what a DER device can do via structured class hierarchies and attributes. However, CIM is a static information model, not a protocol \u2014 it lacks a dynamic capability advertisement/negotiation mechanism (e.g., discovery or registration handshake).",
+              "mean_confidence": 0.89
+            },
+            {
               "model": "local_unsloth_Qwen3.6",
               "median_score": 2,
               "min_score": 1,
@@ -30,13 +55,46 @@
               "evidence": "IEC 61970/61968 Part 300 Class Hierarchy (GeneratingUnit, RegulatingControl)",
               "rationale": "The data model explicitly supports describing DER capabilities and physical ratings through detailed classes like GeneratingUnit. However, it lacks dynamic declaration protocols or agent negotiation flows within the standard itself.",
               "mean_confidence": 0.89
+            },
+            {
+              "model": "mistralai-mistral-large-2512",
+              "median_score": 2,
+              "min_score": 2,
+              "max_score": 2,
+              "runs": 5,
+              "self_consistent": true,
+              "evidence": "IEC 61970-301 (Common Information Model - CIM) includes sections on equipment profiles and operational limits (e.g., Clause 4.3 for GeneratingUnit, Clause 5.3 for PowerSystemResource). These define capabilities like max/min generation or storage capacity.",
+              "rationale": "The CIM provides explicit modeling of DER capabilities but lacks a standardized mechanism for dynamic capability declaration by an autonomous agent.",
+              "mean_confidence": 0.85
             }
           ]
         },
         "bounded_authority": {
-          "score": 0,
+          "score": 1,
           "contested": false,
           "per_model": [
+            {
+              "model": "anthropic-claude-sonnet-4.6",
+              "median_score": 1,
+              "min_score": 1,
+              "max_score": 1,
+              "runs": 5,
+              "self_consistent": true,
+              "evidence": "CIM includes OperationalLimitSet, OperationalLimit subclasses (ActivePowerLimit, VoltageLimit, CurrentLimit), and Control/Command classes (e.g., ControlAction, RegulatingControl). However, there is no explicit concept of agent authority scope, delegation ceilings, time-bound permissions, or revocation mechanisms for autonomous agents.",
+              "rationale": "Operational limits exist for physical parameters, but CIM does not define authority boundaries, delegation, expiry, or revocation constructs applicable to an AI agent acting autonomously.",
+              "mean_confidence": 0.78
+            },
+            {
+              "model": "deepseek-deepseek-v4-pro",
+              "median_score": 1,
+              "min_score": 0,
+              "max_score": 1,
+              "runs": 5,
+              "self_consistent": true,
+              "evidence": "IEC 61968-9 (Meter Reading & Control) and IEC 61970-452 (CIM Static Transmission Model) include classes for Control, RegulationSchedule, and SetPoint with attributes such as minValue, maxValue. IEC 61968-5 (Distributed Energy Resources) references operating envelopes and schedules. However, these are modelled as static data structures, not as dynamic authority tokens with expiry, delegation chains, or revocation semantics.",
+              "rationale": "CIM models control limits and schedules structurally, which implicitly constrains what an agent may do. But it does not define an explicit bounded-authority framework \u2014 no expiry, delegation, override hierarchy, or revocation semantics are natively specified.",
+              "mean_confidence": 0.82
+            },
             {
               "model": "local_unsloth_Qwen3.6",
               "median_score": 0,
@@ -47,6 +105,17 @@
               "evidence": "none",
               "rationale": "As an ontological data model rather than a control protocol or governance framework, the standard lacks clauses defining policy scopes, operational ceilings, authorization revocation mechanisms, or temporal limits on how agents interact with DER assets.",
               "mean_confidence": 0.93
+            },
+            {
+              "model": "mistralai-mistral-large-2512",
+              "median_score": 1,
+              "min_score": 1,
+              "max_score": 1,
+              "runs": 5,
+              "self_consistent": true,
+              "evidence": "CIM includes operational limits (e.g., Clause 4.3.2 for GeneratingUnit limits like maxMW and minMW) and role-based access control concepts (e.g., Clause 6.3 for ControlArea). However, dynamic authority bounding, revocation, or expiry are not explicitly addressed.",
+              "rationale": "While operational limits are defined, the standard does not explicitly cover dynamic or agent-specific authority bounding.",
+              "mean_confidence": 0.75
             }
           ]
         },
@@ -54,6 +123,28 @@
           "score": 0,
           "contested": false,
           "per_model": [
+            {
+              "model": "anthropic-claude-sonnet-4.6",
+              "median_score": 1,
+              "min_score": 1,
+              "max_score": 1,
+              "runs": 5,
+              "self_consistent": true,
+              "evidence": "CIM includes some logging-adjacent concepts (e.g., Measurement, MeasurementValue with timestamps, AnalogValue, DiscreteValue) and the IEC 61968-100 message header carries correlation IDs and timestamps. However, there is no dedicated audit trail, decision log, or agent attribution model defined in the standard.",
+              "rationale": "Timestamped measurements and message headers provide implicit traceability, but CIM lacks explicit constructs for logging agent decisions, reasoning attribution, or audit chain requirements.",
+              "mean_confidence": 0.75
+            },
+            {
+              "model": "deepseek-deepseek-v4-pro",
+              "median_score": 0,
+              "min_score": 0,
+              "max_score": 1,
+              "runs": 5,
+              "self_consistent": true,
+              "evidence": "none",
+              "rationale": "CIM is an information model focused on power system semantics, not operational logging. No clauses address audit trails, decision attribution, or agent-action logging. Auditability would need to be layered via IEC 62351 (security) or external logging standards.",
+              "mean_confidence": 0.86
+            },
             {
               "model": "local_unsloth_Qwen3.6",
               "median_score": 0,
@@ -64,6 +155,17 @@
               "evidence": "none",
               "rationale": "Although the standard provides basic creation and update timestamps for tracking system state changes over time, it does not mandate structured logging of autonomous agent choices or attribute specific control decisions to an acting entity beyond static asset identities (mRID).",
               "mean_confidence": 0.92
+            },
+            {
+              "model": "mistralai-mistral-large-2512",
+              "median_score": 1,
+              "min_score": 1,
+              "max_score": 1,
+              "runs": 5,
+              "self_consistent": true,
+              "evidence": "CIM supports logging through classes like Measurement and Log (e.g., Clause 5.5 for MeasurementValue, Clause 6.8 for Log). However, it does not explicitly define how agent decisions should be attributed or logged.",
+              "rationale": "Auditability is implicitly supported via logging classes, but agent-specific decision attribution is not addressed.",
+              "mean_confidence": 0.7
             }
           ]
         },
@@ -71,6 +173,28 @@
           "score": 0,
           "contested": false,
           "per_model": [
+            {
+              "model": "anthropic-claude-sonnet-4.6",
+              "median_score": 1,
+              "min_score": 1,
+              "max_score": 1,
+              "runs": 5,
+              "self_consistent": true,
+              "evidence": "IEC 61968 Part 9 (Metering) and Part 11 (Common Distribution Information Model) touch on data exchange roles and asset ownership (e.g., UsagePoint, Customer, ServiceDeliveryPoint). IEC 61968-100 defines message-level sender/receiver roles. However, explicit data ownership rights, consent frameworks, retention policies, or privacy requirements are absent from the CIM standard itself.",
+              "rationale": "CIM models data entities and exchange roles but does not define data governance policies such as consent, retention periods, or ownership rights relevant to AI agent operations.",
+              "mean_confidence": 0.84
+            },
+            {
+              "model": "deepseek-deepseek-v4-pro",
+              "median_score": 1,
+              "min_score": 0,
+              "max_score": 1,
+              "runs": 5,
+              "self_consistent": true,
+              "evidence": "IEC 62351 (Power systems management and associated information exchange \u2014 Data and communications security) covers authentication and access control for CIM data exchanges. No clauses on data ownership, consent tracking, or retention policies within CIM itself.",
+              "rationale": "Security standards referenced by CIM address access control, implying data protection; but explicit data ownership, consent, and retention governance are not modelled.",
+              "mean_confidence": 0.84
+            },
             {
               "model": "local_unsloth_Qwen3.6",
               "median_score": 0,
@@ -81,6 +205,17 @@
               "evidence": "none",
               "rationale": "The specification focuses exclusively on semantic interoperability and data exchange formats; it contains no clauses addressing legal or governance aspects such as consent management, ownership attribution, or retention policies.",
               "mean_confidence": 0.98
+            },
+            {
+              "model": "mistralai-mistral-large-2512",
+              "median_score": 0,
+              "min_score": 0,
+              "max_score": 1,
+              "runs": 5,
+              "self_consistent": true,
+              "evidence": "none",
+              "rationale": "The CIM does not explicitly address data ownership, consent, retention, or governance requirements.",
+              "mean_confidence": 0.85
             }
           ]
         }
@@ -91,9 +226,31 @@
       "display_name": "IEC 61850",
       "cells": {
         "capability_declaration": {
-          "score": 2,
+          "score": 3,
           "contested": false,
           "per_model": [
+            {
+              "model": "anthropic-claude-sonnet-4.6",
+              "median_score": 3,
+              "min_score": 3,
+              "max_score": 3,
+              "runs": 5,
+              "self_consistent": true,
+              "evidence": "IEC 61850 defines Logical Nodes (LNs) and Data Objects (DOs) that explicitly describe device capabilities, functions, and services. The ACSI (Abstract Communication Service Interface) and SCL (Substation Configuration Language) \u2014 particularly ICD (IED Capability Description) and CID files \u2014 allow devices to formally declare their capabilities, supported services, and data models (IEC 61850-6, IEC 61850-7-2, IEC 61850-7-4).",
+              "rationale": "SCL/ICD files and Logical Node definitions provide a structured, machine-readable mechanism for devices and agents to declare capabilities explicitly.",
+              "mean_confidence": 0.95
+            },
+            {
+              "model": "deepseek-deepseek-v4-pro",
+              "median_score": 3,
+              "min_score": 2,
+              "max_score": 3,
+              "runs": 5,
+              "self_consistent": true,
+              "evidence": "\u00a75-2 (ACS & Logical Device Models), \u00a76-3 (Common Data Classes), \u00a77-3 & \u00a77-4 (Logical Node Classes, esp. LN Group X for DER), \u00a78-1 (SCL/IID files enumerating services/logical nodes). Part 7-420 (DER-specific logical nodes: DOPR, DFLV etc.).",
+              "rationale": "LN classes, data objects and IID/SCL files explicitly declare functional, measurement, control and reporting capabilities of devices, including DERs. Part 7-420 adds DER-specific declaration building blocks.",
+              "mean_confidence": 0.93
+            },
             {
               "model": "local_unsloth_Qwen3.6",
               "median_score": 2,
@@ -104,13 +261,46 @@
               "evidence": "Part 7-4 Logical Nodes and SCL data models",
               "rationale": "Provides structured capability modeling via logical nodes that statically define device functions/measurement points enabling discovery of available DER control interfaces.",
               "mean_confidence": 0.87
+            },
+            {
+              "model": "mistralai-mistral-large-2512",
+              "median_score": 3,
+              "min_score": 3,
+              "max_score": 3,
+              "runs": 5,
+              "self_consistent": true,
+              "evidence": "IEC 61850-7-4 (Logical Nodes) and IEC 61850-6 (Configuration description language - SCL)",
+              "rationale": "IEC 61850 explicitly defines standardized logical nodes and data models for DER capabilities, enabling devices to declare their functionalities.",
+              "mean_confidence": 0.95
             }
           ]
         },
         "bounded_authority": {
-          "score": 1,
+          "score": 2,
           "contested": false,
           "per_model": [
+            {
+              "model": "anthropic-claude-sonnet-4.6",
+              "median_score": 2,
+              "min_score": 2,
+              "max_score": 2,
+              "runs": 5,
+              "self_consistent": true,
+              "evidence": "IEC 61850-7-2 defines access control via the ACSI, including client/server roles, authentication hooks, and control models (e.g., direct control, SBO \u2014 Select Before Operate) with interlocking and authority checks (IEC 61850-7-2 Clause 9). IEC 61850-8-1 maps these to MMS access control. However, the standard does not explicitly define agent-level authority ceilings, time-bound delegation, or revocation mechanisms tailored to autonomous AI agents.",
+              "rationale": "Control models (SBO, direct) and access control provide partial authority bounding, but lack explicit agent-scoped ceilings, expiry, or revocation constructs.",
+              "mean_confidence": 0.86
+            },
+            {
+              "model": "deepseek-deepseek-v4-pro",
+              "median_score": 1,
+              "min_score": 1,
+              "max_score": 2,
+              "runs": 5,
+              "self_consistent": true,
+              "evidence": "\u00a77-2 (Control Model \u2013 OrCat, ctlModel with SBO/SBOes; but authority scoping is not explicit). \u00a78-1 (SCL may carry SubNetwork/access point auth config). Clause 17 (Reporting/logging of control actions).",
+              "rationale": "The control model distinguishes originator categories and mandates select-before-operate, but no explicit clause defines scope ceilings, expiry, or revocable authority bounds for autonomous agents.",
+              "mean_confidence": 0.81
+            },
             {
               "model": "local_unsloth_Qwen3.6",
               "median_score": 1,
@@ -121,6 +311,17 @@
               "evidence": "None; relies on external security extensions (IEC 62351)",
               "rationale": "Base protocol lacks agent-specific scope boundaries, expiry mechanisms, or revocation chains, though MMS read/write permissions offer basic access controls that cannot be inferred as bounded authority.",
               "mean_confidence": 0.76
+            },
+            {
+              "model": "mistralai-mistral-large-2512",
+              "median_score": 2,
+              "min_score": 2,
+              "max_score": 2,
+              "runs": 5,
+              "self_consistent": true,
+              "evidence": "IEC 61850-7-2 (Services), IEC 61850-8-1 (MMS), and IEC 61850-90-7 (DER-specific control functions)",
+              "rationale": "The standard partially covers authority limits via control modes and access control, but lacks explicit revocation/expiry mechanisms.",
+              "mean_confidence": 0.85
             }
           ]
         },
@@ -128,6 +329,28 @@
           "score": 2,
           "contested": false,
           "per_model": [
+            {
+              "model": "anthropic-claude-sonnet-4.6",
+              "median_score": 2,
+              "min_score": 2,
+              "max_score": 2,
+              "runs": 5,
+              "self_consistent": true,
+              "evidence": "IEC 61850-7-2 specifies logging services (Log Control Blocks \u2014 LCBs) and the LOG service for recording events and data changes with timestamps (IEC 61850-7-2 Clause 13). IEC 61850-7-4 defines LSVS and related LNs for recording. However, attribution of decisions to a specific agent or AI entity, and reasoning traceability, are not explicitly addressed.",
+              "rationale": "Log Control Blocks and timestamped event logs support auditability of actions, but agent-level decision attribution and reasoning trails are not explicitly specified.",
+              "mean_confidence": 0.86
+            },
+            {
+              "model": "deepseek-deepseek-v4-pro",
+              "median_score": 2,
+              "min_score": 0,
+              "max_score": 2,
+              "runs": 5,
+              "self_consistent": false,
+              "evidence": "\u00a77-2 Clause 17 (Logging: LGs \u2013 Histor. Stat. & Events), \u00a77-4 (Common LN: GGIO, GAPC, IARC), \u00a78-1 (SCL: Communication/SubNetwork & access point tracing), Part 6 (system exchange description).",
+              "rationale": "Logging of control commands and events is mandated in detail, but agent decision attribution (linking reasoning to action) is not fully standardised, leaving a gap for end-to-end audit trails.",
+              "mean_confidence": 0.84
+            },
             {
               "model": "local_unsloth_Qwen3.6",
               "median_score": 2,
@@ -138,6 +361,17 @@
               "evidence": "Part 7-3 reporting control and LLN0 log objects",
               "rationale": "Built-in event logging and reporting capture executed commands/states for post-hoc audits but do not mandate structured reasoning traces or explicit decision attribution required by autonomous agents.",
               "mean_confidence": 0.77
+            },
+            {
+              "model": "mistralai-mistral-large-2512",
+              "median_score": 2,
+              "min_score": 2,
+              "max_score": 2,
+              "runs": 5,
+              "self_consistent": true,
+              "evidence": "IEC 61850-7-2 (Logging and reporting services) and IEC 61850-8-1 (MMS logging)",
+              "rationale": "IEC 61850 supports logging of events and decisions, but attribution to specific agents is not fully explicit.",
+              "mean_confidence": 0.8
             }
           ]
         },
@@ -145,6 +379,28 @@
           "score": 0,
           "contested": false,
           "per_model": [
+            {
+              "model": "anthropic-claude-sonnet-4.6",
+              "median_score": 1,
+              "min_score": 1,
+              "max_score": 1,
+              "runs": 5,
+              "self_consistent": true,
+              "evidence": "IEC 61850 does not contain explicit clauses on data ownership, consent, or retention policies. Some implicit governance can be inferred from access control definitions in ACSI (IEC 61850-7-2) and configuration authority in SCL (IEC 61850-6), which restrict who can read/write data. Data retention for logs is configurable but not mandated with specific governance rules.",
+              "rationale": "No explicit data ownership, consent, or retention requirements exist; only implicit governance can be inferred from access control and log configuration mechanisms.",
+              "mean_confidence": 0.9
+            },
+            {
+              "model": "deepseek-deepseek-v4-pro",
+              "median_score": 0,
+              "min_score": 0,
+              "max_score": 1,
+              "runs": 5,
+              "self_consistent": true,
+              "evidence": "none",
+              "rationale": "IEC 61850 focuses on operational data exchange; it contains no clauses on data ownership, consent management, or retention policies for DER operational data.",
+              "mean_confidence": 0.93
+            },
             {
               "model": "local_unsloth_Qwen3.6",
               "median_score": 0,
@@ -155,6 +411,17 @@
               "evidence": "none",
               "rationale": "As a fieldbus/substation communication architecture standard it defines transport and data models but contains no clauses addressing proprietary ownership, consent workflows, or retention policies.",
               "mean_confidence": 0.94
+            },
+            {
+              "model": "mistralai-mistral-large-2512",
+              "median_score": 1,
+              "min_score": 1,
+              "max_score": 1,
+              "runs": 5,
+              "self_consistent": true,
+              "evidence": "IEC 61850-6 (SCL for data modeling) and general cybersecurity clauses in IEC 61850-8-1",
+              "rationale": "Data governance is implicitly covered via modeling and security, but lacks explicit requirements for ownership, consent, or retention.",
+              "mean_confidence": 0.74
             }
           ]
         }
@@ -165,9 +432,31 @@
       "display_name": "IEEE 1547",
       "cells": {
         "capability_declaration": {
-          "score": 1,
+          "score": 2,
           "contested": false,
           "per_model": [
+            {
+              "model": "anthropic-claude-sonnet-4.6",
+              "median_score": 2,
+              "min_score": 2,
+              "max_score": 2,
+              "runs": 5,
+              "self_consistent": true,
+              "evidence": "IEEE 1547-2018 Sections 4\u20137 define interoperability requirements including nameplate ratings, operational capabilities (voltage/frequency ride-through, reactive power capability, active power control), and monitoring functions. Clause 10 specifies information exchange requirements including the DER's capability parameters that must be communicated to the Area EPS Operator.",
+              "rationale": "IEEE 1547 defines DER capability parameters (power, voltage, frequency ranges, reactive capability) that must be declared, but does not provide a formal machine-readable capability declaration schema suited for autonomous agents.",
+              "mean_confidence": 0.85
+            },
+            {
+              "model": "deepseek-deepseek-v4-pro",
+              "median_score": 2,
+              "min_score": 2,
+              "max_score": 3,
+              "runs": 5,
+              "self_consistent": true,
+              "evidence": "Clause 5 (General requirements), Clause 6 (Interoperability), especially 6.4.1 (nameplate data), 6.4.2 (configuration information), 6.4.3 (monitoring information), and Clause 10 (DER capabilities \u2014 Volt-Var, Frequency-Watt, Volt-Watt, etc.)",
+              "rationale": "IEEE 1547 specifies DER capability categories (Volt-Var, Frequency-Watt, etc.) and requires nameplate/configuration data exchange via DNP3 or IEEE 2030.5. However, it does not define a generic machine-readable capability declaration format for autonomous agents beyond these pre-defined function categories.",
+              "mean_confidence": 0.83
+            },
             {
               "model": "local_unsloth_Qwen3.6",
               "median_score": 1,
@@ -178,6 +467,17 @@
               "evidence": "Section 6 (Operational Capabilities) defines specific operational modes and settings for DERs such as Volt-VAR control.",
               "rationale": "The standard implicitly covers capability by mandating that devices support defined electrical functions. However, it lacks a semantic mechanism or dynamic protocol for an autonomous agent to declare capabilities during negotiation with other entities.",
               "mean_confidence": 0.86
+            },
+            {
+              "model": "mistralai-mistral-large-2512",
+              "median_score": 2,
+              "min_score": 2,
+              "max_score": 2,
+              "runs": 5,
+              "self_consistent": true,
+              "evidence": "IEEE 1547-2018, Section 4.10 (Distributed Energy Resource Capabilities and Configuration) and Section 5.4 (Nameplate Information)",
+              "rationale": "The standard explicitly requires DERs to declare capabilities like power ratings and operational modes, but lacks detailed agent-specific declarations.",
+              "mean_confidence": 0.85
             }
           ]
         },
@@ -185,6 +485,28 @@
           "score": 2,
           "contested": false,
           "per_model": [
+            {
+              "model": "anthropic-claude-sonnet-4.6",
+              "median_score": 2,
+              "min_score": 2,
+              "max_score": 2,
+              "runs": 5,
+              "self_consistent": true,
+              "evidence": "IEEE 1547-2018 Clause 8 (Cybersecurity) and Clause 10 (Interoperability) define that DER shall support configurable set-points and that the Area EPS Operator may enable or disable certain functions (e.g., voltage regulation, frequency-watt). Clause 6 specifies enter-service criteria and trip settings as operational ceilings. However, explicit agent-level authority scoping, expiry tokens, or revocation mechanisms are not defined.",
+              "rationale": "The standard sets operational limits and operator-configurable controls, partially bounding agent authority, but lacks explicit agent-scoped authority delegation, expiry, or revocation constructs.",
+              "mean_confidence": 0.81
+            },
+            {
+              "model": "deepseek-deepseek-v4-pro",
+              "median_score": 1,
+              "min_score": 1,
+              "max_score": 2,
+              "runs": 5,
+              "self_consistent": true,
+              "evidence": "Clause 5.8 (DER settings), Clause 8 (Islanding), Clause 10.3 (Authorization to operate), Clause 6.5 (Voltage ride-through curves).",
+              "rationale": "Settings boundaries exist but authority is human/operator-centric; no clause defines autonomous agent scope, revocation logic, or dynamic delegation.",
+              "mean_confidence": 0.76
+            },
             {
               "model": "local_unsloth_Qwen3.6",
               "median_score": 2,
@@ -195,6 +517,17 @@
               "evidence": "Sections 5-6 and Annex E",
               "rationale": "Defines specific voltage/frequency bounds that restrict power control authority (Annex E) and mandates Remote Control capabilities for DSO override within defined settings.",
               "mean_confidence": 0.84
+            },
+            {
+              "model": "mistralai-mistral-large-2512",
+              "median_score": 1,
+              "min_score": 1,
+              "max_score": 1,
+              "runs": 5,
+              "self_consistent": true,
+              "evidence": "IEEE 1547-2018, Section 8 (Interconnection System Response to Area EPS Abnormal Conditions)",
+              "rationale": "The standard implies limits on DER operations during abnormal conditions but does not explicitly define agent-specific authority bounds.",
+              "mean_confidence": 0.71
             }
           ]
         },
@@ -202,6 +535,28 @@
           "score": 1,
           "contested": false,
           "per_model": [
+            {
+              "model": "anthropic-claude-sonnet-4.6",
+              "median_score": 1,
+              "min_score": 1,
+              "max_score": 1,
+              "runs": 5,
+              "self_consistent": true,
+              "evidence": "IEEE 1547-2018 Clause 10.4 references monitoring and information exchange requirements, including status and measurement data reporting. However, there is no explicit requirement for logging agent decisions, timestamped audit trails, or attribution of autonomous control actions to a specific agent or control entity.",
+              "rationale": "Monitoring and data exchange are addressed, but decision logging and auditability of autonomous agent actions are only implicitly inferable, not explicitly specified.",
+              "mean_confidence": 0.77
+            },
+            {
+              "model": "deepseek-deepseek-v4-pro",
+              "median_score": 0,
+              "min_score": 0,
+              "max_score": 1,
+              "runs": 5,
+              "self_consistent": true,
+              "evidence": "none",
+              "rationale": "No clauses address logging, attribution, or traceability of autonomous decisions. Monitoring requirements in Clause 10 are about operational states, not decision records.",
+              "mean_confidence": 0.87
+            },
             {
               "model": "local_unsloth_Qwen3.6",
               "median_score": 1,
@@ -212,6 +567,17 @@
               "evidence": "none",
               "rationale": "While deterministic physical responses are mandated, the standard does not explicitly require software-based logging or attribution of autonomous agent decisions during operation.",
               "mean_confidence": 0.85
+            },
+            {
+              "model": "mistralai-mistral-large-2512",
+              "median_score": 1,
+              "min_score": 1,
+              "max_score": 1,
+              "runs": 5,
+              "self_consistent": true,
+              "evidence": "IEEE 1547-2018, Section 10 (Monitoring, Information Exchange, and Control)",
+              "rationale": "The standard mentions monitoring and logging but does not explicitly address auditability of agent decisions.",
+              "mean_confidence": 0.66
             }
           ]
         },
@@ -219,6 +585,28 @@
           "score": 0,
           "contested": false,
           "per_model": [
+            {
+              "model": "anthropic-claude-sonnet-4.6",
+              "median_score": 1,
+              "min_score": 1,
+              "max_score": 1,
+              "runs": 5,
+              "self_consistent": true,
+              "evidence": "IEEE 1547-2018 Clause 8 addresses cybersecurity and references NERC CIP and NIST frameworks by implication, and Clause 10 covers information exchange. However, the standard does not explicitly define data ownership, consent mechanisms, retention periods, or data governance policies for DER operational data.",
+              "rationale": "Data governance is not directly addressed; only cybersecurity and interoperability communication requirements are touched upon, making data governance only implicitly inferable.",
+              "mean_confidence": 0.8
+            },
+            {
+              "model": "deepseek-deepseek-v4-pro",
+              "median_score": 0,
+              "min_score": 0,
+              "max_score": 0,
+              "runs": 5,
+              "self_consistent": true,
+              "evidence": "none",
+              "rationale": "IEEE 1547 is silent on data ownership, consent, retention, or privacy. Communication protocols are scoped but governance of the data itself is not addressed.",
+              "mean_confidence": 0.92
+            },
             {
               "model": "local_unsloth_Qwen3.6",
               "median_score": 0,
@@ -229,6 +617,179 @@
               "evidence": "none",
               "rationale": "As a technical interconnection document, it excludes commercial and legal requirements such as data ownership consent or retention periods.",
               "mean_confidence": 0.92
+            },
+            {
+              "model": "mistralai-mistral-large-2512",
+              "median_score": 0,
+              "min_score": 0,
+              "max_score": 0,
+              "runs": 5,
+              "self_consistent": true,
+              "evidence": "none",
+              "rationale": "The standard does not address data ownership, consent, or retention requirements.",
+              "mean_confidence": 0.94
+            }
+          ]
+        }
+      }
+    },
+    {
+      "standard": "IEEE_2030_5",
+      "display_name": "IEEE 2030 5",
+      "cells": {
+        "capability_declaration": {
+          "score": 3,
+          "contested": false,
+          "per_model": [
+            {
+              "model": "anthropic-claude-sonnet-4.6",
+              "median_score": 3,
+              "min_score": 3,
+              "max_score": 3,
+              "runs": 5,
+              "self_consistent": true,
+              "evidence": "IEEE 2030.5 defines explicit resource capability discovery via the DeviceCapability resource (DCAPType) and associated function sets. Devices advertise supported function sets (e.g., DERControl, Metering, Pricing) through the DCAP endpoint, allowing servers and agents to discover what a device can do. Clause 10 and the DeviceCapability resource schema in the standard specify this mechanism.",
+              "rationale": "The standard explicitly defines a DeviceCapability resource that allows devices/agents to declare supported function sets and operational capabilities in a structured, machine-readable way.",
+              "mean_confidence": 0.95
+            },
+            {
+              "model": "deepseek-deepseek-v4-pro",
+              "median_score": 3,
+              "min_score": 3,
+              "max_score": 3,
+              "runs": 5,
+              "self_consistent": true,
+              "evidence": "Clauses 10.0 (DERControl), 6.0 (FunctionSetAssignments), and the use of EndDevice/FunctionSet assignments. IEEE 2030.5 defines DERCapability, DERSettings, DERStatus, and DERAvailability resources. Section 10.4 specifies how DERs declare operational capabilities (e.g., modes, ramp rates, power ranges). The Discovery mechanism (Clause 5) allows agents to query resources.",
+              "rationale": "IEEE 2030.5 explicitly defines DER capability resources and a discovery/registration mechanism, enabling an AI agent to programmatically determine what a DER can do.",
+              "mean_confidence": 0.95
+            },
+            {
+              "model": "mistralai-mistral-large-2512",
+              "median_score": 2,
+              "min_score": 2,
+              "max_score": 2,
+              "runs": 5,
+              "self_consistent": true,
+              "evidence": "IEEE 2030.5-2018, Section 10 (Device Capability), Section 11 (End Device Control), and Annex D (Device Capability Model)",
+              "rationale": "The standard explicitly defines device capabilities and allows DERs to declare their functions, but lacks granularity for autonomous AI agent-specific declarations.",
+              "mean_confidence": 0.85
+            }
+          ]
+        },
+        "bounded_authority": {
+          "score": 2,
+          "contested": false,
+          "per_model": [
+            {
+              "model": "anthropic-claude-sonnet-4.6",
+              "median_score": 2,
+              "min_score": 2,
+              "max_score": 2,
+              "runs": 5,
+              "self_consistent": true,
+              "evidence": "IEEE 2030.5 defines DERControl resources with fields such as opModConnect, opModEnergize, opModFixedW, and control scheduling with start times and durations (DERControl.interval). It also supports primacy levels for control hierarchy (e.g., utility vs. aggregator vs. device owner) and supersession rules. However, explicit agent-level authority scoping, capability ceilings per agent identity, or formal revocation/expiry mechanisms tied to an autonomous agent role are not fully specified.",
+              "rationale": "Partial coverage: control limits, scheduling windows, and primacy hierarchies bound what can be commanded, but agent-specific authority scoping and formal revocation are not explicitly addressed.",
+              "mean_confidence": 0.86
+            },
+            {
+              "model": "deepseek-deepseek-v4-pro",
+              "median_score": 2,
+              "min_score": 2,
+              "max_score": 2,
+              "runs": 5,
+              "self_consistent": true,
+              "evidence": "Clause 10.0 (DERControl) defines schedules, limits, and modes. DERProgram (10.2) binds DERs to specific programs with scope constraints. DefaultDERControl provides fallback authority bounds. However, no explicit clause defines certificate-based authority ceilings, revocation, or override chains for autonomous agents beyond time-limited schedules.",
+              "rationale": "Time-bound schedules and program bindings provide partial bounded authority, but the standard lacks explicit agent-specific authority tokens, revocation, or layered override mechanisms.",
+              "mean_confidence": 0.81
+            },
+            {
+              "model": "mistralai-mistral-large-2512",
+              "median_score": 2,
+              "min_score": 2,
+              "max_score": 2,
+              "runs": 5,
+              "self_consistent": true,
+              "evidence": "IEEE 2030.5-2018, Section 8 (Security), Section 11 (End Device Control), and Section 12 (Demand Response)",
+              "rationale": "The standard defines limits on device control, authorization scopes, and revocation, but does not explicitly address AI-specific bounded authority.",
+              "mean_confidence": 0.8
+            }
+          ]
+        },
+        "decision_auditability": {
+          "score": 1,
+          "contested": false,
+          "per_model": [
+            {
+              "model": "anthropic-claude-sonnet-4.6",
+              "median_score": 1,
+              "min_score": 1,
+              "max_score": 1,
+              "runs": 5,
+              "self_consistent": true,
+              "evidence": "IEEE 2030.5 includes event status tracking (EventStatus with fields like currentStatus, dateTime, potentiallySuperseded) and response resources (Response, DERControlResponse) that record device acknowledgment of commands. However, the standard does not explicitly mandate logging of agent decisions, attribution of autonomous actions, or audit trail requirements for automated control agents.",
+              "rationale": "Decision tracking is implicitly supported through event/response status resources, but no explicit audit logging or decision attribution requirements for autonomous agents are defined.",
+              "mean_confidence": 0.81
+            },
+            {
+              "model": "deepseek-deepseek-v4-pro",
+              "median_score": 2,
+              "min_score": 1,
+              "max_score": 2,
+              "runs": 5,
+              "self_consistent": true,
+              "evidence": "Clause 10.4 (DERStatus), 10.6 (LogEvents), and Event resources provide logging of DER actions. The ResponseSet and DERCurve resources record actual vs. commanded behavior. However, the standard does not mandate per-decision attribution or agent-identity binding for individual control decisions.",
+              "rationale": "Operational logs and event records enable partial audit trails, but no explicit requirement ties each autonomous decision to a specific agent identity with non-repudiation.",
+              "mean_confidence": 0.76
+            },
+            {
+              "model": "mistralai-mistral-large-2512",
+              "median_score": 1,
+              "min_score": 1,
+              "max_score": 1,
+              "runs": 5,
+              "self_consistent": true,
+              "evidence": "IEEE 2030.5-2018, Section 9 (Logging) and Section 14 (Metering)",
+              "rationale": "Logging and metering requirements are implied for decisions, but explicit auditability and attribution for AI agents are not detailed.",
+              "mean_confidence": 0.7
+            }
+          ]
+        },
+        "data_governance": {
+          "score": 1,
+          "contested": false,
+          "per_model": [
+            {
+              "model": "anthropic-claude-sonnet-4.6",
+              "median_score": 1,
+              "min_score": 1,
+              "max_score": 1,
+              "runs": 5,
+              "self_consistent": true,
+              "evidence": "IEEE 2030.5 specifies TLS-based security (clause 5/6), certificate-based device identity, and role-based access via SFDI/LFDI device identifiers. It references NERC CIP and utility data handling contexts implicitly. However, explicit provisions for data ownership, end-user consent, data retention periods, or data deletion rights are absent from the standard itself.",
+              "rationale": "Security and identity mechanisms imply some data governance, but explicit requirements on ownership, consent, and retention are absent, leaving governance to implementers or overlying regulatory frameworks.",
+              "mean_confidence": 0.84
+            },
+            {
+              "model": "deepseek-deepseek-v4-pro",
+              "median_score": 1,
+              "min_score": 0,
+              "max_score": 1,
+              "runs": 5,
+              "self_consistent": true,
+              "evidence": "Clause 14 (Security) references TLS and authentication but does not define data ownership, consent, or retention policies. The Subscription/Notification mechanism (Clause 5) implies data flow control but lacks explicit data governance clauses.",
+              "rationale": "Security provisions imply some data protection, but the standard does not explicitly address ownership, user consent, retention limits, or data-use purpose constraints for DER telemetry or control data.",
+              "mean_confidence": 0.85
+            },
+            {
+              "model": "mistralai-mistral-large-2512",
+              "median_score": 1,
+              "min_score": 1,
+              "max_score": 1,
+              "runs": 5,
+              "self_consistent": true,
+              "evidence": "IEEE 2030.5-2018, Section 8 (Security) and Section 15 (Privacy)",
+              "rationale": "Data ownership, consent, and retention are implicitly covered under security and privacy clauses, but lack explicit governance requirements.",
+              "mean_confidence": 0.71
             }
           ]
         }
@@ -243,6 +804,28 @@
           "contested": false,
           "per_model": [
             {
+              "model": "anthropic-claude-sonnet-4.6",
+              "median_score": 3,
+              "min_score": 3,
+              "max_score": 3,
+              "runs": 5,
+              "self_consistent": true,
+              "evidence": "ISO 15118 defines explicit service discovery and capability exchange mechanisms. In ISO 15118-2, the 'SupportedEnergyTransferMode' and 'ChargeService' elements allow an EV/EVSE to declare supported charging modes, power levels, and services. ISO 15118-20 extends this with detailed capability negotiation for BPT (Bidirectional Power Transfer), dynamic control modes, and scheduled modes via 'ServiceDiscoveryReq/Res' and 'ServiceDetailReq/Res' message pairs.",
+              "rationale": "Standard explicitly defines structured capability exchange messages between EV and EVSE, covering energy transfer modes, power limits, and service offerings in dedicated protocol phases.",
+              "mean_confidence": 0.95
+            },
+            {
+              "model": "deepseek-deepseek-v4-pro",
+              "median_score": 3,
+              "min_score": 3,
+              "max_score": 3,
+              "runs": 5,
+              "self_consistent": true,
+              "evidence": "Clause 6.4.2 (ServiceDiscoveryRequest/Response), Clause 8.3 (EVCCID/EVSEID identifying capabilities), ISO 15118-2 Clause 8.4.2 (ChargeParameterDiscoveryReq/Res) which exchanges EV energy requirements, charging profiles, and scheduling capabilities. ISO 15118-20 extends this with dynamic capability exchange via supported protocol handshake and service list.",
+              "rationale": "ISO 15118 explicitly defines structured mechanisms for EVs and EVSEs to declare their capabilities (charging profiles, schedules, security, V2G) during session establishment.",
+              "mean_confidence": 0.94
+            },
+            {
               "model": "local_unsloth_Qwen3.6",
               "median_score": 2,
               "min_score": 2,
@@ -252,6 +835,17 @@
               "evidence": "ISO 15118 Part 20 Service Discovery and ExchangeProtocol define capability negotiation through SAScheduleTuple elements in ScheduleExchangeRequest/response messages during service discovery phase.",
               "rationale": "Provides mechanism for EV to declare supported services and charging parameters at connection setup, but lacks dynamic redeclaration capabilities needed for autonomous AI agents operating across multiple DERs with evolving conditions.",
               "mean_confidence": 0.85
+            },
+            {
+              "model": "mistralai-mistral-large-2512",
+              "median_score": 2,
+              "min_score": 2,
+              "max_score": 3,
+              "runs": 5,
+              "self_consistent": true,
+              "evidence": "Clause 7.3 (EVCC Communication Setup) and Clause 8.3 (EVSE Capability Declaration) in ISO 15118-2",
+              "rationale": "The standard explicitly requires DERs (e.g., EVs and EVSEs) to declare their capabilities during communication setup, but lacks detailed granularity for all DER types.",
+              "mean_confidence": 0.89
             }
           ]
         },
@@ -259,6 +853,28 @@
           "score": 2,
           "contested": false,
           "per_model": [
+            {
+              "model": "anthropic-claude-sonnet-4.6",
+              "median_score": 2,
+              "min_score": 2,
+              "max_score": 2,
+              "runs": 5,
+              "self_consistent": true,
+              "evidence": "ISO 15118-2 Clause 8 and ISO 15118-20 define schedule/limit constructs such as 'SAScheduleTuple', 'PMaxSchedule', and 'SalesTariff' that bound what a charging session may do in terms of power and time. ISO 15118-20 introduces dynamic control modes with operator-defined power limits and departure time constraints. However, explicit agent-level authority scoping (e.g., delegation tokens, expiry of autonomous control grants, or revocation mechanisms for AI agents) is not directly addressed.",
+              "rationale": "Power and schedule ceilings are well-defined for charging sessions, but agent-specific authority delegation, expiry, and revocation constructs are absent, making coverage partial.",
+              "mean_confidence": 0.87
+            },
+            {
+              "model": "deepseek-deepseek-v4-pro",
+              "median_score": 2,
+              "min_score": 2,
+              "max_score": 2,
+              "runs": 5,
+              "self_consistent": true,
+              "evidence": "Clause 7 (Security) and ISO 15118-2 Clause 9 (Certificate handling) define PKI-based trust and contract certificates with permissions. ISO 15118-20 Clause 8.5.2 defines installation/update of contract certificates that scope what a party is authorised to do. However, explicit clauses for agent-specific authority bounds (e.g. expiry, revocation, override by DSO) are limited.",
+              "rationale": "Certificate-based authority scoping is partially present but lacks explicit agent-centric bounded authority constructs such as dynamic authority ceilings, revocation workflows, or override mechanisms for DER agents.",
+              "mean_confidence": 0.81
+            },
             {
               "model": "local_unsloth_Qwen3.6",
               "median_score": 2,
@@ -269,6 +885,17 @@
               "evidence": "ISO 15118-2 Clause 9.3 ChargingParameterDiscovery includes MaxEnergyRequested to define session energy limits; PowerLimitation mechanisms via DC_ChargingParameters and AC_ExtendedChargingParameters.",
               "rationale": "Establishes basic operational boundaries through power/energy constraints, but lacks explicit authority frameworks including expiry intervals, revocation workflows beyond connection termination, or emergency override protocols required for autonomous operations.",
               "mean_confidence": 0.82
+            },
+            {
+              "model": "mistralai-mistral-large-2512",
+              "median_score": 1,
+              "min_score": 1,
+              "max_score": 2,
+              "runs": 5,
+              "self_consistent": true,
+              "evidence": "Clause 8.4 (Authorization and Authentication) and Clause 9.3 (Contract-Based Access Control) in ISO 15118-2",
+              "rationale": "The standard implies limits on agent authority through authentication and contract-based access, but does not explicitly define ceilings, expiry, or revocation.",
+              "mean_confidence": 0.76
             }
           ]
         },
@@ -276,6 +903,28 @@
           "score": 1,
           "contested": false,
           "per_model": [
+            {
+              "model": "anthropic-claude-sonnet-4.6",
+              "median_score": 1,
+              "min_score": 1,
+              "max_score": 1,
+              "runs": 5,
+              "self_consistent": true,
+              "evidence": "ISO 15118 does not contain explicit clauses mandating logging or attribution of decisions made during a charging session. However, the structured message exchange (e.g., 'MeteringReceiptReq/Res', signed metering values in ISO 15118-2 Clause 8.7, and the use of TLS with certificate-based authentication) implicitly creates an auditable trail of session events and authenticated actors. ISO 15118-20 retains signed metering records.",
+              "rationale": "No explicit decision-logging or audit-trail requirements exist; auditability is only inferrable from cryptographically signed metering and authenticated message exchanges.",
+              "mean_confidence": 0.83
+            },
+            {
+              "model": "deepseek-deepseek-v4-pro",
+              "median_score": 1,
+              "min_score": 1,
+              "max_score": 2,
+              "runs": 5,
+              "self_consistent": true,
+              "evidence": "ISO 15118-2 Clause 9 (Metering) and ISO 15118-20 Clause 13 define metered values and require signed meter reports (MeteringReceipt). However, no clause explicitly requires logging or attribution of agent-specific decisions beyond the EV-SECC pair; the meter receipt provides billing-grade data but not a decision log.",
+              "rationale": "Auditability is limited to metering receipts; there is no explicit requirement for logging agent decisions, attributing decisions to specific agents, or maintaining an audit trail of control actions.",
+              "mean_confidence": 0.76
+            },
             {
               "model": "local_unsloth_Qwen3.6",
               "median_score": 1,
@@ -286,13 +935,46 @@
               "evidence": "None - standard focuses on real-time control messaging without mandating decision logging. Local charge session data storage is implementation-specific and driven by billing/regulatory requirements rather than protocol mandates.",
               "rationale": "While charging stations implicitly log sessions for fault diagnosis and regulatory compliance, no standardized audit trail mechanism exists to track agent decisions or attribute autonomous actions - insufficient for AI operational transparency.",
               "mean_confidence": 0.85
+            },
+            {
+              "model": "mistralai-mistral-large-2512",
+              "median_score": 1,
+              "min_score": 1,
+              "max_score": 1,
+              "runs": 5,
+              "self_consistent": true,
+              "evidence": "ISO 15118-2:2019, Section 10 (Logging and Diagnostics)",
+              "rationale": "The standard implicitly supports auditability through logging requirements, but it does not explicitly define how agent decisions should be attributed or logged.",
+              "mean_confidence": 0.69
             }
           ]
         },
         "data_governance": {
-          "score": 1,
+          "score": 2,
           "contested": false,
           "per_model": [
+            {
+              "model": "anthropic-claude-sonnet-4.6",
+              "median_score": 2,
+              "min_score": 1,
+              "max_score": 2,
+              "runs": 5,
+              "self_consistent": true,
+              "evidence": "ISO 15118-2 Clause 7.9 and Annex H address the handling of contract certificates, EMAID (e-Mobility Account Identifier), and private key protection within the Plug & Charge ecosystem, implying data ownership and consent via contract. ISO 15118-20 references the need for privacy-preserving certificate handling. However, explicit data retention periods, consent withdrawal mechanisms, data minimisation requirements, or ownership transfer rules for metering/session data are not defined within the standard itself \u2014 these are deferred to backend/OCPP or regulatory frameworks.",
+              "rationale": "Contract certificate and identity management clauses partially address data ownership and consent, but retention, minimisation, and explicit consent lifecycle are not covered within the standard.",
+              "mean_confidence": 0.86
+            },
+            {
+              "model": "deepseek-deepseek-v4-pro",
+              "median_score": 1,
+              "min_score": 1,
+              "max_score": 2,
+              "runs": 5,
+              "self_consistent": true,
+              "evidence": "ISO 15118-20 Annex B briefly references privacy considerations and consent under GDPR. Clause 7.2.2 mentions TLS-encrypted communication for data protection. No dedicated data governance clause covering ownership, consent management, or retention policies.",
+              "rationale": "Privacy and data protection are mentioned implicitly through security and annex references, but explicit data governance frameworks for ownership, consent, and retention are absent.",
+              "mean_confidence": 0.78
+            },
             {
               "model": "local_unsloth_Qwen3.6",
               "median_score": 1,
@@ -302,6 +984,17 @@
               "self_consistent": true,
               "evidence": "None explicitly. ISO 15118-20 Part 2 Clause 8.4 references PCDocuments where certificates replace RFID cards with implicit privacy protections; data handling details are implementation-dependent.",
               "rationale": "Certificate-based authentication provides some privacy benefits, but comprehensive governance regarding ownership attribution, consent frameworks and mandatory retention periods is absent from this communication-focused standard.",
+              "mean_confidence": 0.8
+            },
+            {
+              "model": "mistralai-mistral-large-2512",
+              "median_score": 2,
+              "min_score": 2,
+              "max_score": 2,
+              "runs": 5,
+              "self_consistent": true,
+              "evidence": "ISO 15118-2:2019, Section 8.3.5 (Certificate Handling) and Section 9.8 (Privacy and Data Protection)",
+              "rationale": "The standard partially addresses data governance with requirements on data protection and consent but lacks comprehensive details on data ownership and retention.",
               "mean_confidence": 0.8
             }
           ]
@@ -317,6 +1010,28 @@
           "contested": false,
           "per_model": [
             {
+              "model": "anthropic-claude-sonnet-4.6",
+              "median_score": 2,
+              "min_score": 2,
+              "max_score": 2,
+              "runs": 5,
+              "self_consistent": true,
+              "evidence": "OpenADR 3.0 defines 'resources' and 'resource attributes' (Section 4 / Resource object) that allow a VEN (Virtual End Node) to register and describe its controllable assets, including power capacity, ramp rates, and available program types. The POST /resources endpoint allows devices to declare their characteristics. However, this is oriented toward demand response enrollment rather than a generalised machine-readable capability advertisement for autonomous agents.",
+              "rationale": "Resources can be registered with attributes describing capabilities, but the model is DR-program-centric and lacks a formal capability ontology suitable for autonomous AI agent negotiation.",
+              "mean_confidence": 0.82
+            },
+            {
+              "model": "deepseek-deepseek-v4-pro",
+              "median_score": 3,
+              "min_score": 3,
+              "max_score": 3,
+              "runs": 5,
+              "self_consistent": true,
+              "evidence": "OpenADR 3 \u00a75.1 (VTN Discovery), \u00a75.2 (VEN Registration), \u00a75.5 (Report Capabilities), \u00a76.3 (Resource Types and Capabilities), and the OpenADR 3 Resources schema which defines explicit capability attributes including demand response types, ramping rates, response times, and maximum/minimum power levels.",
+              "rationale": "OpenADR 3 explicitly requires VENs to report capabilities during registration and via dedicated capability reporting mechanisms, with structured schema for resource attributes.",
+              "mean_confidence": 0.94
+            },
+            {
               "model": "local_unsloth_Qwen3.6",
               "median_score": 2,
               "min_score": 2,
@@ -326,13 +1041,46 @@
               "evidence": "Service discovery and registration via Profile definitions",
               "rationale": "Profiles declare protocol features during endpoint registration but omit DER-specific operational parameters needed for autonomous decision-making.",
               "mean_confidence": 0.68
+            },
+            {
+              "model": "mistralai-mistral-large-2512",
+              "median_score": 3,
+              "min_score": 3,
+              "max_score": 3,
+              "runs": 5,
+              "self_consistent": true,
+              "evidence": "OpenADR 3.0, Section 6.2 (Resource Characteristics) and Section 7.2 (VEN Capabilities Report)",
+              "rationale": "OpenADR 3 explicitly defines mechanisms for DERs to declare their capabilities, such as power limits, response times, and available services.",
+              "mean_confidence": 0.95
             }
           ]
         },
         "bounded_authority": {
-          "score": 1,
+          "score": 2,
           "contested": false,
           "per_model": [
+            {
+              "model": "anthropic-claude-sonnet-4.6",
+              "median_score": 2,
+              "min_score": 2,
+              "max_score": 2,
+              "runs": 5,
+              "self_consistent": true,
+              "evidence": "OpenADR 3.0 defines 'programs' (Section 4 / Program object) with explicit intervals, event payloads, and constraints (e.g., targetType, payloadDescriptors, reportDescriptors). Events carry start/duration fields bounding the time window of authority. OAuth 2.0 scopes (Section 7 / Security) restrict which roles (VTN, VEN, business) can invoke which API endpoints. However, there is no explicit agent-level authority ceiling, revocation mechanism for individual agent actions, or fine-grained per-resource control limits beyond program enrollment.",
+              "rationale": "Time-bounded events and OAuth role scopes provide partial authority bounding, but no explicit per-agent authority ceilings, revocation tokens, or override hierarchies are defined.",
+              "mean_confidence": 0.8
+            },
+            {
+              "model": "deepseek-deepseek-v4-pro",
+              "median_score": 2,
+              "min_score": 2,
+              "max_score": 2,
+              "runs": 5,
+              "self_consistent": true,
+              "evidence": "OpenADR 3 \u00a77.2 (Event Signals) defines opt-in/opt-out mechanisms, \u00a77.3 (Event Responses) allows partial acceptance/declination, \u00a78.1 (Baseline) establishes operational boundaries, and \u00a710 (Security) includes authorization scopes. However, explicit temporal authority ceilings, programmatic revocation, and autonomous agent-specific authority delegation are not addressed.",
+              "rationale": "Opt-in/opt-out and partial response provide implicit bounded authority, but the standard lacks explicit agent delegation limits, expiry, or override constructs for autonomous operation.",
+              "mean_confidence": 0.83
+            },
             {
               "model": "local_unsloth_Qwen3.6",
               "median_score": 1,
@@ -343,6 +1091,17 @@
               "evidence": "Event payloads include min/max targets; Schedule profile uses start/end times",
               "rationale": "Provides temporal boundaries and target ranges via event properties but lacks mechanisms for agent-negotiated authority envelopes or autonomous override rights.",
               "mean_confidence": 0.81
+            },
+            {
+              "model": "mistralai-mistral-large-2512",
+              "median_score": 2,
+              "min_score": 2,
+              "max_score": 2,
+              "runs": 5,
+              "self_consistent": true,
+              "evidence": "OpenADR 3.0, Section 8.4 (Event Constraints) and Section 9.3 (Opt-Out and Override Mechanisms)",
+              "rationale": "The standard partially covers bounded authority by defining event constraints and opt-out mechanisms but lacks explicit details on revocation and expiry.",
+              "mean_confidence": 0.85
             }
           ]
         },
@@ -350,6 +1109,28 @@
           "score": 1,
           "contested": false,
           "per_model": [
+            {
+              "model": "anthropic-claude-sonnet-4.6",
+              "median_score": 1,
+              "min_score": 1,
+              "max_score": 1,
+              "runs": 5,
+              "self_consistent": true,
+              "evidence": "OpenADR 3.0 defines a 'reports' mechanism (Section 4 / Report object, POST /reports) where VENs submit telemetry and event-response confirmations back to the VTN. This implicitly creates a record of what actions were taken in response to events. However, the standard does not mandate logging of agent decision logic, timestamps of autonomous decisions, attribution of decisions to specific agents, or audit trail retention requirements.",
+              "rationale": "The reports endpoint implicitly supports some auditability of responses, but no explicit decision logging, attribution, or audit trail requirements are specified for autonomous agents.",
+              "mean_confidence": 0.78
+            },
+            {
+              "model": "deepseek-deepseek-v4-pro",
+              "median_score": 1,
+              "min_score": 1,
+              "max_score": 2,
+              "runs": 5,
+              "self_consistent": true,
+              "evidence": "OpenADR 3 \u00a77.3 (Event Responses) requires VENs to return opt-in/opt-out status per event; \u00a77.5 (Feedback) enables performance reporting; \u00a79 (Reporting) covers telemetry and historical usage. However, no clause mandates logging of autonomous decision rationale, attribution metadata, or traceability to specific agent logic.",
+              "rationale": "Event response tracking and feedback mechanisms implicitly support audit trails, but agent-specific decision logging, rationale capture, and decision attribution remain unaddressed.",
+              "mean_confidence": 0.77
+            },
             {
               "model": "local_unsloth_Qwen3.6",
               "median_score": 1,
@@ -360,13 +1141,46 @@
               "evidence": "Logging of events in the standard but lack explicit attribution clauses",
               "rationale": "There are no clear clauses dictating decision audit trails.",
               "mean_confidence": 0.86
+            },
+            {
+              "model": "mistralai-mistral-large-2512",
+              "median_score": 1,
+              "min_score": 1,
+              "max_score": 1,
+              "runs": 5,
+              "self_consistent": true,
+              "evidence": "OpenADR 3.0, Section 10.3 (Logging and Reporting)",
+              "rationale": "Auditability is implicitly covered through logging requirements, but there is no explicit mandate for attributing decisions to specific agents.",
+              "mean_confidence": 0.75
             }
           ]
         },
         "data_governance": {
-          "score": 0,
+          "score": 1,
           "contested": false,
           "per_model": [
+            {
+              "model": "anthropic-claude-sonnet-4.6",
+              "median_score": 1,
+              "min_score": 1,
+              "max_score": 1,
+              "runs": 5,
+              "self_consistent": true,
+              "evidence": "OpenADR 3.0 references OAuth 2.0 and HTTPS for data security (Section 7 / Security Considerations) and defines data models for events, reports, and resources. However, the standard contains no explicit clauses on data ownership, consent management, data retention periods, right to erasure, or data sharing restrictions. Compliance with external privacy regulations (e.g., GDPR) is left entirely to implementers.",
+              "rationale": "Security transport is specified, but data ownership, consent, retention, and governance policies are entirely absent from the standard itself.",
+              "mean_confidence": 0.84
+            },
+            {
+              "model": "deepseek-deepseek-v4-pro",
+              "median_score": 1,
+              "min_score": 0,
+              "max_score": 2,
+              "runs": 5,
+              "self_consistent": false,
+              "evidence": "Clause 8.1 references TLS 1.2+ for transport security and OAuth 2.0 for authorization. Clause 4.3 registration includes party identification ('venID', 'vtnID'). No clause explicitly addresses data ownership, user consent for data usage, retention policies, or data portability.",
+              "rationale": "Security and authorization are present but data ownership, consent management, and retention are not addressed \u2014 implicit at best.",
+              "mean_confidence": 0.83
+            },
             {
               "model": "local_unsloth_Qwen3.6",
               "median_score": 0,
@@ -377,6 +1191,17 @@
               "evidence": "none",
               "rationale": "Protocol is strictly operational/control-focused, deferring data ownership models and consent mechanisms to external regulatory frameworks like GDPR rather than standardizing them internally within the spec.",
               "mean_confidence": 0.88
+            },
+            {
+              "model": "mistralai-mistral-large-2512",
+              "median_score": 1,
+              "min_score": 1,
+              "max_score": 1,
+              "runs": 5,
+              "self_consistent": true,
+              "evidence": "OpenADR 3.0, Section 11.1 (Data Privacy Considerations)",
+              "rationale": "Data governance is implicitly addressed through privacy considerations, but ownership, consent, and retention are not explicitly defined.",
+              "mean_confidence": 0.7
             }
           ]
         }
@@ -391,6 +1216,28 @@
           "contested": false,
           "per_model": [
             {
+              "model": "anthropic-claude-sonnet-4.6",
+              "median_score": 3,
+              "min_score": 3,
+              "max_score": 3,
+              "runs": 5,
+              "self_consistent": true,
+              "evidence": "SunSpec Alliance defines a comprehensive set of device models (e.g., SunSpec Information Models for inverters, meters, batteries, etc.) that explicitly declare device capabilities, operating modes, ratings, and supported functions via standardized Modbus/SunSpec model registers. Model 1 (Common Model) and device-specific models (e.g., Model 101-103 for inverters, Model 124 for Basic Settings) enumerate capacity, power ratings, supported control modes, and operational states.",
+              "rationale": "SunSpec explicitly defines structured data models for devices to declare their capabilities, ratings, and supported functions, directly enabling capability advertisement.",
+              "mean_confidence": 0.93
+            },
+            {
+              "model": "deepseek-deepseek-v4-pro",
+              "median_score": 3,
+              "min_score": 2,
+              "max_score": 3,
+              "runs": 5,
+              "self_consistent": true,
+              "evidence": "SunSpec Modbus Information Models define device profiles with 'Common Models' and vendor-specific model blocks. Models include mandatory/common blocks (e.g., Model 1 \u2013 Common, Model 11/12 for inverter ratings) and optional blocks that declare supported functions, operating modes, and nameplate limits.",
+              "rationale": "SunSpec explicitly defines capability declaration via standardized information models where devices self-report supported features, ratings, and operational modes using well-defined Modbus register maps.",
+              "mean_confidence": 0.92
+            },
+            {
               "model": "local_unsloth_Qwen3.6",
               "median_score": 2.0,
               "min_score": 2,
@@ -400,6 +1247,17 @@
               "evidence": "SunSpec Model Registry XML & Implementation Guides define static register maps for device capabilities",
               "rationale": "Provides machine-readable catalogs of DER functions but lacks dynamic runtime negotiation protocols for autonomous agents to discover capabilities ad-hoc.",
               "mean_confidence": 0.89
+            },
+            {
+              "model": "mistralai-mistral-large-2512",
+              "median_score": 2,
+              "min_score": 2,
+              "max_score": 2,
+              "runs": 5,
+              "self_consistent": true,
+              "evidence": "SunSpec Information Models (e.g., SunSpec Model 1, Model 101-103, Model 111-113, Model 120-123)",
+              "rationale": "SunSpec explicitly defines standard data models for DER capabilities (e.g., inverter capabilities, storage capabilities), but lacks a dynamic declaration mechanism for autonomous agents.",
+              "mean_confidence": 0.85
             }
           ]
         },
@@ -407,6 +1265,28 @@
           "score": 2,
           "contested": false,
           "per_model": [
+            {
+              "model": "anthropic-claude-sonnet-4.6",
+              "median_score": 2,
+              "min_score": 2,
+              "max_score": 2,
+              "runs": 5,
+              "self_consistent": true,
+              "evidence": "SunSpec models include control registers with defined setpoint limits (e.g., WMaxLimPct for active power curtailment in Model 123, VArPct for reactive power, and enable/disable flags). Timeout registers (e.g., WMaxLimPct_Ena, WMaxLimPct_Tms) provide time-bounded control authority. However, there is no formal agent-level permission scoping, role-based access control, or explicit revocation mechanism defined for autonomous agents.",
+              "rationale": "SunSpec provides operational ceilings and timeouts for control commands but lacks formal agent authority scoping, delegation, or revocation constructs needed for full bounded authority.",
+              "mean_confidence": 0.86
+            },
+            {
+              "model": "deepseek-deepseek-v4-pro",
+              "median_score": 2,
+              "min_score": 1,
+              "max_score": 2,
+              "runs": 5,
+              "self_consistent": true,
+              "evidence": "SunSpec defines writable Modbus registers for control setpoints (e.g., 'WMax', 'WMaxLimPct', 'PF_Set', 'FixedW') in models 121\u2013123 and the Common Model. Control authority is bounded by these numeric limits. However, no explicit clauses govern temporal expiry, revocation tokens, or override escalation for autonomous agent delegation.",
+              "rationale": "Authority is bounded via operational setpoint registers, but lacks explicit temporal expiry, delegation revocation, or override protocols needed for fully autonomous AI agent oversight.",
+              "mean_confidence": 0.83
+            },
             {
               "model": "local_unsloth_Qwen3.6",
               "median_score": 1.5,
@@ -417,13 +1297,46 @@
               "evidence": "SunSpec Model Registry defines operational setpoint ceilings; no explicit AI authorization scopes or expiry clauses",
               "rationale": "Operational bounds are implied by register value constraints to ensure grid safety. However, the standard omits explicit agent permission scopes, token expiration, and revocation mechanisms.",
               "mean_confidence": 0.86
+            },
+            {
+              "model": "mistralai-mistral-large-2512",
+              "median_score": 1,
+              "min_score": 1,
+              "max_score": 1,
+              "runs": 5,
+              "self_consistent": true,
+              "evidence": "SunSpec Modbus and IEEE 2030.5 profiles (e.g., sections on operational limits in SunSpec Model 120-123)",
+              "rationale": "Operational limits are defined, but authority scoping, revocation, and override mechanisms are not explicitly addressed for autonomous agents.",
+              "mean_confidence": 0.7
             }
           ]
         },
         "decision_auditability": {
-          "score": 0,
+          "score": 1,
           "contested": false,
           "per_model": [
+            {
+              "model": "anthropic-claude-sonnet-4.6",
+              "median_score": 1,
+              "min_score": 1,
+              "max_score": 1,
+              "runs": 5,
+              "self_consistent": true,
+              "evidence": "SunSpec does not define logging, audit trails, or decision attribution requirements. Some models include status and event registers (e.g., Evt1/Evt2 bitmask fields in inverter models) that record device-level fault/event states, but these are device-state indicators rather than agent decision logs. No clauses address who issued a command, when, or why.",
+              "rationale": "Only implicit auditability via device event registers; no explicit requirements for agent decision logging, command attribution, or audit trail management.",
+              "mean_confidence": 0.87
+            },
+            {
+              "model": "deepseek-deepseek-v4-pro",
+              "median_score": 1,
+              "min_score": 0,
+              "max_score": 1,
+              "runs": 5,
+              "self_consistent": true,
+              "evidence": "SunSpec specifies status/event registers (e.g., Model 1 Common includes device status, event flags) and alarm/warning structures, but does not mandate logging of which agent or entity made a decision, when, or why.",
+              "rationale": "Decision auditability is implicit \u2014 status registers capture outcomes but the standard lacks explicit requirements for attributing decisions to specific agents with timestamps.",
+              "mean_confidence": 0.81
+            },
             {
               "model": "local_unsloth_Qwen3.6",
               "median_score": 0.0,
@@ -434,6 +1347,17 @@
               "evidence": "none",
               "rationale": "Protocol focuses strictly on real-time telemetry exchange without prescribing decision logging, attribution of autonomous actions, or audit trail requirements for agent operations.",
               "mean_confidence": 0.94
+            },
+            {
+              "model": "mistralai-mistral-large-2512",
+              "median_score": 1,
+              "min_score": 1,
+              "max_score": 1,
+              "runs": 5,
+              "self_consistent": true,
+              "evidence": "SunSpec Model 122 (Logging), but not specific to agent decisions",
+              "rationale": "Logging is supported, but attribution and auditability of autonomous agent decisions are not explicitly covered.",
+              "mean_confidence": 0.69
             }
           ]
         },
@@ -441,6 +1365,28 @@
           "score": 0,
           "contested": false,
           "per_model": [
+            {
+              "model": "anthropic-claude-sonnet-4.6",
+              "median_score": 0,
+              "min_score": 0,
+              "max_score": 1,
+              "runs": 5,
+              "self_consistent": true,
+              "evidence": "none",
+              "rationale": "SunSpec is a device interoperability and data model standard focused on register-level communication; it contains no provisions for data ownership, consent, retention policies, or privacy governance.",
+              "mean_confidence": 0.94
+            },
+            {
+              "model": "deepseek-deepseek-v4-pro",
+              "median_score": 0,
+              "min_score": 0,
+              "max_score": 1,
+              "runs": 5,
+              "self_consistent": true,
+              "evidence": "None. SunSpec standards focus on data models and communication protocols (Modbus, SunSpec Modbus, IEEE 1547 DER information models). No clauses address data ownership, consent management, or retention policies.",
+              "rationale": "SunSpec is a data modeling and protocol standard; data governance concerns like ownership, consent, and retention are entirely outside its scope.",
+              "mean_confidence": 0.92
+            },
             {
               "model": "local_unsloth_Qwen3.6",
               "median_score": 0.0,
@@ -451,6 +1397,17 @@
               "evidence": "none",
               "rationale": "Purely a technical interoperability specification defining data models; contains zero clauses regarding data ownership, user consent, retention policies, or privacy frameworks.",
               "mean_confidence": 0.95
+            },
+            {
+              "model": "mistralai-mistral-large-2512",
+              "median_score": 0,
+              "min_score": 0,
+              "max_score": 0,
+              "runs": 5,
+              "self_consistent": true,
+              "evidence": "none",
+              "rationale": "SunSpec does not address data ownership, consent, or retention requirements.",
+              "mean_confidence": 0.9
             }
           ]
         }
