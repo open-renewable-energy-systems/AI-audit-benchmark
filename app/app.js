@@ -75,7 +75,7 @@ function mergeLiveResults(results) {
         const md = median(ss);
         const rep = runs.reduce((b, x) => (Math.abs(x[d.key].score - md) < Math.abs(b[d.key].score - md) ? x : b));
         return {
-          model: m + (Math.max(...ss) - Math.min(...ss) <= 1 ? "" : " ⚠unstable"),
+          model: m + (Math.max(...ss) - Math.min(...ss) <= 0.5 ? "" : " ⚠unstable"),
           score: md, evidence: rep[d.key].evidence,
           rationale: rep[d.key].rationale, confidence: rep[d.key].confidence,
         };
@@ -174,7 +174,7 @@ function showDetail(standard, dim, score, td) {
     box.innerHTML = html;
     return;
   }
-  html += `<table><tr><th>Model</th><th title="Median of the model's runs; ⚠unstable if its runs spread more than 1">Score</th><th>Evidence</th><th>Rationale</th><th title="The model's self-reported confidence (0–1), averaged over its runs — a signal, not proof">Conf.</th></tr>`;
+  html += `<table><tr><th>Model</th><th title="Median of the model's runs; ⚠unstable if its runs yield different scores.">Score</th><th>Evidence</th><th>Rationale</th><th title="The model's self-reported confidence (0–1), averaged over its runs — a signal, not proof">Conf.</th></tr>`;
   rows.forEach((r) => {
     html += `<tr><td>${r.model}</td><td class="score">${r.score}</td><td>${r.evidence}</td><td>${r.rationale}</td><td>${r.confidence}</td></tr>`;
   });

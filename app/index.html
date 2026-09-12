@@ -51,7 +51,7 @@
       <dt>Rationale</dt><dd>The model's one-sentence justification for the score.</dd>
       <dt>Conf.</dt><dd>The model's self-reported confidence (0–1), averaged over its runs. A signal, not proof — a model can be confidently wrong. Evidence checking and cross-model agreement are the real safeguards.</dd>
       <dt>Cell value</dt><dd>Per model: median of its runs. Per cell: median of the model medians when they agree within ±1 — otherwise <b>contested</b> (hatched, no number claimed).</dd>
-      <dt>⚠ unstable</dt><dd>One model's runs disagreed with each other by more than 1 — its score for that cell is not reproducible.</dd>
+      <dt>⚠ unstable</dt><dd>One model's runs disagreed with other runs — its score for that cell is not reproducible.</dd>
       <dt>● live row</dt><dd>Produced by an audit run in this browser session. Published rows come from results committed in the <a href="https://github.com/open-renewable-energy-systems/AI-audit-benchmark">repo</a>.</dd>
       <dt>knowledge-only vs document-fed</dt><dd>Whether the model answered from its training knowledge alone, or was given the standard's text to cite from. All built-in standards run knowledge-only; only custom standards with pasted/uploaded text are document-fed. Every exported result records which.</dd>
     </dl>
