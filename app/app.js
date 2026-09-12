@@ -24,7 +24,9 @@ async function loadRealGapmap() {
         standard: s.display_name,
         scores: DIMENSIONS.map((d) => {
           const c = s.cells[d.key];
-          return c.contested ? null : c.score;
+          if (c.contested) return null;
+          const pm = c.per_model.map((p) => p.median_score);
+          return { score: c.score, min: Math.min(...pm), max: Math.max(...pm) };
         }),
       });
       DIMENSIONS.forEach((d) => {
@@ -64,7 +66,8 @@ function mergeLiveResults(results) {
   Object.entries(byStd).forEach(([std, byModel]) => {
     const scores = DIMENSIONS.map((d) => {
       const medians = Object.values(byModel).map((runs) => median(runs.map((x) => x[d.key].score)));
-      return Math.max(...medians) - Math.min(...medians) > 1 ? null : Math.round(median(medians));
+      if (Math.max(...medians) - Math.min(...medians) > 1) return null;
+      return { score: Math.round(median(medians)), min: Math.min(...medians), max: Math.max(...medians) };
     });
     DIMENSIONS.forEach((d) => {
       CELL_DETAIL[`${std}|${d.key}`] = Object.entries(byModel).map(([m, runs]) => {
@@ -110,9 +113,21 @@ function renderGapmap() {
     tr.innerHTML = `<th class="rowhead${row.live ? " live" : ""}" ${row.live ? 'title="updated by this session\'s run"' : ""}>${row.standard}${row.live ? " ●" : ""}</th>`;
     row.scores.forEach((s, i) => {
       const td = document.createElement("td");
-      td.className = "cell " + scoreClass(s);
-      td.textContent = s === null ? "contested" : s;
-      td.onclick = () => showDetail(row.standard, DIMENSIONS[i], s, td);
+      const isObj = s !== null && typeof s === "object";
+      const val = isObj ? s.score : s;
+      td.className = "cell " + scoreClass(val);
+      if (val === null) {
+        td.textContent = "contested";
+      } else if (isObj) {
+        if (s.min == s.max) {
+          td.textContent = val
+        } else {
+          td.innerHTML = val + ' <span style="color: #999; font-style: italic; font-size: 0.75em;">(' + s.min + ' - ' + s.max + ')</span>';
+        }
+      } else {
+        td.textContent = val;
+      }
+      td.onclick = () => showDetail(row.standard, DIMENSIONS[i], val, td);
       tr.appendChild(td);
     });
     table.appendChild(tr);
