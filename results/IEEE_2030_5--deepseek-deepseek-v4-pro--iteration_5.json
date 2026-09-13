@@ -1,0 +1,26 @@
+{
+  "capability_declaration": {
+    "score": 3,
+    "evidence": "Clause 1.3 (General) / Table 1 (Resource types: 0–7, e.g., 3=generation, 4=storage); DERControl (Table 27), DERCurve, and DERCapability (Clause 10.4.7) resources explicitly declare static and dynamic capabilities of a DER; EndDevice resource contains DeviceCategoryType; FunctionSetAssignments (Clause 6.3.4) declares which function sets a device supports.",
+    "rationale": "IEEE 2030.5 provides dedicated object models (DERCapability, DERControl, FunctionSetAssignments) that let a DER agent self-describe its operational, control, and functional capabilities.",
+    "confidence": 0.95
+  },
+  "bounded_authority": {
+    "score": 2,
+    "evidence": "Clause 10.4.7 DERCapability defines operational limits (W, VA, VAr); Clause 10.4.3 DERControl provides setpoints with ramp rates and time windows (creationTime, interval); Clause 10.4.8 DERStatus reports current mode; no explicit clause defining revocation, override, or expiry of agent authority beyond time-bounded control intervals.",
+    "rationale": "Operational boundaries (power, voltage, ramp rate) and time windows are well defined, but explicit revocation, override hierarchy, or authority delegation rules are not specified.",
+    "confidence": 0.85
+  },
+  "decision_auditability": {
+    "score": 2,
+    "evidence": "Clause 10.4.5 DERProgram and Clause 10.4.3 DERControl include event/control identifiers and status; LogEvent resource (Clause 10.5.3) provides logging; Response resource captures outcome; but no mandatory attribution clause linking agent identity to each control decision or requiring an immutable audit trail.",
+    "rationale": "Logging primitives exist (LogEvent, DERControl status, Response), but standard lacks a normative requirement for agent-decision attribution and tamper-evident audit trails.",
+    "confidence": 0.8
+  },
+  "data_governance": {
+    "score": 1,
+    "evidence": "Clause 5.4 (Security) mandates TLS and role-based access control (RBAC) with certificates; Clause 6.3.6 defines Subscription/registration; no explicit clauses on data ownership, consent management, retention policies, or data-sharing agreements.",
+    "rationale": "Authentication and access control are mandated, implying basic data protection, but consent, ownership, retention, and data lifecycle governance are not addressed.",
+    "confidence": 0.9
+  }
+}

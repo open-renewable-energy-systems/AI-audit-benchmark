@@ -1,0 +1,26 @@
+{
+  "capability_declaration": {
+    "score": 3,
+    "evidence": "ISO 15118-2 Clause 8.3 (EVCC/EVSE discovery and payment details), ISO 15118-20 Clause 8.4 (EVCC capabilities and requirements), Annex A (Capability Description using XSD schemas). EV and EVSE exchange capability information via supported protocols, services, and parameters in the ServiceDiscoveryReq/Res, PaymentDetailsReq/Res, and AuthorizationReq/Res messages.",
+    "rationale": "Standard explicitly defines capability exchange mechanisms for EV-EVSE negotiation including V2G services, charging profiles, and tariff handling via structured message sets.",
+    "confidence": 0.95
+  },
+  "bounded_authority": {
+    "score": 2,
+    "evidence": "ISO 15118-20 Clause 9 (Authorization and Certificate Handling), Clause 10 (SECC Authorization), Clause 11 (Payment handling). External identification (EIM) with expiry, contract certificate validation with certificate chains, CPO authorization scope, and Schedule-based charging limits. Also Subclause 5.7.3 (ChargeParameterDiscovery) defines max voltage, current, and power parameters.",
+    "rationale": "Authority is constrained via certificates, schedules, and parameter limits, but lacks explicit agent-scoped revocation, dynamic override, or multi-party delegation ceilings.",
+    "confidence": 0.85
+  },
+  "decision_auditability": {
+    "score": 1,
+    "evidence": "ISO 15118-2 Clause 9 (Metering receipts) provides signed meter values for billing; ISO 15118-20 Clause 14 (Metering) with AC/DC metering confirmation receipts and signatures. Clause 15 (BPT energy flows) includes energy transfer logging.",
+    "rationale": "Metering receipts provide some transactional audit trail, but there is no explicit clause requiring logging or attribution of agent decisions beyond metering events.",
+    "confidence": 0.8
+  },
+  "data_governance": {
+    "score": 1,
+    "evidence": "ISO 15118-20 Clause 17 (Privacy and Security), Annex C (PKI), ISO 15118-2 Clause 7 (Security) with TLS encryption requirements. Clause 9.4 discusses contract certificate handling and pseudonymous identifiers.",
+    "rationale": "Privacy via TLS and pseudonymous IDs is implicit; no explicit clauses on data ownership, user consent management, or retention policies exist.",
+    "confidence": 0.75
+  }
+}

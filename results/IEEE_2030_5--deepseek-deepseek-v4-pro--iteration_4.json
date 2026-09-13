@@ -1,0 +1,26 @@
+{
+  "capability_declaration": {
+    "score": 3,
+    "evidence": "Clause 6 (Function Set Assignments), Table 4-1 (DER Function Set), DERCapability (Clause 10.4.2), and associated resources: DERCapability, DERControl, DERCurve, DERSettings. The DERCapability resource explicitly defines nameplate ratings, modes supported, volt-var/volt-watt/watt-power-factor curves, and ramp rates that a DER can declare.",
+    "rationale": "IEEE 2030.5 explicitly models device capabilities through DERCapability and related resources, enabling an agent to programmatically declare what it can do.",
+    "confidence": 0.95
+  },
+  "bounded_authority": {
+    "score": 2,
+    "evidence": "Clause 10.4 (DER Control), DERControl resource with opModExpire, opModLimitW, opModConnect/disconnect, and primacy rules. The Function Set Assignment mechanism (Clause 6) scopes authority per role. However, revocation, override hierarchy, and agent-specific authority ceilings beyond these controls are only partially addressed.",
+    "rationale": "The standard defines operational limits and expiry but lacks explicit agent authority boundaries such as revocation protocols or override hierarchies.",
+    "confidence": 0.82
+  },
+  "decision_auditability": {
+    "score": 1,
+    "evidence": "Clause 9.1 (LogEventList) and Event resource support logging of events. DERControl and DERSettings changes can be captured. However, attribution of specific agent decisions and audit trail requirements are not explicitly mandated; they are inferable from the general logging framework.",
+    "rationale": "Event/LogEvent structures enable audit trails implicitly, but no explicit requirement mandates logging agent decisions with attribution.",
+    "confidence": 0.72
+  },
+  "data_governance": {
+    "score": 0,
+    "evidence": "none",
+    "rationale": "No clauses address data ownership, user consent, retention policies, or data-sharing governance; these are outside IEEE 2030.5's scope.",
+    "confidence": 0.9
+  }
+}

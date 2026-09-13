@@ -1,0 +1,26 @@
+{
+  "capability_declaration": {
+    "score": 2,
+    "evidence": "IEC 61970-301 (CIM Base) defines classes such as GeneratingUnit, SynchronousMachine, and DER-specific extensions in IEC 61850-7-420 that model device capabilities (e.g., ratedS, maxOperatingP, reactiveCapabilityCurve). IEC 61968-11 (CDPSM) includes Asset and PowerSystemResource with attributes describing functional capabilities.",
+    "rationale": "CIM models device attributes and static capabilities via class properties, but lacks a dynamic, agent-initiated capability declaration mechanism (e.g., 'I can now provide X kW of flexibility').",
+    "confidence": 0.85
+  },
+  "bounded_authority": {
+    "score": 1,
+    "evidence": "IEC 61968-100 (Integration Framework) defines message envelopes with authorization tokens. CIM IEC 62325 market profiles include roles (e.g., ResourceProvider, ResourceConsumer) that imply scope boundaries. IEC 62351-8 covers role-based access control for power systems.",
+    "rationale": "CIM defines roles and authorization in messaging, but does not natively model bounded authority constructs such as explicit operational ceilings, expiry, or revocable delegation for autonomous agents.",
+    "confidence": 0.75
+  },
+  "decision_auditability": {
+    "score": 1,
+    "evidence": "IEC 61968-100 specifies message logging and audit trail requirements for integration events. IEC 62351-7 covers network and system management including security event logging. CIM operational classes (e.g., SwitchingEvent, OutageReport) capture outcomes, not the agent's decision process.",
+    "rationale": "Audit trail is addressed at the messaging/infrastructure layer, but the standard does not require logging or attribution of autonomous agent decision rationale.",
+    "confidence": 0.8
+  },
+  "data_governance": {
+    "score": 1,
+    "evidence": "IEC 62351-3 through 62351-5 specify data security (encryption, authentication). IEC 62351-8 covers RBAC for data access. CIM itself has no dedicated classes for data consent, retention policies, or ownership attribution beyond Party and Role models in IEC 61968-11.",
+    "rationale": "Data security and access control are implicitly addressed via companion security standards, but explicit data governance artefacts (consent, retention, ownership) are not modelled in CIM.",
+    "confidence": 0.8
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "capability_declaration": {
+    "score": 3,
+    "evidence": "Clause 7-3 (Common Data Classes), clause 7-4 (Logical Nodes), clause 7-5 (Common Data Attribute Types), and IEC 61850-7-420 (DER Logical Nodes). Specifically, Logical Nodes like DBFC, DSFC, DCHC, DPVC, DRCT encode DER capabilities via mandatory/optional data objects (e.g., DERCap, WCap, VarCap). SCL files (IEC 61850-6) enable formal capability declaration at configuration time. ACSI GetLogicalNodeDirectory allows runtime discovery.",
+    "rationale": "IEC 61850 explicitly defines DER capability declaration through Logical Nodes with capability data objects, SCL configuration files, and runtime directory services. This is a core design feature.",
+    "confidence": 0.95
+  },
+  "bounded_authority": {
+    "score": 2,
+    "evidence": "Clause 7-2 (ACSI) provides SetDataValues with access control via role-based security (IEC 62351-8). IEC 61850-7-420 DER Logical Nodes include schedule limits (e.g., DERSch, DERBnd) and mode controls (DERTyp, LocSta). Clause 17 (GOOSE/SMV) supports subscription-based control authority. However, explicit expiry, revocation, and override semantics for agent authority boundaries are not natively specified; they rely on companion standards.",
+    "rationale": "Partial coverage: schedules, modes, and role-based access control define operational bounds, but explicit agent authority expiry, revocation, and override mechanisms are not directly specified within IEC 61850 itself.",
+    "confidence": 0.85
+  },
+  "decision_auditability": {
+    "score": 2,
+    "evidence": "Clause 7-2 ACSI defines logging via Log (LOG) Logical Nodes and LogControlBlock. Clause 15 (Reporting) supports BRCB/URCB for event-driven logging. IEC 61850-7-4 defines the Common Logical Node class with mandatory 'Mod', 'Beh', 'Health', 'NamPlt' for status. However, decision attribution (i.e., linking a logged action to a specific autonomous agent identity) is not a first-class concept; reporting captures events but not agent responsibility chains.",
+    "rationale": "Partial coverage: robust event and data logging exists, but explicit agent decision attribution and audit trail chaining for autonomous decision-making is not natively addressed.",
+    "confidence": 0.8
+  },
+  "data_governance": {
+    "score": 1,
+    "evidence": "IEC 62351 (referenced companion for security) addresses authentication and access control (IEC 62351-8) and data integrity (IEC 62351-6). IEC 61850 itself does not contain clauses on data ownership, consent, retention, or privacy. These concerns are implicitly delegated to system-level security policies and external regulatory frameworks.",
+    "rationale": "Implicit coverage only: security authentication and access control imply governance boundaries, but consent, retention, and ownership — key for autonomous agents — are not specified.",
+    "confidence": 0.9
+  }
+}

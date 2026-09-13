@@ -9,7 +9,7 @@ Output: gapmap/gap-map.json consumed by app/ — per standard x dimension:
         self-consistency across iterations.
 
 Rules (docs/rubric-and-deliverables.md):
-- self-consistent  : a model's scores for one cell spread <= 1 across runs
+- self-consistent  : a model's runs for one cell all yield the same score
 - convergent       : model medians for one cell spread <= 1 across models
 - contested        : otherwise -> score is null, reported not claimed
 Convergence is only claimable with >= 2 models; the JSON carries
@@ -61,7 +61,7 @@ def summarize_model_cell(model, model_runs, dim):
         "min_score": min(scores),
         "max_score": max(scores),
         "runs": len(scores),
-        "self_consistent": max(scores) - min(scores) <= 1,
+        "self_consistent": max(scores) == min(scores),
         "evidence": rep["evidence"],
         "rationale": rep["rationale"],
         "mean_confidence": round(statistics.fmean(c["confidence"] for c in cells), 2),

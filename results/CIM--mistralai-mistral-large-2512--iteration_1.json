@@ -1,0 +1,26 @@
+{
+  "capability_declaration": {
+    "score": 2,
+    "evidence": "IEC 61970-301 (Common Information Model - CIM) includes sections on equipment profiles and operational limits (e.g., Clause 4.3 for GeneratingUnit, Clause 5.3 for PowerSystemResource). These define capabilities like max/min generation or storage capacity.",
+    "rationale": "The CIM provides explicit modeling of DER capabilities but lacks a standardized mechanism for dynamic capability declaration by an autonomous agent.",
+    "confidence": 0.85
+  },
+  "bounded_authority": {
+    "score": 1,
+    "evidence": "CIM includes operational limits (e.g., Clause 4.3.2 for GeneratingUnit limits like maxMW and minMW) and role-based access control concepts (e.g., Clause 6.3 for ControlArea). However, dynamic authority bounding, revocation, or expiry are not explicitly addressed.",
+    "rationale": "While operational limits are defined, the standard does not explicitly cover dynamic or agent-specific authority bounding.",
+    "confidence": 0.75
+  },
+  "decision_auditability": {
+    "score": 1,
+    "evidence": "CIM supports logging through classes like Measurement and Log (e.g., Clause 5.5 for MeasurementValue, Clause 6.8 for Log). However, it does not explicitly define how agent decisions should be attributed or logged.",
+    "rationale": "Auditability is implicitly supported via logging classes, but agent-specific decision attribution is not addressed.",
+    "confidence": 0.7
+  },
+  "data_governance": {
+    "score": 0,
+    "evidence": "none",
+    "rationale": "The CIM does not explicitly address data ownership, consent, retention, or governance requirements.",
+    "confidence": 0.95
+  }
+}

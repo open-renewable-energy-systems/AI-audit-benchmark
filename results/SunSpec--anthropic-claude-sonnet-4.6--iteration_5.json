@@ -1,0 +1,26 @@
+{
+  "capability_declaration": {
+    "score": 3,
+    "evidence": "SunSpec Alliance defines a comprehensive set of device information models (SunSpec Models, e.g., Model 1 – Common Model, Model 101-103 for inverters, Model 120 for Nameplate Ratings, Model 123 for Immediate Controls, Model 160 for MPPT) that explicitly declare device type, rated capacity, operational modes, and supported functions via standardised register maps in Modbus or SunSpec Information Model (SIM).",
+    "rationale": "SunSpec explicitly defines structured data models for devices to declare their type, ratings, capabilities, and supported control modes, directly enabling capability declaration.",
+    "confidence": 0.92
+  },
+  "bounded_authority": {
+    "score": 2,
+    "evidence": "SunSpec models include control registers with defined value ranges and limits (e.g., Model 123 – Immediate Controls defines power factor, volt-VAR, and watt-power factor set-points with min/max bounds; Model 126 – Basic Schedule provides time-based control scheduling). However, there is no explicit agent-level authority scoping, delegation expiry, or revocation mechanism defined for autonomous agents.",
+    "rationale": "SunSpec defines operational limits and schedules for controls, offering partial bounded authority, but lacks explicit agent-scoped authority, delegation, or revocation constructs.",
+    "confidence": 0.82
+  },
+  "decision_auditability": {
+    "score": 1,
+    "evidence": "SunSpec does not define explicit logging, audit trail, or decision attribution requirements. Some models (e.g., Model 160 MPPT, Model 64xxx vendor-specific) include status and event registers that implicitly record state changes, but there is no standardised mechanism for attributing control decisions to a specific agent or logging the rationale for actions taken.",
+    "rationale": "State/event registers provide implicit traceability of device state changes, but no explicit audit logging or agent decision attribution is specified.",
+    "confidence": 0.85
+  },
+  "data_governance": {
+    "score": 1,
+    "evidence": "SunSpec focuses on interoperability and device communication protocols; it does not define data ownership, consent frameworks, or data retention policies. The SunSpec Information Model (SIM) and associated PICS (Protocol Implementation Conformance Statement) address data structure and access but not governance. Some implicit data access control exists via read/write register permissions.",
+    "rationale": "SunSpec implicitly restricts data access through read/write register permissions but contains no explicit data ownership, consent, or retention requirements.",
+    "confidence": 0.88
+  }
+}

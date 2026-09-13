@@ -1,0 +1,26 @@
+{
+  "capability_declaration": {
+    "score": 3,
+    "evidence": "IEC 61850-7-4 (Logical Nodes) and IEC 61850-6 (Configuration description language - SCL)",
+    "rationale": "IEC 61850 explicitly defines standardized logical nodes and data models for DER capabilities, enabling devices to declare their functionalities.",
+    "confidence": 0.95
+  },
+  "bounded_authority": {
+    "score": 2,
+    "evidence": "IEC 61850-7-2 (Abstract Communication Service Interface - ACSI) and IEC 61850-8-1 (Manufacturing Message Specification - MMS)",
+    "rationale": "The standard partially covers authority limits via access control and service constraints, but lacks explicit revocation or expiry mechanisms.",
+    "confidence": 0.85
+  },
+  "decision_auditability": {
+    "score": 2,
+    "evidence": "IEC 61850-7-2 (Logging and reporting services) and IEC 61850-8-1 (Event and log management)",
+    "rationale": "IEC 61850 supports logging and event reporting, but attribution to specific AI agents is not explicitly addressed.",
+    "confidence": 0.8
+  },
+  "data_governance": {
+    "score": 1,
+    "evidence": "IEC 61850-6 (SCL files for data exchange) and general cybersecurity considerations in IEC 61850-90-12",
+    "rationale": "Data governance is implicitly covered through configuration and cybersecurity clauses, but lacks explicit requirements on ownership or consent.",
+    "confidence": 0.75
+  }
+}

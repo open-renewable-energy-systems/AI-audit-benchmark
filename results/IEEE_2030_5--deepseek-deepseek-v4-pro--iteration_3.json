@@ -1,0 +1,26 @@
+{
+  "capability_declaration": {
+    "score": 3,
+    "evidence": "Clause 6.3.2 (FunctionSetAssignments), Clause 10.4 (DERCapability), Table 10.1 (DERCapability attributes), Clause 10.4.2 (modes supported, operational characteristics)",
+    "rationale": "DERCapability resource explicitly enumerates DER capabilities – generation/charge/discharge limits, reactive power modes, storage capacity – allowing an agent to self-describe precisely.",
+    "confidence": 0.95
+  },
+  "bounded_authority": {
+    "score": 2,
+    "evidence": "Clause 6.3.2 (FunctionSetAssignments – scoping which functions a device can access), Clause 10.5 (DERSettings – configurable operational limits), Clause 10.8 (DERCurve – time-bound operation curves), Clause 10.8.1 (start/duration time)",
+    "rationale": "FunctionSet scoping and DERSettings impose operational limits and time-bound curves, but explicit expiry, revocation protocols, and dynamic authority ceilings for autonomous agents are not fully elaborated.",
+    "confidence": 0.8
+  },
+  "decision_auditability": {
+    "score": 1,
+    "evidence": "Clause 5.3 (LogEvent / Event Logging), Clause 6.4.2 (Time / Timestamp), Clause 5.3.1 (LogEventType)",
+    "rationale": "A generic Event Logging mechanism exists (LogEvent) with timestamps, but it is not purpose-designed for agent decision trails – no attribution model, decision rationale, or mandatory decision-logging schema.",
+    "confidence": 0.78
+  },
+  "data_governance": {
+    "score": 1,
+    "evidence": "Clause 6.2.3 (Authentication), Clause 6.5 (Security – TLS), Clause 6.6.1 (Role-Based Access Control / RBAC)",
+    "rationale": "Security and access control provisions imply data-owner boundaries, but explicit consent management, retention policies, data-ownership declaration, and privacy-governance frameworks are absent.",
+    "confidence": 0.75
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "capability_declaration": {
+    "score": 3,
+    "evidence": "SunSpec Modbus interface specifications define a mandatory set of 'SunSpec Common Models' (e.g., model 1 for common data, model 12–15 for inverter ratings, model 701–715 for DER capabilities). Each model includes well-known registers for declaring nameplate ratings (WMax, VArMax, etc.), supported control modes (Watt-VAr, Volt-VAr, etc.), and operational status. Device discovery is via the 'end-of-map' register (0xFFFF) and the DID (Device Identifier) register.",
+    "rationale": "SunSpec explicitly standardizes how devices declare their identity, ratings, and functional capabilities through well-defined register maps and mandatory common models.",
+    "confidence": 0.95
+  },
+  "bounded_authority": {
+    "score": 2,
+    "evidence": "SunSpec models 701–715 define configurable limit registers (e.g., WMaxLimPct, VArMaxLimPct, VRef, VRefOfs) and function-activation registers (e.g., PVConn, StActCtl) that constrain what a controller may command. IEEE 1547-2018 profile parameters are mappable. However, SunSpec does NOT itself define expiration timers, revocation mechanisms, or scope-of-authority tokens within its core Modbus maps.",
+    "rationale": "SunSpec provides rich constraint/limit registers that bound authority, but lacks explicit temporal expiry, revocation, or cryptographically enforceable delegation constructs.",
+    "confidence": 0.85
+  },
+  "decision_auditability": {
+    "score": 1,
+    "evidence": "Logging and audit-trail registers appear only in specific extensions (e.g., SunSpec 'Logging' model 203 for event logs, 'Alarms' model 303 for fault records). The core DER models (701–715) do not require logging of command decisions, agent identity, or decision rationale. Time-stamping is optional and not universally mandated.",
+    "rationale": "Logging models exist but are optional extensions; the core standard does not mandate attribution, sequence recording, or audit trails for autonomous decisions.",
+    "confidence": 0.8
+  },
+  "data_governance": {
+    "score": 0,
+    "evidence": "none",
+    "rationale": "SunSpec focuses on real-time device communication and data models; it contains no clauses on data ownership, user consent, retention periods, or privacy governance.",
+    "confidence": 0.9
+  }
+}

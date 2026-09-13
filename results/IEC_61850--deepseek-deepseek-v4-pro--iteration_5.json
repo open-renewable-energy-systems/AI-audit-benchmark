@@ -1,0 +1,26 @@
+{
+  "capability_declaration": {
+    "score": 3,
+    "evidence": "Clause 5 (Communication requirements), Clause 6-7 (Device and data models), Logical Nodes (e.g., LLN0, LPHD), Common Data Classes (CDC) definitions, and ICD/IID/CID file formats (Clause 6.4 of IEC 61850-6). SCL (Substation Configuration Language) explicitly requires devices to declare their capabilities via IED Capability Description (ICD) files enumerating Logical Nodes, Data Objects, and services supported.",
+    "rationale": "IEC 61850 explicitly requires devices to declare capabilities via SCL-based ICD files listing all Logical Nodes, Data Objects, and supported services (ACSI). This is a cornerstone of the standard, enabling agents to programmatically discover a DER's functional repertoire.",
+    "confidence": 0.95
+  },
+  "bounded_authority": {
+    "score": 1,
+    "evidence": "Clause 8 (ACSI) defines access control via association models (Associate/Release), but no explicit authority scoping for agents (e.g., ceilings, expiry, revocation). IEC 62351-8 (role-based access control) complements this but is a separate standard. Clause 17-3 of IEC 61850-7-420 mentions DER operational limits but frames them as settings, not agent authority boundaries.",
+    "rationale": "Access control associations exist but are connection-level, not agent-level. No explicit constructs for authority expiry, revocation, or per-action scoping that an autonomous agent would need. Relies on companion standard IEC 62351 for RBAC.",
+    "confidence": 0.8
+  },
+  "decision_auditability": {
+    "score": 0,
+    "evidence": "None. Logging is mentioned in Clause 14 (Physical device model LPHD) for physical device diagnostics but not for agent decision audit trails. The standard focuses on real-time operational data and event reporting (buffered/unbuffered reporting, GOOSE, MMS), not on recording which agent made what decision and why.",
+    "rationale": "IEC 61850 provides no clauses addressing audit trails for autonomous agent decisions. Logging is limited to operational events and physical device health, not decision attribution or traceability.",
+    "confidence": 0.9
+  },
+  "data_governance": {
+    "score": 0,
+    "evidence": "None. The standard does not address data ownership, user consent, or data retention policies. IEC 61850 focuses on real-time data exchange semantics and interoperability; data governance is assumed to be handled by organizational policies or complementary standards outside its scope.",
+    "rationale": "No clauses address data ownership, consent, or retention. The standard is purely concerned with communication semantics and interoperability, leaving data governance entirely to external frameworks.",
+    "confidence": 0.92
+  }
+}

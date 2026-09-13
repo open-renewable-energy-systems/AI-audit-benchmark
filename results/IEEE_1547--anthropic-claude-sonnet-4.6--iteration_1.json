@@ -1,0 +1,26 @@
+{
+  "capability_declaration": {
+    "score": 2,
+    "evidence": "IEEE 1547-2018 Sections 4–7 define interoperability requirements including nameplate ratings, operational capabilities (voltage/frequency ride-through, reactive power capability, active power control), and monitoring functions. Clause 10 specifies information exchange requirements including the DER's capability parameters that must be communicated to the Area EPS Operator.",
+    "rationale": "IEEE 1547 defines DER capability parameters (power, voltage, frequency ranges, reactive capability) that must be declared, but does not provide a formal machine-readable capability declaration schema suited for autonomous agents.",
+    "confidence": 0.85
+  },
+  "bounded_authority": {
+    "score": 2,
+    "evidence": "IEEE 1547-2018 Clause 8 (Cybersecurity) and Clause 10 (Interoperability) define that DER shall support configurable set-points and that the Area EPS Operator may enable or disable certain functions (e.g., voltage regulation, frequency-watt). Clause 6 specifies enter-service criteria and trip settings as operational ceilings. However, explicit agent-level authority scoping, expiry tokens, or revocation mechanisms are not defined.",
+    "rationale": "The standard sets operational limits and operator-configurable controls, partially bounding agent authority, but lacks explicit agent-scoped authority delegation, expiry, or revocation constructs.",
+    "confidence": 0.8
+  },
+  "decision_auditability": {
+    "score": 1,
+    "evidence": "IEEE 1547-2018 Clause 10.4 references monitoring and information exchange requirements, including status and measurement data reporting. However, there is no explicit requirement for logging agent decisions, timestamped audit trails, or attribution of autonomous control actions to a specific agent or control entity.",
+    "rationale": "Monitoring and data exchange are addressed, but decision logging and auditability of autonomous agent actions are only implicitly inferable, not explicitly specified.",
+    "confidence": 0.75
+  },
+  "data_governance": {
+    "score": 1,
+    "evidence": "IEEE 1547-2018 Clause 8 addresses cybersecurity and references NERC CIP and NIST frameworks by implication, and Clause 10 covers information exchange. However, the standard does not explicitly define data ownership, consent mechanisms, retention periods, or data governance policies for DER operational data.",
+    "rationale": "Data governance is not directly addressed; only cybersecurity and interoperability communication requirements are touched upon, making data governance only implicitly inferable.",
+    "confidence": 0.8
+  }
+}

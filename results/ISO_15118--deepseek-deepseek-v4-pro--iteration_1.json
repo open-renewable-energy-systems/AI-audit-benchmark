@@ -1,0 +1,26 @@
+{
+  "capability_declaration": {
+    "score": 3,
+    "evidence": "Clause 6.4.2 (ServiceDiscoveryRequest/Response), Clause 8.3 (EVCCID/EVSEID identifying capabilities), ISO 15118-2 Clause 8.4.2 (ChargeParameterDiscoveryReq/Res) which exchanges EV energy requirements, charging profiles, and scheduling capabilities. ISO 15118-20 extends this with dynamic capability exchange via supported protocol handshake and service list.",
+    "rationale": "ISO 15118 explicitly defines structured mechanisms for EVs and EVSEs to declare their capabilities (charging profiles, schedules, security, V2G) during session establishment.",
+    "confidence": 0.95
+  },
+  "bounded_authority": {
+    "score": 2,
+    "evidence": "Clause 7 (Security) and ISO 15118-2 Clause 9 (Certificate handling) define PKI-based trust and contract certificates with permissions. ISO 15118-20 Clause 8.5.2 defines installation/update of contract certificates that scope what a party is authorised to do. However, explicit clauses for agent-specific authority bounds (e.g. expiry, revocation, override by DSO) are limited.",
+    "rationale": "Certificate-based authority scoping is partially present but lacks explicit agent-centric bounded authority constructs such as dynamic authority ceilings, revocation workflows, or override mechanisms for DER agents.",
+    "confidence": 0.8
+  },
+  "decision_auditability": {
+    "score": 2,
+    "evidence": "ISO 15118-2 Clause 14 (Metering) requires signed metering data for billing. ISO 15118-20 Clause 11.4 introduces a trust anchor and signed timestamp references. No explicit clause mandates logging of agent decisions, attribution of autonomous actions, or audit trails.",
+    "rationale": "Metering and signed data provide partial auditability but decision-level logging, agent attribution, and traceability of autonomous actions are not directly specified.",
+    "confidence": 0.82
+  },
+  "data_governance": {
+    "score": 1,
+    "evidence": "ISO 15118-20 Annex B briefly references privacy considerations and consent under GDPR. Clause 7.2.2 mentions TLS-encrypted communication for data protection. No dedicated data governance clause covering ownership, consent management, or retention policies.",
+    "rationale": "Privacy and data protection are mentioned implicitly through security and annex references, but explicit data governance frameworks for ownership, consent, and retention are absent.",
+    "confidence": 0.75
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "capability_declaration": {
+    "score": 3,
+    "evidence": "IEC 61970-301 (CIM Base) defines power system resource classes with explicit attributes; IEC 61968-11 extends with asset/device capability profiles; IEC 61850-7-3/7-4 (harmonised with CIM) defines Common Data Classes and Logical Nodes like XCBR, MMXU that explicitly declare device capabilities (e.g. rated values, operating limits, modes).",
+    "rationale": "CIM models device capabilities explicitly through resource classes, attribute definitions, and profiles — an agent can discover what a DER can do by querying its CIM object.",
+    "confidence": 0.9
+  },
+  "bounded_authority": {
+    "score": 1,
+    "evidence": "None directly. IEC 62325 (CIM for Market) includes market participant roles and bid/offer constraints; IEC 61968-5 (Meter Reading & Control) defines message types for load control events with limited scope. No dedicated agent authority boundary construct exists.",
+    "rationale": "CIM models roles and market constraints that imply limits, but lacks explicit agent authority constructs like scopes, ceilings, expiry, or revocation mechanisms.",
+    "confidence": 0.75
+  },
+  "decision_auditability": {
+    "score": 1,
+    "evidence": "IEC 61968-100 (Implementation Profiles) references audit trails for message exchanges; IEC 61970-552 (CIMXML Model Exchange) includes timestamps and versioning on model changes. No dedicated agent decision-logging class.",
+    "rationale": "Auditability is implicit — message-exchange patterns and model versioning can capture changes, but no standardised structure for logging agent-specific decisions with attribution exists.",
+    "confidence": 0.7
+  },
+  "data_governance": {
+    "score": 1,
+    "evidence": "IEC 62351 (Power systems management and associated information exchange — Data and communications security) covers authentication and access control for CIM data exchanges. No clauses on data ownership, consent tracking, or retention policies within CIM itself.",
+    "rationale": "Security standards referenced by CIM address access control, implying data protection; but explicit data ownership, consent, and retention governance are not modelled.",
+    "confidence": 0.7
+  }
+}

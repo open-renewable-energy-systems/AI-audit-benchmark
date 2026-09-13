@@ -1,0 +1,26 @@
+{
+  "capability_declaration": {
+    "score": 2,
+    "evidence": "IEC 61850-7-3, 7-4 (Logical Nodes, Common Data Classes), IEC 61850-7-1 §10.2 (Modelling concepts), IEC 61850-8-1 (ACSI services: GetLogicalNodeDirectory, GetDataDirectory, GetDataSetDirectory)",
+    "rationale": "Logical Nodes and Data Objects explicitly model device functions, but are static (SCL-configured), lacking dynamic 'soft' capability negotiation typical of agentic AI systems.",
+    "confidence": 0.8
+  },
+  "bounded_authority": {
+    "score": 1,
+    "evidence": "IEC 61850-7-4 §5.6 (Modelling of control: select-before-operate, interlocking CILO LN), IEC 61850-8-1 §17 (Control model: enhanced security via station-wide interlocking)",
+    "rationale": "Control models (SBO, interlocking) imply operational limits, but no clauses define explicit agent authority scope, ceilings, revocation, or expiry.",
+    "confidence": 0.7
+  },
+  "decision_auditability": {
+    "score": 1,
+    "evidence": "IEC 61850-7-2 §12.4 (Logging: LCB, LOG LN), IEC 61850-7-4 §5.14 (Generic log LN: GEN_LOG)",
+    "rationale": "Logging services exist for events and data changes, but are generic; no standardised format for attributing agent decisions or recording AI inference logic.",
+    "confidence": 0.75
+  },
+  "data_governance": {
+    "score": 0,
+    "evidence": "none",
+    "rationale": "IEC 61850 does not address data ownership, user consent, retention policies, or privacy; these are out of scope for this communication standard.",
+    "confidence": 0.95
+  }
+}

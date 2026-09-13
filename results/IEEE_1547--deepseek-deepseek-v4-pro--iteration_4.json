@@ -1,0 +1,26 @@
+{
+  "capability_declaration": {
+    "score": 2,
+    "evidence": "Clause 5 (General Requirements), particularly subclauses on DER response to abnormal voltage/frequency conditions, and Clause 10 (Interoperability) referencing IEEE 2030.5 (SEP2), which includes DER function set discovery mechanisms.",
+    "rationale": "IEEE 1547 defines mandatory functions (volt-var, frequency-watt) but largely defers dynamic capability declaration to companion standards like IEEE 2030.5. Partial, not explicit.",
+    "confidence": 0.8
+  },
+  "bounded_authority": {
+    "score": 1,
+    "evidence": "Clause 5 defines voltage and frequency ride-through curves with mandatory trip limits. Clause 6.4.2 defines volt-var curve parameters with utility-configurable setpoints. Clause 8 (Power Quality) limits DER operation.",
+    "rationale": "Operational boundaries exist as technical constraints (curves, limits), but bounded authority as a formal concept—scope, expiry, revocation, override permissions—is only implicit from configurability.",
+    "confidence": 0.75
+  },
+  "decision_auditability": {
+    "score": 0,
+    "evidence": "none",
+    "rationale": "IEEE 1547 is a technical interconnection standard focused on performance and safety; it does not address logging, attribution, or traceability of agent decisions.",
+    "confidence": 0.9
+  },
+  "data_governance": {
+    "score": 0,
+    "evidence": "none",
+    "rationale": "The standard covers electrical performance and communication protocol references only. It does not address data ownership, consent, or retention requirements.",
+    "confidence": 0.9
+  }
+}

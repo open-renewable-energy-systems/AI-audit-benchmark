@@ -1,0 +1,26 @@
+{
+  "capability_declaration": {
+    "score": 3,
+    "evidence": "OpenADR 3.0, Section 6.2 (Resource Characteristics) and Section 7.2 (VEN Capabilities Report)",
+    "rationale": "OpenADR 3 explicitly defines mechanisms for DERs to declare their capabilities, such as power limits, response times, and available services.",
+    "confidence": 0.95
+  },
+  "bounded_authority": {
+    "score": 2,
+    "evidence": "OpenADR 3.0, Section 8.4 (Event Constraints) and Section 9.3 (Opt-Out and Override Mechanisms)",
+    "rationale": "The standard partially covers bounded authority by defining event constraints and opt-out mechanisms but lacks explicit details on revocation and expiry.",
+    "confidence": 0.85
+  },
+  "decision_auditability": {
+    "score": 1,
+    "evidence": "OpenADR 3.0, Section 10.3 (Logging and Reporting)",
+    "rationale": "Auditability is implicitly covered through logging requirements, but there is no explicit mandate for attributing decisions to specific agents.",
+    "confidence": 0.75
+  },
+  "data_governance": {
+    "score": 1,
+    "evidence": "OpenADR 3.0, Section 11.1 (Data Privacy Considerations)",
+    "rationale": "Data governance is implicitly addressed through privacy considerations, but ownership, consent, and retention are not explicitly defined.",
+    "confidence": 0.7
+  }
+}

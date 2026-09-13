@@ -1,0 +1,26 @@
+{
+  "capability_declaration": {
+    "score": 3,
+    "evidence": "Section 5 (Resources), 5.1 (VEN Resource), 5.2 (VTN Resource); Resources include 'ven_name', 'ven_id', 'resources' array with resource names and optional attributes. Section 9 (Intervals) defines temporal capability. Section 8.3 (Report Capability) defines report descriptors including 'report_name', 'resource_name', 'measurement', 'sampling_period', 'data_collection_mode'.",
+    "rationale": "OpenADR 3 explicitly requires VENs to declare resources with names, IDs, and attributes, plus report capabilities with measurement types and sampling periods—forming a full capability_declaration model.",
+    "confidence": 0.95
+  },
+  "bounded_authority": {
+    "score": 2,
+    "evidence": "Section 6 (Events) defines event signals with 'interval_start', 'interval_duration', 'payload', and 'targets' resource scoping. Section 12.4 (optIn/optOut) provides program-level opt-in/opt-out. Section 13 defines subscription-based authorization. No explicit clause for authority ceilings, expiry, revocation, or override mechanisms.",
+    "rationale": "Event intervals and resource targeting provide partial bounded_authority through temporal and scope constraints, but explicit ceilings, expiry, revocation, and override mechanisms are absent.",
+    "confidence": 0.85
+  },
+  "decision_auditability": {
+    "score": 1,
+    "evidence": "Section 7 (Subscriptions) and Section 8 (Reports) imply a request–response decision trail. Section 8.4 (History) supports historical interval data. But no clause explicitly requires logging agent decisions, attributing them to specific actors, or mandating an audit trail format.",
+    "rationale": "Reports and history intervals imply a record of actions taken, but the standard lacks explicit auditability requirements for agent decision logging and attribution.",
+    "confidence": 0.8
+  },
+  "data_governance": {
+    "score": 1,
+    "evidence": "Section 13 (Security) references OAuth2-based authorization. Section 12.4 (optIn/optOut) implies consent to participate. No explicit clauses on data ownership, consent management, retention policies, or data sovereignty.",
+    "rationale": "OAuth2 authorization and opt-in mechanisms imply basic consent and access-control governance, but the standard does not directly address data ownership, retention, or consent lifecycle.",
+    "confidence": 0.8
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "capability_declaration": {
+    "score": 3,
+    "evidence": "Clause 8.3 (Service Discovery and Capability Exchange), EVCC/SECC handshake in ISO 15118-2 Clause 7.2.2, and ISO 15118-20 Clause 8.4.2 (EV Service Capabilities). The standard explicitly defines mechanisms for the EV (or EV Communication Controller) to declare supported services such as AC/DC charging, V2G, wireless charging, and specific tariff/protocol versions during session setup.",
+    "rationale": "Explicit capability declaration is core to the protocol's service discovery handshake, with dedicated message structures for announcing supported charging modes and value-added services.",
+    "confidence": 0.95
+  },
+  "bounded_authority": {
+    "score": 2,
+    "evidence": "ISO 15118-20 Clause 9.3 (Certificate-based authorization) and ISO 15118-2 Clause 8.4 (Contract certificate handling) define PKI-based authentication. Schedule-based energy transfer limits (Clause 8.5.3 in -2, Clause 10.4 in -20) and pricing schedules constrain power draw. However, explicit agent-authority scoping (e.g., expiry, revocation of operational mandate beyond certificate revocation, override permissions) is only partially addressed.",
+    "rationale": "Certificate chains and charging schedules implicitly bound what a DER agent may do, but explicit clause on agent authority ceilings, manual override precedence, or independent revocation of operational scope is incomplete.",
+    "confidence": 0.78
+  },
+  "decision_auditability": {
+    "score": 1,
+    "evidence": "Clause 10.1.1 (general logging) and ISO 15118-20 Annex A (cybersecurity event logging) mention that systems should log security-relevant events. The standard focuses on message integrity via TLS and XML signatures, but does not define a dedicated clause requiring logging and attribution of every autonomous operational decision by an agent.",
+    "rationale": "Secured messaging provides non-repudiation at transport level, but a clear mandate for agent-decision-specific audit trails with attribution is only implicitly inferable from security logging requirements.",
+    "confidence": 0.65
+  },
+  "data_governance": {
+    "score": 2,
+    "evidence": "ISO 15118-20 Clause 7.6 (Privacy and Data Protection) and ISO 15118-2 Clause 9.2 (Privacy requirements) explicitly require user consent for personal data sharing and reference GDPR. Clause 7.6.3 addresses purpose limitation and data minimization. However, data ownership, retention periods, and consent revocation mechanisms for DER-specific operational data are only partially elaborated.",
+    "rationale": "Privacy and consent are directly addressed with GDPR alignment, but ownership of DER telemetry, explicit retention timelines, and granular consent revocation are not fully specified.",
+    "confidence": 0.82
+  }
+}

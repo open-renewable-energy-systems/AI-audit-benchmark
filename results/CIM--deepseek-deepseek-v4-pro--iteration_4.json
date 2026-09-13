@@ -1,0 +1,26 @@
+{
+  "capability_declaration": {
+    "score": 2,
+    "evidence": "IEC 61970-301 (CIM Base) defines classes like GeneratingUnit, SynchronousMachine, and DER-specific extensions in IEC 61850-7-420 that model device capabilities such as rated power, reactive capability curves, and operating modes. IEC 61968-9 on meter reading also supports capability reporting via asset attributes.",
+    "rationale": "CIM provides a rich data model for describing DER physical and electrical capabilities through its UML-based class hierarchy, but lacks a dedicated capability declaration protocol or message exchange pattern for agents to announce capabilities dynamically.",
+    "confidence": 0.85
+  },
+  "bounded_authority": {
+    "score": 1,
+    "evidence": "CIM models operational limits via classes like OperationalLimitSet, ActivePowerLimit, and VoltageLimit in IEC 61970-456. Market-facing standards like IEC 62325 extend CIM for bid/offer constraints. However, no explicit agent authority delegation, revocation, or scope-of-action clause exists.",
+    "rationale": "CIM captures static operational limits that could constrain agent actions, but does not define authority boundaries, expiry, or override mechanisms for autonomous agent decision-making.",
+    "confidence": 0.8
+  },
+  "decision_auditability": {
+    "score": 0,
+    "evidence": "none",
+    "rationale": "CIM focuses on semantic data modeling of power system assets and exchanges, not on logging or attribution of agent decisions. No clauses address audit trails or decision provenance.",
+    "confidence": 0.95
+  },
+  "data_governance": {
+    "score": 1,
+    "evidence": "IEC 61968-100 (implementation profile for CIM-based enterprise integration) references security and access control patterns. IEC 62351 addresses power system data security broadly. CIM's Asset and OrganisationRole classes can model ownership.",
+    "rationale": "CIM can model data ownership structurally, and companion standards touch on security, but the CIM itself does not define consent, retention, or data governance policies for agent-managed data.",
+    "confidence": 0.8
+  }
+}

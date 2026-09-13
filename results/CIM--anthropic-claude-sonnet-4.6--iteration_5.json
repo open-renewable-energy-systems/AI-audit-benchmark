@@ -1,0 +1,26 @@
+{
+  "capability_declaration": {
+    "score": 2,
+    "evidence": "IEC CIM (Common Information Model), defined primarily in IEC 61968/61970, includes classes such as PowerSystemResource, Equipment, and GeneratingUnit that describe the physical and functional characteristics of DERs (e.g., BatteryUnit, PhotovoltaicUnit, PowerElectronicsUnit in IEC 61968-100/CIM17). These classes allow a device to declare its rated capacity, operational modes, and connectivity. However, there is no explicit agent-oriented capability advertisement mechanism (e.g., no 'CapabilityProfile' or service advertisement construct).",
+    "rationale": "CIM models DER physical capabilities via equipment classes, but lacks an explicit agent-oriented capability declaration mechanism; coverage is partial and device-centric rather than agent-centric.",
+    "confidence": 0.82
+  },
+  "bounded_authority": {
+    "score": 1,
+    "evidence": "CIM does not define explicit authority scopes, ceilings, expiry, or revocation constructs for autonomous agents. Some implicit bounding can be inferred from operational limit classes (e.g., OperationalLimit, ActivePowerLimit, VoltageLimit in IEC 61970-301) and from control scheduling constructs (e.g., RegulatingControl, ControlArea), but these are physical/operational constraints on the grid model, not agent authority boundaries.",
+    "rationale": "Operational limit classes imply bounds on what actions are permissible, but there is no explicit agent authority, delegation scope, expiry, or revocation mechanism defined in CIM.",
+    "confidence": 0.78
+  },
+  "decision_auditability": {
+    "score": 1,
+    "evidence": "CIM includes some logging-adjacent constructs such as MeasurementValue timestamps and the ControlAction/SwitchingAction classes in IEC 61968-111 (Work Management), as well as the Analog/Discrete measurement history concepts. However, CIM does not define a standardised audit trail, decision log, or agent attribution schema. Auditability must be inferred from measurement and event recording patterns rather than explicit logging requirements.",
+    "rationale": "CIM provides timestamped measurements and switching action records, but no explicit decision audit log or agent attribution framework is defined, making auditability only inferrable.",
+    "confidence": 0.75
+  },
+  "data_governance": {
+    "score": 1,
+    "evidence": "CIM is a semantic data model standard focused on grid topology and equipment representation. It does not define data ownership, consent, or retention policies. Some implicit governance can be inferred from the use of IdentifiedObject (with mRID for unique identification) and from IEC 61968-100 message profiling, which implies data exchange agreements, but no explicit data governance clauses exist within the CIM standards family.",
+    "rationale": "CIM provides unique object identification and message profiling but contains no explicit data ownership, consent, or retention requirements; governance is only weakly inferrable.",
+    "confidence": 0.8
+  }
+}

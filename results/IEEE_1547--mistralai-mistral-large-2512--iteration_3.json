@@ -1,0 +1,26 @@
+{
+  "capability_declaration": {
+    "score": 2,
+    "evidence": "IEEE 1547-2018, Section 4.10 (Distributed Energy Resource (DER) Capabilities and Performance), Section 5.2 (DER ratings and capabilities), and Section 11 (Information Exchange)",
+    "rationale": "The standard partially covers capability declaration by defining DER ratings and performance requirements but lacks explicit agentic AI-specific declarations.",
+    "confidence": 0.85
+  },
+  "bounded_authority": {
+    "score": 1,
+    "evidence": "IEEE 1547-2018, Section 8 (Interoperability and Communication), Section 9 (Monitoring, Information Exchange, and Control)",
+    "rationale": "Bounded authority is implicitly covered through interoperability and control requirements, but lacks explicit limits like ceilings or revocation.",
+    "confidence": 0.7
+  },
+  "decision_auditability": {
+    "score": 1,
+    "evidence": "IEEE 1547-2018, Section 9.4 (Logging and Reporting)",
+    "rationale": "Auditability is implicitly covered through logging and reporting requirements, but lacks detailed attribution or AI-specific decision logging.",
+    "confidence": 0.65
+  },
+  "data_governance": {
+    "score": 0,
+    "evidence": "none",
+    "rationale": "The standard does not address data ownership, consent, or retention requirements.",
+    "confidence": 0.95
+  }
+}

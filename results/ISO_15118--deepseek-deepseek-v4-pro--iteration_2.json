@@ -1,0 +1,26 @@
+{
+  "capability_declaration": {
+    "score": 3,
+    "evidence": "ISO 15118-2:2014 Clause 8.3 (Service Discovery) and ISO 15118-20:2022 Clause 7.3 (EVCC-SECC capability exchange). The standard mandates that the EV Communication Controller (EVCC) and Supply Equipment Communication Controller (SECC) exchange supported services, protocols, and parameters — including charging modes (AC/DC), maximum power, scheduling capability, and V2G readiness — during session setup via the SupportedAppProtocolReq/Res handshake.",
+    "rationale": "ISO 15118 explicitly requires both vehicle and charger to declare their capabilities — charging power, scheduling support, V2G, metering — before any energy transfer begins.",
+    "confidence": 0.95
+  },
+  "bounded_authority": {
+    "score": 2,
+    "evidence": "ISO 15118-20 Clause 10 (Smart Charging) defines charge schedules with power/current limits and time boundaries (ScheduleExchange). ISO 15118-20 Clause 11 (V2G) defines discharge authority windows. However, the standard does not define explicit 'agent revocation' or 'override by human' mechanisms for autonomous third-party agents; authority is bounded within the charging session scope only.",
+    "rationale": "Authority is bounded through schedule envelopes and power ceilings, but revocation, third-party delegation expiry, and human-override clauses are not explicitly addressed.",
+    "confidence": 0.8
+  },
+  "decision_auditability": {
+    "score": 1,
+    "evidence": "ISO 15118-2 Clause 9 (Metering) and ISO 15118-20 Clause 13 define metered values and require signed meter reports (MeteringReceipt). However, no clause explicitly requires logging or attribution of agent-specific decisions beyond the EV-SECC pair; the meter receipt provides billing-grade data but not a decision log.",
+    "rationale": "Auditability is limited to metering receipts; there is no explicit requirement for logging agent decisions, attributing decisions to specific agents, or maintaining an audit trail of control actions.",
+    "confidence": 0.75
+  },
+  "data_governance": {
+    "score": 1,
+    "evidence": "ISO 15118-20 Annex C references privacy considerations and TLS encryption (Clause 8) for securing communication. ISO 15118-2 Clause 7.2 requires secure communication channels but does not define data ownership, user consent mechanisms, or data retention policies.",
+    "rationale": "Transport-layer security is required, but ownership, explicit consent flows, and retention/erasure rules are not defined — these are deferred to contractual or regulatory frameworks.",
+    "confidence": 0.8
+  }
+}

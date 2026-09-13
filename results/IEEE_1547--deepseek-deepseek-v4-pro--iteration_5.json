@@ -1,0 +1,26 @@
+{
+  "capability_declaration": {
+    "score": 2,
+    "evidence": "Clause 5 (General Requirements), Clause 10 (Interoperability, information model, and communication), and particularly IEEE 1547-2018 Clause 10.3 on capability reporting via nameplate and configuration data. The standard requires DER to declare reactive power capability, voltage/power regulation modes, and trip settings.",
+    "rationale": "DER capabilities (nameplate ratings, Volt/VAR modes, ride-through curves) must be communicated, but the standard focuses on static declaration rather than dynamic agent capability discovery.",
+    "confidence": 0.85
+  },
+  "bounded_authority": {
+    "score": 1,
+    "evidence": "Clause 8 (Voltage regulation) and Clause 9 (Frequency response) define operational envelopes (e.g., Volt-VAR curves, frequency-Watt droop). Clause 10.4 on 'role-based access control' for communication interfaces implies bounded authority. Clause 13 references ES-DER coordination.",
+    "rationale": "Authority limits are implicitly addressed through mandated operational curves and RBAC mention, but no explicit agent authority scoping, revocation, or override mechanisms are defined.",
+    "confidence": 0.7
+  },
+  "decision_auditability": {
+    "score": 0,
+    "evidence": "none",
+    "rationale": "The standard does not address logging, attribution, or traceability of autonomous decisions made by DER controllers or agents.",
+    "confidence": 0.9
+  },
+  "data_governance": {
+    "score": 0,
+    "evidence": "none",
+    "rationale": "IEEE 1547 is focused on interconnection technical requirements; it does not address data ownership, consent, or retention policies.",
+    "confidence": 0.95
+  }
+}

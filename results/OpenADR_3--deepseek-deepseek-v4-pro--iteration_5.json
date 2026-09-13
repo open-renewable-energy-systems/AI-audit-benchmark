@@ -1,0 +1,26 @@
+{
+  "capability_declaration": {
+    "score": 3,
+    "evidence": "Section 3.1 'EiCapability' and 3.2 'EiCapabilityType' in the OpenADR 3 RESTful specification define explicit capability declarations using structured enumerations (e.g., 'VEN', 'VTN', 'Resource', 'Report', 'Event', 'Registration', 'MarketContext') that a party MUST include in its party registration.",
+    "rationale": "OpenADR 3 explicitly requires parties to declare capabilities via EiCapability/EiCapabilityType, fitting an agentic DER's need to advertise functional scope.",
+    "confidence": 0.95
+  },
+  "bounded_authority": {
+    "score": 2,
+    "evidence": "Section 4.1 'EiEvent' includes 'priority', 'createdDateTime', 'modificationDateTime', 'modificationNumber', 'marketContext', 'program', 'intervalPeriod', 'intervals', 'target', and 'reportDescriptors'. The 'target' element allows scoping events to specific resources/groups, and 'program' + 'marketContext' bind events to a regulatory/financial framework. However, no standardised ceiling, expiry, revocation, or override clause appears.",
+    "rationale": "Events can be scoped to resources via 'target' and bound to programs, but explicit authority ceilings, revocation, and override mechanisms are missing.",
+    "confidence": 0.85
+  },
+  "decision_auditability": {
+    "score": 2,
+    "evidence": "Section 4.3 'EiReport' and 4.6 'EiFeedback' define structured reporting. Reports carry 'createdDateTime', 'reportName', 'reportPayload', and can be requested via 'reportRequest'. 'EiFeedback' for events includes 'feedbackType', 'value', and 'createdDateTime'. OpenADR 2.0b Profile (informative Annex) describes VEN opt-out reasons.",
+    "rationale": "Reporting and feedback structures enable partial audit trails, but agent-specific decision attribution and mandatory logging are not standardised.",
+    "confidence": 0.8
+  },
+  "data_governance": {
+    "score": 1,
+    "evidence": "Section 5 'Security' mandates TLS mutual authentication and references OAuth 2.0. OAuth implicitly touches consent, but the specification does not define data ownership, retention policies, or consent management clauses.",
+    "rationale": "Security requirements imply data protection, but explicit data ownership, consent, and retention rules are absent.",
+    "confidence": 0.9
+  }
+}

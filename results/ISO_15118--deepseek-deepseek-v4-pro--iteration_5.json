@@ -1,0 +1,26 @@
+{
+  "capability_declaration": {
+    "score": 3,
+    "evidence": "ISO 15118-2 Clause 8.3 (Service Discovery) and ISO 15118-20 Clause 8.3.2 (EVSEData) — the EV sends supported services via the SupportedAppProtocolReq/Res handshake; additionally, V2G Message structure includes EVRequestedEnergyTransferType and EVPowerProfile constraints defining what the EV can accept.",
+    "rationale": "The standard explicitly requires the EV to declare supported protocols, energy transfer modes, and power profiles before any energy transaction begins.",
+    "confidence": 0.92
+  },
+  "bounded_authority": {
+    "score": 2,
+    "evidence": "ISO 15118-2 Clause 10.6 (ChargeParameterDiscoveryRes) and ISO 15118-20 Clause 8.6.2 — EVSE communicates maximum/minimum voltage, current, and power limits; Schedule-based charging enforces EVSE-side boundaries. Contracts/certificates in ISO 15118-20 Clause 7 (PnC) bind authorization scope.",
+    "rationale": "Power/voltage/current limits and contract certificates provide operational boundaries, but temporal expiry, revocation mechanisms, and explicit agent authority ceilings are not comprehensively defined.",
+    "confidence": 0.83
+  },
+  "decision_auditability": {
+    "score": 1,
+    "evidence": "ISO 15118-20 Clause 10 (Metering) and ISO 15118-2 Clause 10.7 (MeteringReceipt) — metering data is exchanged; TLS (Clause 7) secures sessions. No explicit clause mandates agent decision logging or attribution.",
+    "rationale": "Metering receipts and signed metering data support downstream audit of energy flows but the standard does not directly require logging of agent decisions or AI reasoning trails.",
+    "confidence": 0.78
+  },
+  "data_governance": {
+    "score": 1,
+    "evidence": "ISO 15118-20 Clause 7.4 (Certificate Management) and ISO 15118-2 Annex A (Privacy) — contract certificates limit data association; privacy flag in authorization. No explicit clauses on data ownership, consent management, or retention policies.",
+    "rationale": "Privacy considerations and certificate-based pseudonymity imply some data governance intent, but ownership, explicit consent mechanisms, and retention rules are not specified in the standard itself.",
+    "confidence": 0.8
+  }
+}

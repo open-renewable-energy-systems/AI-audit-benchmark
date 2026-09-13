@@ -1,0 +1,26 @@
+{
+  "capability_declaration": {
+    "score": 3,
+    "evidence": "IEEE 2030.5 defines explicit resource capability discovery via the DeviceCapability resource (DCAPType) and associated function sets. Devices advertise supported function sets (e.g., DERControl, Metering, Pricing) through the DCAP endpoint, allowing servers and agents to discover what a device can do. Clause 10 and the DeviceCapability resource schema in the standard specify this mechanism.",
+    "rationale": "The standard explicitly defines a DeviceCapability resource that allows devices/agents to declare supported function sets and operational capabilities in a structured, machine-readable way.",
+    "confidence": 0.95
+  },
+  "bounded_authority": {
+    "score": 2,
+    "evidence": "IEEE 2030.5 defines DERControl resources with fields such as opModConnect, opModEnergize, opModFixedW, and control scheduling with start times and durations (DERControl.interval). It also supports primacy levels for control hierarchy (e.g., utility vs. aggregator vs. device owner) and supersession rules. However, explicit agent-level authority scoping, capability ceilings per agent identity, or formal revocation/expiry mechanisms tied to an autonomous agent role are not fully specified.",
+    "rationale": "Partial coverage: control limits, scheduling windows, and primacy hierarchies bound what can be commanded, but agent-specific authority scoping and formal revocation are not explicitly addressed.",
+    "confidence": 0.85
+  },
+  "decision_auditability": {
+    "score": 1,
+    "evidence": "IEEE 2030.5 includes event status tracking (EventStatus with fields like currentStatus, dateTime, potentiallySuperseded) and response resources (Response, DERControlResponse) that record device acknowledgment of commands. However, the standard does not explicitly mandate logging of agent decisions, attribution of autonomous actions, or audit trail requirements for automated control agents.",
+    "rationale": "Decision tracking is implicitly supported through event/response status resources, but no explicit audit logging or decision attribution requirements for autonomous agents are defined.",
+    "confidence": 0.8
+  },
+  "data_governance": {
+    "score": 1,
+    "evidence": "IEEE 2030.5 specifies TLS-based security (clause 5/6), certificate-based device identity, and role-based access via SFDI/LFDI device identifiers. It references NERC CIP and utility data handling contexts implicitly. However, explicit provisions for data ownership, end-user consent, data retention periods, or data deletion rights are absent from the standard itself.",
+    "rationale": "Security and identity mechanisms imply some data governance, but explicit requirements on ownership, consent, and retention are absent, leaving governance to implementers or overlying regulatory frameworks.",
+    "confidence": 0.82
+  }
+}

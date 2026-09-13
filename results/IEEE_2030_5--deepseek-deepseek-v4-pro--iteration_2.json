@@ -1,0 +1,26 @@
+{
+  "capability_declaration": {
+    "score": 3,
+    "evidence": "Clause 4.4.2 (FunctionSetAssignments) and Table 4-1 define how a device declares supported function sets (e.g. DERControl, DERCurve, DERStatus) via FunctionSetAssignments. Clause 10.4.3 details DERCapability resource, requiring declaration of active/reactive power limits, ramp rates, and operational modes (Type 1, 2, 3).",
+    "rationale": "DERCapability and FunctionSetAssignments explicitly require devices to declare operational parameters, modes, and supported functions—clear machine-readable capability declaration.",
+    "confidence": 0.95
+  },
+  "bounded_authority": {
+    "score": 2,
+    "evidence": "Clause 1.3 describes scope as 'distributed energy resources' with DER controller authority limited to defined function sets. Clause 10.4.5 (DERControl) defines per-control attributes: setGradW (default 3600s), randomizeStart/randomizeDuration. Clause 10.4.8 (DefaultDERControl) provides fallback. Clause 5.1 security model mentions role-based access control but lacks explicit authority ceilings, expiry, or override hierarchy for autonomous agents.",
+    "rationale": "Time-bounded controls and default fallback exist, but explicit authority ceilings, revocation, and override chain for multi-agent scenarios are absent.",
+    "confidence": 0.8
+  },
+  "decision_auditability": {
+    "score": 2,
+    "evidence": "Clause 10.4.7 (DERStatus) requires reporting of current operational state, output values, and control mode. Clause 10.4.6 (DERSettings) logs configuration changes. LogEvent resource (Clause 8) provides generic event logging. However, no clause explicitly mandates attribution of each decision to a specific agent or requires an audit trail linking agent identity→decision→outcome.",
+    "rationale": "Status and event logging exist but lack explicit agent-attribution and decision-chain audit requirements for autonomous AI operation.",
+    "confidence": 0.75
+  },
+  "data_governance": {
+    "score": 1,
+    "evidence": "Clause 5 (Security) references TLS and authentication but does not define data ownership, consent mechanisms, or retention policies. Informative Annex B mentions privacy considerations only in passing. No clauses address data governance for DER operational or telemetry data.",
+    "rationale": "Security is addressed, but data governance concepts (ownership, consent, retention) are entirely absent from the normative clauses.",
+    "confidence": 0.85
+  }
+}

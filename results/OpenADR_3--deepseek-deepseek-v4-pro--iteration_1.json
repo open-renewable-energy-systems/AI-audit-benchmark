@@ -1,0 +1,26 @@
+{
+  "capability_declaration": {
+    "score": 3,
+    "evidence": "OpenADR 3 §5.1 (VTN Discovery), §5.2 (VEN Registration), §5.5 (Report Capabilities), §6.3 (Resource Types and Capabilities), and the OpenADR 3 Resources schema which defines explicit capability attributes including demand response types, ramping rates, response times, and maximum/minimum power levels.",
+    "rationale": "OpenADR 3 explicitly requires VENs to report capabilities during registration and via dedicated capability reporting mechanisms, with structured schema for resource attributes.",
+    "confidence": 0.92
+  },
+  "bounded_authority": {
+    "score": 2,
+    "evidence": "OpenADR 3 §7.2 (Event Signals) defines opt-in/opt-out mechanisms, §7.3 (Event Responses) allows partial acceptance/declination, §8.1 (Baseline) establishes operational boundaries, and §10 (Security) includes authorization scopes. However, explicit temporal authority ceilings, programmatic revocation, and autonomous agent-specific authority delegation are not addressed.",
+    "rationale": "Opt-in/opt-out and partial response provide implicit bounded authority, but the standard lacks explicit agent delegation limits, expiry, or override constructs for autonomous operation.",
+    "confidence": 0.78
+  },
+  "decision_auditability": {
+    "score": 1,
+    "evidence": "OpenADR 3 §7.3 (Event Responses) requires VENs to return opt-in/opt-out status per event; §7.5 (Feedback) enables performance reporting; §9 (Reporting) covers telemetry and historical usage. However, no clause mandates logging of autonomous decision rationale, attribution metadata, or traceability to specific agent logic.",
+    "rationale": "Event response tracking and feedback mechanisms implicitly support audit trails, but agent-specific decision logging, rationale capture, and decision attribution remain unaddressed.",
+    "confidence": 0.7
+  },
+  "data_governance": {
+    "score": 2,
+    "evidence": "OpenADR 3 §10 (Security) mandates TLS and OAuth2, §10.3 defines scopes and access tokens, §11 (Privacy) references data minimization and consent. However, explicit requirements for data ownership transfer, retention periods, data portability, and consent revocation are not fully specified.",
+    "rationale": "OAuth2 scopes, TLS, and privacy references provide partial governance, but ownership, retention, and consent lifecycle management are incomplete for autonomous agent contexts.",
+    "confidence": 0.75
+  }
+}

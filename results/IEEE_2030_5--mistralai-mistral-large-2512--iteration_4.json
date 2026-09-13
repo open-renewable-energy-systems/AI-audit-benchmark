@@ -1,0 +1,26 @@
+{
+  "capability_declaration": {
+    "score": 2,
+    "evidence": "IEEE 2030.5-2018, Section 10 (Device Capability Model), Clause 10.2 (Device Capability Description)",
+    "rationale": "The standard explicitly describes how devices declare capabilities (e.g., power ratings, modes), but lacks granularity for dynamic or agent-specific declarations.",
+    "confidence": 0.85
+  },
+  "bounded_authority": {
+    "score": 2,
+    "evidence": "IEEE 2030.5-2018, Section 8 (Security), Clause 8.4 (Authorization and Access Control); Section 11 (Demand Response), Clause 11.3 (Limits and Overrides)",
+    "rationale": "The standard defines access control and operational limits but does not fully address expiry, revocation, or hierarchical overrides for autonomous agents.",
+    "confidence": 0.8
+  },
+  "decision_auditability": {
+    "score": 1,
+    "evidence": "IEEE 2030.5-2018, Section 12 (Logging), Clause 12.1 (Event Logging)",
+    "rationale": "Logging requirements are implicit and focus on events rather than attributing decisions to specific agents or actions.",
+    "confidence": 0.7
+  },
+  "data_governance": {
+    "score": 1,
+    "evidence": "IEEE 2030.5-2018, Section 8 (Security), Clause 8.3 (Data Privacy)",
+    "rationale": "Data privacy is mentioned, but ownership, consent, and retention requirements are not explicitly or comprehensively defined.",
+    "confidence": 0.65
+  }
+}
