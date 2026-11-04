@@ -109,7 +109,7 @@
 
 <section id="scenario-section">
   <h2>The gap, live — Hyphae village microgrid</h2>
-  <p class="hint">15 houses × 5 kW, solar + shared battery. 18:30 price spike: the agent wants to discharge at full 5 kW. Flip GAIFARE on and replay.</p>
+  <p class="hint">15 houses × 5 kW, solar + shared battery. The 18:30 on-peak price arrives as a URPX rate object; the agent wants to discharge at full 5 kW. URPX supplies the price, GAIFARE bounds the response. Flip GAIFARE on and replay.</p>
   <div class="scenario-head">
     <div class="toggle" id="gaifareToggle" role="switch" aria-checked="false" tabindex="0">
       <span class="knob"></span><b>GAIFARE enforcement</b>
@@ -118,9 +118,15 @@
   </div>
   <div class="scenario-grid">
     <div id="timeline"></div>
-    <div id="grantbox">
-      <h3>authority_grant (GAIFARE v0)</h3>
-      <pre id="grantYaml"></pre>
+    <div class="sidecol">
+      <div id="urpxbox">
+        <h3>price signal in — URPX rate object (<a href="https://urpx.org">urpx.org</a>, abridged)</h3>
+        <pre id="urpxJson"></pre>
+      </div>
+      <div id="grantbox">
+        <h3>authority out — authority_grant (GAIFARE v0)</h3>
+        <pre id="grantYaml"></pre>
+      </div>
     </div>
   </div>
 </section>

@@ -196,6 +196,7 @@ function showDetail(standard, dim, score, td) {
 let gaifareOn = false;
 
 function renderGrant() {
+  document.getElementById("urpxJson").textContent = SCENARIO.urpx;
   const g = SCENARIO.grant;
   document.getElementById("grantYaml").textContent =
 `grant_id:    ${g.grant_id}
