@@ -60,8 +60,21 @@ const CELL_DETAIL = {
 };
 
 // Village scenario replay (worked-example.md): 18:30 price spike.
+// The price arrives as a URPX rate object (urpx.org, v0.5.1 vocabulary,
+// abridged) — the agent reads the standard, GAIFARE bounds the response.
 const SCENARIO = {
   request: { time: "18:30", action: "discharge", kw: 5.0, price: "0.42 EUR/kWh" },
+  urpx: `{ "@type": "urpx:RatePlan",
+  "urpx:ratePlanUniqueIdentifier":
+      "village-coop-tou-2026",
+  "urpx:commodity": "electricity",
+  "urpx:PriceDefinition": {
+    "urpx:touPeriodNumber": 3,
+    "urpx:Price": 0.42,
+    "urpx:priceCurrency": "EUR",
+    "urpx:effectiveDateTime":
+        "2026-09-16T18:30:00+02:00"
+  } }`,
   grant: {
     grant_id: "grant:01JA7F3K",
     granted_by: "did:ores:operator:village-coop",
@@ -73,13 +86,13 @@ const SCENARIO = {
     capability_ref: "IEEE2030.5:DERCapability/der:hyphae:battery:03",
   },
   withoutGaifare: [
-    { t: "18:30:01", cls: "info", text: "Price spike detected (0.42 EUR/kWh). Agent decides: discharge at full 5 kW." },
+    { t: "18:30:01", cls: "info", text: "URPX rate update: on-peak period begins, 0.42 EUR/kWh. Agent decides: discharge at full 5 kW." },
     { t: "18:30:02", cls: "ok", text: "Authenticated credential sends valid DERControl setpoint: -5.0 kW. Protocol followed perfectly." },
     { t: "18:30:05", cls: "bad", text: "Village browns out at dinner. 15 houses affected." },
     { t: "post", cls: "bad", text: "Who authorized 5 kW? Was there a 3 kW cap? Did the agent exceed its bounds? Unanswerable — no bound ever existed in the data model." },
   ],
   withGaifare: [
-    { t: "18:30:01", cls: "info", text: "Price spike detected (0.42 EUR/kWh). Agent decides: discharge at full 5 kW." },
+    { t: "18:30:01", cls: "info", text: "URPX rate update: on-peak period begins, 0.42 EUR/kWh. Agent decides: discharge at full 5 kW." },
     { t: "18:30:02", cls: "warn", text: "Command references grant:01JA7F3K — envelope check runs before execution." },
     { t: "18:30:02", cls: "bad", text: "REJECTED ×2: 5.0 kW exceeds 3.0 kW ceiling AND 18:30 falls in quiet hours (17:00–21:00)." },
     { t: "18:30:03", cls: "ok", text: "Rejection logged as signed decision_record (agent, model, inputs_hash, authority_ref). Brownout never happens." },
